@@ -1,0 +1,18 @@
+/* menghapus style default */
+.gjs-cv-canvas {
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Ganti lebar canvas menjadi 1920px */
+/* scalling */
+.gjs-frame {
+    /* width: 1440px; */
+}
+
+.gjs-cv-canvas__frames {
+    /* transform: scale(0.55) !important;
+    transform-origin: top left !important; */
+}

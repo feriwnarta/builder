@@ -1,0 +1,82 @@
+/* Icon navbar button responsive */
+.desktop-responsive-icon {
+    display: inline-block;
+    width: 1.25rem;
+    height: 1.25rem;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url(../pictures/icon/monitor.svg);
+    vertical-align: middle;
+}
+
+.tablet-responsive-icon {
+    display: inline-block;
+    width: 1.25rem;
+    height: 1.25rem;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url(../pictures/icon/tablet.svg);
+    vertical-align: middle;
+}
+
+.mobile-responsive-icon {
+    display: inline-block;
+    width: 1.25rem;
+    height: 1.25rem;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url(../pictures/icon/smartphone.svg);
+    vertical-align: middle;
+}
+
+
+/* Action one di navbar */
+.trash-icon {
+    display: inline-block;
+    width: 1.25rem;
+    height: 1.25rem;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url(../pictures/icon/trash.svg);
+    vertical-align: middle;
+}
+
+.undo-icon {
+    display: inline-block;
+    width: 1.25rem;
+    height: 1.25rem;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url(../pictures/icon/undo.svg);
+    vertical-align: middle;
+}
+
+.redo-icon {
+    display: inline-block;
+    width: 1.25rem;
+    height: 1.25rem;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url(../pictures/icon/redo.svg);
+    vertical-align: middle;
+}
+
+.theme-mode-icon {
+    display: inline-block;
+    width: 1.25rem;
+    height: 1.25rem;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url(../pictures/icon/theme-mode.svg);
+    vertical-align: middle;
+}
+
+.eye-icon {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url(../pictures/icon/eye.svg);
+    vertical-align: middle;
+}

@@ -1,0 +1,19 @@
+.navbar-builder {
+    padding: 0px;
+    margin: 0px;
+    background-color: white !important;
+    border-bottom: 1px solid var(--neutral-50, #C2C2C2);
+}
+
+/* button responsive dinavbar */
+.wrapper-responsive-btn {
+    margin-left: 6.06rem;
+}
+
+.side-menu-left {
+    border-right: 1px solid var(--neutral-50, #C2C2C2);
+}
+
+.side-menu-right {
+    border-left: 1px solid var(--neutral-50, #C2C2C2);
+}
