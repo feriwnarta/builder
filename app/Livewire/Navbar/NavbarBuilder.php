@@ -2,10 +2,14 @@
 
 namespace App\Livewire\Navbar;
 
+use Livewire\Attributes\Js;
 use Livewire\Component;
 
 class NavbarBuilder extends Component
 {
+
+    
+   
     public function render()
     {
         return view('livewire.navbar.navbar-builder');

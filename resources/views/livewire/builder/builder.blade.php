@@ -8,7 +8,7 @@
     <livewire:navbar.navbar-builder />
 
 
-    <div class="row">
+    <div class="row g-0">
         <div class="col-sm-2">sidebar component</div>
         <div class="col-sm-8">
             <div id="editor">

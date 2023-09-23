@@ -3,7 +3,9 @@ import {
     styleBootstrap,
     jsPopperBootstrap,
     jsBootstrap,
+    deviceManager,
 } from "./utils.js";
+
 
 /**
  * inisialisasi editor grapes js
@@ -24,24 +26,88 @@ const editor = () => {
         // digunakan untuk membuat panel grapesjs
         panels: { defaults: [] },
 
+        deviceManager: {
+            default: '',
+            devices: deviceManager
+        },
         canvas: {
             styles: [styleBootstrap],
             scripts: [jsBootstrap, jsPopperBootstrap],
         },
     });
 
+
+    // saat builder sudah diload
     builder.on("load", function () {
-        // Dapatkan objek canvas melalui API GrapesJS
-        const canvas = builder.Canvas;
+        initUndoManager(builder.UndoManager); // -> init undo manager
+        listenerChangeDevice(builder.Devices) // -> ganti responsive device
+        listenerUndo(builder.UndoManager); // -> menangani undo
+        listenerRedo(builder.UndoManager); // -> menangani redo
 
-        // Dapatkan elemen head dalam objek canvas
-        const canvasHead = canvas.getDocument().head;
-        canvasHead.insertAdjacentHTML(
-            "afterbegin",
-            `<meta charset="UTF-8">
-            <meta name="viewport" content="width=1200">`
-        );
     });
-};
 
+
+
+
+
+};
 export { editor };
+
+
+/**
+ * fungsi ini digunakan sebagai inisialisasi undo manager (ini digunakan sebagai penggunaan
+ * undo redo)
+ */
+const initUndoManager = (undoManager) => {
+    // memulai undo / redo
+    undoManager.start();
+}
+
+/**
+ * fungsi ini akan dijalankan ketika user mengklik button responsive device dengan menerima paramter type
+ * parameter type akan berisi (mobile, tablet, desktop)
+ * setelah dijalankan fungsi ini akan memanggil device manager bootstrap
+ * dan akan merubah lebar frame sesuai apa yang kita pilih
+ */
+function listenerChangeDevice(deviceManager) {
+    // menambahkan even listener saat button responsive dinavbar diklik
+    document.addEventListener('responsive', event => {
+        if (event !== null && event !== undefined) {
+            const device = event.detail.device;
+
+            deviceManager.select(device);
+        }
+
+
+    })
+}
+
+/**
+ * fungsi ini digunakan sebagai listener saat button undo di navbar diklik
+ * undo akan mengembalikan perubahan yang sebelumnya terjadi di builder grapes js
+ */
+const listenerUndo = (undoManager) => {
+
+    document.addEventListener('undo', event => {
+        if (undoManager !== null && undoManager !== undefined) {
+            if (undoManager.hasUndo()) {
+                undoManager.undo();
+            }
+        }
+    });
+}
+
+/**
+ * fungsi ini digunakan sebagai listener saat button redo di navbar diklik
+ * redo akan mengembalikan perubahan keversi terbaru sebelum undo dijalankan
+ */
+const listenerRedo = (undoManager) => {
+
+    document.addEventListener('redo', event => {
+        if (undoManager !== null && undoManager !== undefined) {
+            if (undoManager.hasRedo()) {
+                undoManager.redo();
+            }
+        }
+    });
+}

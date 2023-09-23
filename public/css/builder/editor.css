@@ -6,13 +6,19 @@
     overflow: hidden;
 }
 
+.gjs-cv-canvas {
+    background-color: #F5F6F8;
+}
+
+
 /* Ganti lebar canvas menjadi 1920px */
 /* scalling */
 .gjs-frame {
     /* width: 1440px; */
+    /* height: 100%; */
 }
 
 .gjs-cv-canvas__frames {
-    /* transform: scale(0.55) !important;
-    transform-origin: top left !important; */
+    /* transform: scale(0.6) !important; */
+    /* transform-origin: top left !important; */
 }

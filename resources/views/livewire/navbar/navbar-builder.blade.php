@@ -15,17 +15,17 @@
 
                 <div class="wrapper-responsive-btn">
                     {{-- button responsive desktop --}}
-                    <button class="btn">
+                    <button class="btn" @click="$dispatch('responsive', {device: 'desktop'})">
                         <i class="desktop-responsive-icon"></i>
                     </button>
 
                     {{-- button responsive tablet --}}
-                    <button class="btn">
+                    <button class="btn" @click="$dispatch('responsive', {device: 'tablet'})">
                         <i class="tablet-responsive-icon"></i>
                     </button>
 
                     {{-- button responsive mobile --}}
-                    <button class="btn">
+                    <button class="btn" @click="$dispatch('responsive', {device: 'mobile'})">
                         <i class="mobile-responsive-icon"></i>
                     </button>
                 </div>
@@ -41,12 +41,12 @@
                     </button>
 
                     {{-- button undo --}}
-                    <button class="btn">
+                    <button class="btn" @click="$dispatch('undo')">
                         <i class="undo-icon"></i>
                     </button>
 
                     {{-- button redo --}}
-                    <button class="btn">
+                    <button class="btn" @click="$dispatch('redo')">
                         <i class="redo-icon"></i>
                     </button>
 
