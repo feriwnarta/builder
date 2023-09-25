@@ -6,15 +6,16 @@
  * detail inisialisasi editor berada difile config js
  */
 import { editor } from "./utils/config.js";
-editor();
+// editor();
 
-// const listenerBuilder = () => {
-//     document.addEventListener("init-builder", (event) => {
-//         // hapus marker
-//         // $("#marker").remove();
+const listenerBuilder = () => {
+    document.addEventListener("init-builder", (event) => {
+        // hapus marker
+        // $("#marker").remove();
 
-//         editor();
-//     });
-// };
+        // editor();
+        console.log(event.detail.component_id);
+    });
+};
 
-// listenerBuilder();
+listenerBuilder();

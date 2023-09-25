@@ -2,15 +2,25 @@
 
 namespace App\Livewire\Builder;
 
+use App\Models\Template;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Reactive;
 use Livewire\Attributes\Renderless;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 
 class Builder extends Component
 {
     public $builderReady = false;
     public $html = '';
+
+    #[Url(as: 'cmpnt')]
+    public $search = '';
+
+    public function mount()
+    {
+        $this->dispatch('find-template', id: $this->search);
+    }
 
 
     #[On('load-template')]
@@ -32,11 +42,21 @@ class Builder extends Component
 
     private function getTemplate()
     {
+
         $this->html = <<<'HTML'
             <button class="btn btn-menu-item"
-            @click="$dispatch('init-builder')">Klik</button>
-
+            @click="$dispatch('find-template', {id: 'test'})">Klik</button>
         HTML;
+    }
+
+
+    #[On('find-template')]
+    public function findTemplate($id)
+    {
+        $this->search = $id;
+
+        // sample
+        $this->dispatch('init-builder', component_id: $this->search);
     }
 
 

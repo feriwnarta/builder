@@ -4,35 +4,37 @@
 @endsection
 
 
-<div id="builder">
-    <livewire:navbar.navbar-builder />
+@persist('player')
+    <div id="builder">
+        <livewire:navbar.navbar-builder />
 
 
 
-    <div class="row g-0" style="height: 100vh;">
-        <div class="col-sm-2 side-menu-left">
-            <livewire:sidebar.sidebar-left />
-        </div>
-        <div class="col-sm-8 position-relative">
+        <div class="row g-0" style="height: 100vh;">
+            <div class="col-sm-2 side-menu-left">
+                <livewire:sidebar.sidebar-left />
+            </div>
+            <div class="col-sm-8 position-relative">
 
-            {{-- Editor --}}
-            <div id="editor">
-                {!! $html !!}
-                <img id="marker" src="{{ asset('pictures/icon/Frame 126.png') }}"
-                    class="position-absolute top-50 start-50 translate-middle" style="z-index: 0;">
+                {{-- Editor --}}
+                <div id="editor">
+                    {!! $html !!}
+                    <img id="marker" src="{{ asset('pictures/icon/Frame 126.png') }}"
+                        class="position-absolute top-50 start-50 translate-middle" style="z-index: 0;">
+
+
+                </div>
+
 
 
             </div>
-
-
-
+            <div class="col-sm-2 side-menu-right">sidebar style</div>
         </div>
-        <div class="col-sm-2 side-menu-right">sidebar style</div>
+
+
+
     </div>
-
-
-
-</div>
+@endpersist
 
 
 @section('footer-script')

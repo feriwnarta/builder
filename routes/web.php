@@ -1,10 +1,8 @@
 <?php
 
 use App\Livewire\Builder\Builder;
+use App\Livewire\Sidebar\SidebarLeftContent;
 use App\Models\Template;
-use Illuminate\Database\Events\QueryExecuted;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', Builder::class);
+Route::get('/posts', SidebarLeftContent::class);
 
 Route::post('/template', function () {
     header("Content-Type:application/json");
@@ -33,7 +32,6 @@ Route::post('/template', function () {
             'template_id' => $id,
             'data' => $data,
         ]);
-
     }
 });
 
