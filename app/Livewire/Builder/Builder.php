@@ -19,6 +19,14 @@ class Builder extends Component
 
     public function mount()
     {
+
+        // validasi pencarian
+
+
+        // cari didatabase
+
+
+        // kirim dispatch
         $this->dispatch('find-template', id: $this->search);
     }
 
