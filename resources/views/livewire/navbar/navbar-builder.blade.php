@@ -1,5 +1,5 @@
 <nav class="navbar navbar-builder navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
+    <div class="container-fluid" style="padding: 0px;">
         <a class="navbar-brand" href="#">
             <img src="{{ asset('pictures/icon/Microkit.svg') }}" alt="logo microkit" width="132px" height="44px">
         </a>

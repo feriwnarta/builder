@@ -7,3 +7,14 @@
  */
 import { editor } from "./utils/config.js";
 editor();
+
+// const listenerBuilder = () => {
+//     document.addEventListener("init-builder", (event) => {
+//         // hapus marker
+//         // $("#marker").remove();
+
+//         editor();
+//     });
+// };
+
+// listenerBuilder();

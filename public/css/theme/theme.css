@@ -1,3 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,700;1,9..40,400&display=swap');
+
+:root {
+
+    font-size: 16px;
+
+    --font-family: 'DM Sans', sans-serif;
+
+    /* Primary color */
+    --primary-color-main: #0C97FA;
+    --primary-color-surface: #EAF6FE;
+    --primary-color-border: #A4D8FD;
+    --primary-color-hover: #1378BF;
+    --primary-color-pressed: #003459;
+    --primary-color-focused: #003459;
+
+    /* Secondary Color */
+    --fluorescent-blue-main: #16E1F5;
+
+
+}
+
+
+
 /* Button Theme */
 
 .btn-icon-text-outlined {
@@ -10,4 +34,67 @@
 
     border-radius: 0.375rem;
     border: 1px solid var(--primary-color-main, #0C97FA);
+
+    color: var(--primary-color-main, #0C97FA);
+    text-align: center;
+    font-family: var(--font-family);
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.25rem;
+    /* 142.857% */
+    letter-spacing: -0.00525rem;
+}
+
+.btn-icon-text-normal-text {
+    display: inline-flex;
+    padding: 0.375rem 1rem;
+    justify-content: center;
+    align-items: center;
+    gap: 0.25rem;
+
+    border-radius: 0.375rem;
+
+    color: var(--primary-color-main, #0C97FA);
+    text-align: center;
+    font-family: var(--font-family);
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.25rem;
+    /* 142.857% */
+    letter-spacing: -0.00525rem;
+}
+
+.btn-icon-text-normal-text:hover {
+    color: var(--primary-color-hover, #1378BF);
+    text-align: center;
+    font-family: var(--font-family);
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.25rem;
+    /* 142.857% */
+    letter-spacing: -0.00525rem;
+}
+
+
+.btn-menu-item {
+    display: flex;
+    padding: 0.625rem 2rem !important;
+    align-items: center;
+    gap: 0.5rem;
+    align-self: stretch;
+
+    border-radius: 0.375rem;
+
+    color: var(--neutral-60, #9E9E9E);
+    font-family: var(--font-family);
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.25rem;
+    /* 142.857% */
+
+    width: 100%;
 }
