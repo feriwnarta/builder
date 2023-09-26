@@ -19,16 +19,22 @@ class Templates extends Model
     protected $fillable = [
         'data', 'title', 'subtitle',
         'categories_id',
-        'user_id', 'thumbnail', 'type'
+        'user_id', 'thumbnail', 'type',
+        'repository_id'
     ];
 
     public function templateRepository(): HasOne
     {
-        return $this->hasOne(TemplateRepository::class,'template_id');
+        return $this->hasOne(TemplateRepository::class, 'template_id');
     }
 
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }

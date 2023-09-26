@@ -3,6 +3,7 @@
 use App\Livewire\Builder\Builder;
 use App\Livewire\Sidebar\SidebarLeftContent;
 use App\Models\Template;
+use App\Models\Templates;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -84,6 +85,16 @@ Route::get('/template/{id}', function ($id) {
     }';
 });
 
+Route::get('test', function () {
+
+
+    $template = Templates::where('id', '9a395d75-0248-447b-aedb-7fcfe88948de')
+        ->whereHas('user', function ($query) {
+            $query->where('id', '9as395c55-373a-45e0-b22f-f5e630d3be58');
+        })
+        ->first();
+    var_dump($template);
+});
 
 Route::post('/project/save', function ($id) {
     echo 'asd';

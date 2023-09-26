@@ -11,6 +11,7 @@ use SebastianBergmann\Template\Template;
 use Tests\TestCase;
 
 use function PHPUnit\Framework\assertEquals;
+use function PHPUnit\Framework\assertNotNull;
 
 class TestInsertTemplate extends TestCase
 {
@@ -27,11 +28,18 @@ class TestInsertTemplate extends TestCase
             'title' => 'Resto',
             'categories_id' => $categories->id,
             'subtitle' => 'Discover our unique flavors and warm ambiance.',
-            'user_id' => $user->id,
+            'user_id' => $user->id, 
             'thumbnail' => 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1CX_abGMl_NrRf4RvUHyOH1JkE947laxwI7lh776Wfw&s',
             'type' => 'create',
         ]);
 
         assertEquals('Resto', $template->title);
+    }
+
+    public function testQueryGetTemplateByUserId()
+    {
+        $template = Templates::findOrFail('9a395d75-0248-447b-aedb-7fcfe88948de')->user();
+
+        assertEquals('feri', $template->name);
     }
 }
