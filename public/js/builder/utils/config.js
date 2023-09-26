@@ -7,7 +7,7 @@ import {
 } from "./utils.js";
 
 const projectID = 1;
-const projectEndpoint = `http://127.0.0.1:8000/template/${projectID}`;
+const projectEndpoint = `http://127.0.0.1:8000/template/`;
 const projectSaveEndpoint = `http://127.0.0.1:8000/template`;
 
 /**
@@ -20,7 +20,7 @@ var csrfToken = document
     .querySelector('meta[name="csrf-token"]')
     .getAttribute("content");
 
-const editor = () => {
+const editor = (id) => {
     const builder = grapesjs.init({
         // properti ini digunakan untuk menentukan id mana yang akan menjadi tujuan grapes js untuk menginisialisasi editornya
         container: container,
@@ -53,7 +53,7 @@ const editor = () => {
             options: {
                 remote: {
                     urlStore: projectSaveEndpoint,
-                    urlLoad: projectEndpoint,
+                    urlLoad: `${projectEndpoint}${id}`,
                     // The `remote` storage uses the POST method when stores data but
                     // the json-server API requires PATCH.
                     fetchOptions: (opts) =>
@@ -74,50 +74,13 @@ const editor = () => {
 
     // saat builder sudah diload
     builder.on("load", function () {
-        // listenerBuilder();
-        listenerLoadTemplate(); // -> load template
         initUndoManager(builder.UndoManager); // -> init undo manager
         listenerChangeDevice(builder.Devices); // -> ganti responsive device
         listenerUndo(builder.UndoManager); // -> menangani undo
         listenerRedo(builder.UndoManager); // -> menangani redo
-
-        // Get current project data
-        const projectData = builder.getProjectData();
-        console.log(projectData);
-
-        builder.store();
     });
 };
 export { editor };
-
-const listenerBuilder = () => {
-    document.addEventListener("init-builder", (event) => {
-        editor();
-
-        $("#loadTemplate").remove();
-    });
-};
-
-/**
- * fungsi ini digunakan sebagai listener saat menu item diklik
- * fungsi ini akan menutup editor / builder dengan template yang dimuat dari database
- */
-const listenerLoadTemplate = () => {
-    document.addEventListener("load-template", (event) => {
-        if (event !== null && event !== undefined) {
-            const id = event.detail.id;
-
-            // $("#componentLoad").css({
-            //     width: "100%",
-            //     height: "100%",
-            //     backgroundColor: "#F5F6F8",
-            // });
-
-            // // Mengganti kontennya dengan teks "load"
-            // $("#componentLoad").html("<h1>load</h1>");
-        }
-    });
-};
 
 /**
  * fungsi ini digunakan sebagai inisialisasi undo manager (ini digunakan sebagai penggunaan

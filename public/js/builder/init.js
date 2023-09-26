@@ -10,11 +10,22 @@ import { editor } from "./utils/config.js";
 
 const listenerBuilder = () => {
     document.addEventListener("init-builder", (event) => {
-        // hapus marker
-        // $("#marker").remove();
+        $(document).ready(function () {
+            //! perbaiki ini untuk menampilkan pesan error ke user
+            if (
+                event.detail.component_id === null ||
+                event.detail.component_id === undefined
+            )
+                return null;
 
-        // editor();
-        console.log(event.detail.component_id);
+            const id = event.detail.component_id;
+
+            // kosongkan editor
+            $("#editor").empty();
+
+            // load editor
+            editor(id);
+        });
     });
 };
 
