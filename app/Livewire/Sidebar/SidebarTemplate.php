@@ -13,7 +13,7 @@ class SidebarTemplate extends Component
 
     public function mount()
     {
-        $this->categories = Category::all();
+        $this->categories = Category::orderBy('name', 'ASC')->get();
 
     }
 

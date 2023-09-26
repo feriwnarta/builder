@@ -85,27 +85,48 @@ class Builder extends Component
         // ditemplate
         $dummyUserLog = '9a395c55-373a-45e0-b22f-f5e630d3be59';
         $resultCheck = $this->checkAddedTemplate($id, $dummyUserLog);
-
-
+        
+        
         // check terlebih dahulu apakah tempalate sudah pernah dipakai dan diedit
         // jika sudah ditambahkan maka cukup update id nya
         if ($resultCheck != null) {
+            $id = $resultCheck->id;
+            $this->initBuilderByTemplate($id);
             return;
         }
 
+        // check kepemilikan template ini berdasarkan id
+        $result = $this->checkTemplateOwner($id, $dummyUserLog);
 
+        // error ini disebabkan jika ada kegagalan query pencarian template
+        if ($result == 'check error')  {
+            $this->html = 'error check template';
+            return;    
+        }
+
+        // error ini disebabkan jika id template yang digunakan berasal dari id lain
+        if ($result == 'not authorize')  {
+            $this->html = 'reject template';
+            return;    
+        }
+
+        // ubah id dengan id yang baru diganti
+        if($result !== 'make new') {
+            $id = $result;
+        }
+        
+
+    
         // langkah ini jika user belum menambahkan template
-
-
         // insert template baru
         // param 1 => template id
         // param 2 => user id 
         // param 3 => type (edit, create)
         $result = $this->addedNewTemplate($id, $dummyUserLog, 'EDIT');
-
+        
 
         if ($result == 'error' || $result == null) {
-            $this->html = 'error saat buat user';
+            $this->html = '';
             return;
         }
 
@@ -119,12 +140,51 @@ class Builder extends Component
             return;
         }
 
+        // init builder
+        $this->initBuilderByTemplate($resultData->id);
 
+
+        
+    }
+
+    private function checkTemplateOwner($templateId, $userId) {
+
+        try {
+            $template = Templates::where('id', $templateId)->where('user_id', $userId)->first();
+
+            // check exisiting template
+            if($template == null) {
+                $existingTemplate = Templates::where('template_id', $templateId)->where('user_id', $userId)->first();
+                
+
+                if($existingTemplate != null) {
+                    // ubah url menjadi id template yang sudah ada
+                    $this->search = $existingTemplate->id;
+                    return $existingTemplate->id;
+                }
+
+                return 'make new';
+            }
+            
+
+            if ($template == null) {
+                return 'not authorize';
+            }
+
+            return 'authorize';
+        }
+        
+        catch(QueryException $e) {
+            return 'check error';
+        }
+    }
+
+    private function initBuilderByTemplate($idTemplate) {
         try {
             // validasi pencarian terlebih dahulu
 
             // ubah url query parameter berdasarkan id terbaru
-            $this->search = $resultData->id;
+            $this->search = $idTemplate;
 
             // hapus template yang tampil
 
@@ -135,6 +195,8 @@ class Builder extends Component
         // proses data kosong / tidak ketemu
         // tampilkan pesan bahwa template tidak ada
         catch (ModelNotFoundException $e) {
+
+            $this->html = 'error model not found';
         }
     }
 
@@ -156,9 +218,12 @@ class Builder extends Component
             // cari data template 
             $template = Templates::where('id', $id)->first();
 
-            if (empty($template)) {
+
+            if ($template == null) {
                 return 'error';
             }
+
+            
 
             $user = Templates::create([
                 'user_id' => $userId,
@@ -166,6 +231,8 @@ class Builder extends Component
                 'data' => $template->data,
                 'type' => $type
             ]);
+
+            
 
             return $user;
         } catch (QueryException $e) {
@@ -178,11 +245,25 @@ class Builder extends Component
 
     private function checkAddedTemplate($idTemplate, $userId): ?Templates
     {
+        // saat pertama kali di init
         $template = Templates::where('id', $idTemplate)
             ->whereHas('user', function ($query) use ($userId) {
                 $query->where('id', $userId);
             })
             ->first();
+
+        // saat kedua kali template diklik
+        if($template == null) {
+
+            $exisitingTemplate = Templates::where('template_id', $idTemplate)->where('user_id', $userId)->first();
+
+            if ($exisitingTemplate !== null) {
+                $this->search = $exisitingTemplate->id;
+                return $exisitingTemplate;
+            }
+
+            return null;
+        }
 
         return $template;
     }

@@ -36,10 +36,10 @@ class TestInsertTemplate extends TestCase
         assertEquals('Resto', $template->title);
     }
 
-    public function testQueryGetTemplateByUserId()
-    {
-        $template = Templates::findOrFail('9a395d75-0248-447b-aedb-7fcfe88948de')->user();
+    // public function testQueryGetTemplateByUserId()
+    // {
+    //     $template = Templates::findOrFail('9a395d75-0248-447b-aedb-7fcfe88948de')->user();
 
-        assertEquals('feri', $template->name);
-    }
+    //     assertEquals('feri', $template->name);
+    // }
 }

@@ -29,6 +29,6 @@ class TestUser extends TestCase
             'password' => 'testtest'
         ]);
 
-        self::assertTrue($user);
+        self::assertNotNull($user);
     }
 }

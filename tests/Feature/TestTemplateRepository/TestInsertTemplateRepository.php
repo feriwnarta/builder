@@ -19,7 +19,7 @@ class TestInsertTemplateRepository extends TestCase
     public function testInsertTemplateRestaurant(): void
     {
 
-        $template = Templates::where('categories_id', '0b6e5c61-c7da-4bb5-b4e2-064ef753e1ea')->first();
+        $template = Templates::where('categories_id', 'eaaf00f6-1a33-4652-b612-64375ae12015')->first();
 
         $result = TemplateRepository::create([
             'template_id' => $template->id,

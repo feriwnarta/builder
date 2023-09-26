@@ -20,7 +20,7 @@ class Templates extends Model
         'data', 'title', 'subtitle',
         'categories_id',
         'user_id', 'thumbnail', 'type',
-        'repository_id'
+        'template_id'
     ];
 
     public function templateRepository(): HasOne
