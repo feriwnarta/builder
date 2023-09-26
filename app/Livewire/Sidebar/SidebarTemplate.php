@@ -2,28 +2,19 @@
 
 namespace App\Livewire\Sidebar;
 
+use App\Models\Category;
 use Livewire\Component;
 
 class SidebarTemplate extends Component
 {
 
-    public $categories = [
-        [
-            'id' => '1',
-            'title' => 'Restaurants & Cafes'
-        ],
-        [
-            'id' => '2',
-            'title' => 'Real estate'
-        ],
-        [
-            'id' => '3',
-            'title' => 'Education'
-        ],
-    ];
+    public $categories;
+    
 
     public function mount()
     {
+        $this->categories = Category::all();
+
     }
 
     public function placeholder()

@@ -3,9 +3,11 @@
 
     <div class="side-menu">
 
+
+
         @foreach ($categories as $category)
-            <button wire:key="{{ $category['id'] }}" class="btn btn-menu-item"
-                @click="$dispatch('load-template', {id: {{ $category['id'] }}})">{{ $category['title'] }}</button>
+            <button wire:key="{{ $category->id }}" class="btn btn-menu-item"
+                @click="$dispatch('load-template', {id: '{{ $category->id }}'})">{{ $category->name }}</button>
         @endforeach
     </div>
 

@@ -3,6 +3,8 @@
 namespace App\Livewire\Builder;
 
 use App\Models\Template;
+use App\Models\TemplateRepository;
+use App\Models\Templates;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Url;
@@ -37,16 +39,28 @@ class Builder extends Component
             </div> 
         HTML;
 
-        $this->getTemplate();
+        $this->getTemplate($id);
     }
 
-    private function getTemplate()
+    // fungsi ini digunakan untuk mendapatkan data template dari database berdasarkan kategori
+    private function getTemplate(string $id)
     {
+        // dapatkan data template
+        $templates = TemplateRepository::first()->template()->where('categories_id', $id)->get();
 
-        $this->html = <<<'HTML'
-            <button class="btn btn-menu-item"
-            @click="$dispatch('find-template', {id: '1'})">Klik</button>
-        HTML;
+        // jika template berdasarkan kategori kosong
+        if ($templates->isEmpty()) {
+            $this->html = '<h1>kosong</h1>';
+            return;
+        }
+
+        // jika kategori ada isinya
+        $format = '';
+        foreach ($templates as $template) {
+            $format .= "<button>{$template->title}</button>";
+        }
+
+        $this->html = $format;
     }
 
     /**
@@ -62,10 +76,10 @@ class Builder extends Component
             // validasi pencarian terlebih dahulu
 
             // lakukan pencarian data template didatabase
-            $template = Template::where('template_id', $id)->firstOrFail();
+            // $template = Templates::where('template_id', $id)->firstOrFail();
 
             // ubah url query parameter berdasarkan id terbaru
-            $this->search = $template->template_id;
+            $this->search = '1';
 
             // hapus template yang tampil
 

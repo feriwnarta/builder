@@ -78,7 +78,11 @@ const editor = (id) => {
         listenerChangeDevice(builder.Devices); // -> ganti responsive device
         listenerUndo(builder.UndoManager); // -> menangani undo
         listenerRedo(builder.UndoManager); // -> menangani redo
+
+        console.log(builder.getProjectData());
     });
+
+    
 };
 export { editor };
 

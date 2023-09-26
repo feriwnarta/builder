@@ -26,12 +26,6 @@ Route::post('/template', function () {
     if (isset($data)) {
         $id = $data['id'];
         $data =  $data['data'];
-
-
-        Template::create([
-            'template_id' => $id,
-            'data' => $data,
-        ]);
     }
 });
 
