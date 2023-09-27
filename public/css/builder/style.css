@@ -20,7 +20,10 @@
 /* sidebar menu right */
 .side-menu-right {
     border-left: 1px solid var(--neutral-50, #C2C2C2);
+    padding: 1.25rem;
 }
+
+
 
 
 body {
@@ -36,7 +39,7 @@ body {
 #mark {
     height: 100%;
     width: 100%;
-    background-color: #F5F6F8;  
+    background-color: #F5F6F8;
     top: 50%;
     left: 50%;
 }

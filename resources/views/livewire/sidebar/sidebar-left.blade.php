@@ -1,6 +1,7 @@
 <div>
-    {{-- toogle button --}}
 
+
+    {{-- toogle button --}}
     <div class="toggle-content">
         {{-- Template Toggle --}}
         <button class="btn toggle btn-icon-text-normal-text {{ $active ? '' : 'toggle-deactive' }}"

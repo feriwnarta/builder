@@ -12,6 +12,26 @@
 
         <div class="row g-0" style="height: 100vh;">
             <div class="col-sm-2 side-menu-left">
+                <div id="pages">
+                    <div class="accordion" id="accordionExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    Pages
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                                data-bs-parent="#accordionExample">
+                                <div class="accordion-body" id="pagesBody">
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <livewire:sidebar.sidebar-left />
             </div>
             <div class="col-sm-8 position-relative">
@@ -28,7 +48,9 @@
 
 
             </div>
-            <div class="col-sm-2 side-menu-right">sidebar style</div>
+            <div class="col-sm-2 side-menu-right">
+                <livewire:sidebar.sidebar-right />
+            </div>
         </div>
 
 
