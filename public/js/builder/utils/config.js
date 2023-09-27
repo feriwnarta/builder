@@ -53,7 +53,7 @@ const editor = (id) => {
             type: "remote", // Storage type. Available: local | remote
             autosave: true, // Store data automatically
             autoload: true, // Autoload stored data on init
-            stepsBeforeSave: 5, // If autosave is enabled, indicates how many changes are necessary before the store method is triggered
+            stepsBeforeSave: 1, // If autosave is enabled, indicates how many changes are necessary before the store method is triggered
             options: {
                 remote: {
                     urlStore: projectSaveEndpoint,
@@ -169,6 +169,101 @@ const editor = (id) => {
                                 { id: "initial", label: "Initial" },
                                 { id: "inherit", label: "Inherit" },
                             ],
+                        },
+                    ],
+                },
+                {
+                    name: "Space",
+                    properties: [
+                        {
+                            type: "composite",
+                            property: "padding",
+                            label: "Padding",
+                            // Additional props
+                            properties: [
+                                {
+                                    type: "number",
+                                    units: ["px"],
+                                    default: "0",
+                                    label: "Atas Bawah",
+                                    property: "padding-top",
+                                },
+                                {
+                                    type: "number",
+                                    units: ["px"],
+                                    default: "0",
+                                    label: "Kiri Kanan",
+                                    property: "padding-left",
+                                },
+                            ],
+
+                            toStyle: (values) => {
+                                const top = values["padding-top"] || 0;
+                                const left = values["padding-left"] || 0;
+
+                                if (top != "0px" && left != "0px") {
+                                    return {
+                                        padding: `${top} ${left}`,
+                                    };
+                                }
+
+                                if (top != "0px") {
+                                    return {
+                                        padding: `${top} 0px`,
+                                    };
+                                }
+
+                                if (left != "0px") {
+                                    return {
+                                        padding: `0px ${left}`,
+                                    };
+                                }
+                            },
+                        },
+                        {
+                            type: "composite",
+                            property: "margin",
+                            label: "Margin",
+                            // Additional props
+                            properties: [
+                                {
+                                    type: "number",
+                                    units: ["px"],
+                                    default: "0",
+                                    label: "Atas Bawah",
+                                    property: "margin-top",
+                                },
+                                {
+                                    type: "number",
+                                    units: ["px"],
+                                    default: "0",
+                                    label: "Kiri Kanan",
+                                    property: "margin-left",
+                                },
+                            ],
+
+                            toStyle: (values) => {
+                                const top = values["margin-top"] || 0;
+                                const left = values["margin-left"] || 0;
+
+                                if (top != "0px" && left != "0px") {
+                                    return {
+                                        margin: `${top} ${left}`,
+                                    };
+                                }
+
+                                if (top != "0px") {
+                                    return {
+                                        margin: `${top} 0px`,
+                                    };
+                                }
+
+                                if (left != "0px") {
+                                    return {
+                                        margin: `0px ${left}`,
+                                    };
+                                }
+                            },
                         },
                     ],
                 },
