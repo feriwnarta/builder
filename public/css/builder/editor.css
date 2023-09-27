@@ -22,3 +22,62 @@
     /* transform: scale(0.6) !important; */
     /* transform-origin: top left !important; */
 }
+
+.gjs-one-bg {
+    background: var(--neutral-20, #F5F5F5);
+}
+
+
+
+.gjs-two-color {
+    color: var(--neutral-90, #404040);
+}
+
+
+
+/* Style Manager */
+
+#styleManager {
+    margin: 1.25rem 0;
+}
+
+.gjs-sm-sector-title {
+    color: var(--neutral-70, #757575);
+    /* Text M/Regular */
+
+    font-size: 0.875rem;
+    font-style: normal;
+
+    padding: 0.375rem 0.75rem;
+    border: 1px solid var(--neutral-50, #C2C2C2);
+    border-radius: 0.375rem;
+    background: var(--neutral-20, #F5F5F5);
+
+}
+
+.gjs-sm-properties {
+    background: #FFF;
+    padding: 0px;
+}
+
+/* Mengubah tata letak sektor "Typography" menjadi flex */
+.gjs-sm-sector-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.25rem;
+
+    background-color: red;
+}
+
+/* Menggeser sector caret ke kanan */
+.gjs-sm-sector-caret {
+    order: 2;
+    /* Mengubah urutan elemen menjadi kedua (kanan) */
+}
+
+/* Menggeser label sektor ke kiri */
+.gjs-sm-sector-label {
+    order: 1;
+    /* Mengubah urutan elemen menjadi pertama (kiri) */
+}
