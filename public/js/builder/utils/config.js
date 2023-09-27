@@ -44,6 +44,10 @@ const editor = (id) => {
             scripts: [jsBootstrap, jsPopperBootstrap],
         },
 
+        layerManager: {
+            appendTo: "#layerContainer",
+        },
+
         // Default configurations
         storageManager: {
             type: "remote", // Storage type. Available: local | remote
@@ -78,13 +82,23 @@ const editor = (id) => {
         listenerChangeDevice(builder.Devices); // -> ganti responsive device
         listenerUndo(builder.UndoManager); // -> menangani undo
         listenerRedo(builder.UndoManager); // -> menangani redo
-
-        console.log(builder.getProjectData());
     });
 
-    
 };
-export { editor };
+export { editor, initLayerManager };
+
+const initLayerManager = () => {
+    document.addEventListener("toggle-sidebar", (e) => {
+        if (e.detail !== null || $e.detail !== undefined) {
+            if (!e.detail.active) {
+                $("#layerContainer").show();
+                return;
+            }
+
+            $("#layerContainer").hide();
+        }
+    });
+};
 
 /**
  * fungsi ini digunakan sebagai inisialisasi undo manager (ini digunakan sebagai penggunaan

@@ -19,12 +19,14 @@
     </div>
 
     {{-- Content dinamis --}}
-    @if ($active)
+    {{-- @if ($active)
         <livewire:sidebar.sidebar-template lazy />
     @else
         <livewire:sidebar.sidebar-layer lazy />
-    @endif
+    @endif --}}
 
+    <livewire:sidebar.sidebar-template lazy />
+    <livewire:sidebar.sidebar-layer />
 
 
 </div>

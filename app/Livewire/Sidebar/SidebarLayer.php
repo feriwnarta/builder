@@ -2,14 +2,12 @@
 
 namespace App\Livewire\Sidebar;
 
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class SidebarLayer extends Component
 {
-    public function mount()
-    {
-        sleep(2);
-    }
+    public $active = false;
 
     public function placeholder()
     {
