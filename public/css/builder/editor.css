@@ -34,7 +34,7 @@
 /* GJS FRAME */
 .gjs-frame-wrapper {
     height: 100%;
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
 }
 
 /* Style Manager */
@@ -142,4 +142,33 @@
     background: var(--neutral-10, #fff) !important;
     border: none !important;
     color: black !important;
+}
+
+.gjs-clm-tags {
+    padding: 0px;
+}
+
+.gjs-clm-header-status {
+    margin: 0px;
+}
+
+
+
+
+#gjs-clm-label {
+    display: none !important;
+}
+
+#gjs-clm-status-c {
+    width: 100%;
+}
+
+
+
+#gjs-clm-tags-field {
+    display: none !important;
+}
+
+.gjs-clm-sels-info {
+    display: none;
 }

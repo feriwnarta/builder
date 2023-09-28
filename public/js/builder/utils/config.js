@@ -48,6 +48,10 @@ const editor = (id) => {
         layerManager: {
             appendTo: "#layerContainer",
         },
+        selectorManager: {
+            appendTo:'#selectorManager',
+            states: [{ name: 'hover' }, { name: 'active' }, { name: 'nth-of-type(2n)' }],
+        },
 
         // Default configurations
         storageManager: {
@@ -268,7 +272,7 @@ const editor = (id) => {
                         },
                     ],
                 },
-                
+
             ],
         },
     });
@@ -332,9 +336,8 @@ const setItemPage = (arrayOfPages, pageManager) => {
     let html = "";
     arrayOfPages.forEach((page) => {
         html += `
-        <div class="item-page d-flex flex-row align-items-center justify-content-between" id="${
-            page.attributes.id
-        }">
+        <div class="item-page d-flex flex-row align-items-center justify-content-between" id="${page.attributes.id
+            }">
             ${page.attributes.name == "" ? "Page" : page.attributes.name}
             <button class="btn">
                 <i class="dot-vertical"></i>
