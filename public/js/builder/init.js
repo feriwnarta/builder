@@ -11,6 +11,9 @@ import { editor, initLayerManager } from "./utils/config.js";
 const listenerBuilder = () => {
     document.addEventListener("init-builder", (event) => {
         $(document).ready(function () {
+
+            console.log(event.detail);
+            
             //! perbaiki ini untuk menampilkan pesan error ke user
             if (
                 event.detail.component_id === null ||
@@ -19,13 +22,18 @@ const listenerBuilder = () => {
                 return null;
 
             const id = event.detail.component_id;
+            const block = event.detail.block;
 
             // kosongkan editor
             $("#editor").empty();
 
             // load editor
-            editor(id);
+            editor(id, block);
+            return;
         });
+
+        // jika user sebagai kreator
+
     });
 };
 

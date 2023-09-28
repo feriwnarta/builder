@@ -18,5 +18,6 @@
 
     <div class="content-sidebar-right" id="styleManager">
         <div id="selectorManager"></div>
+        
     </div>
 </div>

@@ -20,7 +20,7 @@ var csrfToken = document
     .getAttribute("content");
 
 let builder;
-const editor = (id) => {
+const editor = (id, block) => {
     builder = grapesjs.init({
         // properti ini digunakan untuk menentukan id mana yang akan menjadi tujuan grapes js untuk menginisialisasi editornya
         container: container,
@@ -29,8 +29,6 @@ const editor = (id) => {
         // langsung menjadi component grapesjs secara otomatis
         fromElement: true,
 
-        // storage manager digunakan untuk menyimpan hasil edit yang berlangsung di editor
-        storageManager: false,
         height: '100%',
 
         // digunakan untuk membuat panel grapesjs
@@ -38,6 +36,7 @@ const editor = (id) => {
 
         deviceManager: {
             default: "",
+
             devices: deviceManager,
         },
         canvas: {
@@ -49,8 +48,14 @@ const editor = (id) => {
             appendTo: "#layerContainer",
         },
         selectorManager: {
-            appendTo:'#selectorManager',
+            appendTo: '#selectorManager',
             states: [{ name: 'hover' }, { name: 'active' }, { name: 'nth-of-type(2n)' }],
+        },
+        traitManager: {
+            appendTo: '#traitManager',
+        },
+        blockManager: {
+            appendTo: '#blockManager',
         },
 
         // Default configurations
@@ -279,15 +284,43 @@ const editor = (id) => {
 
     // saat builder sudah diload
     builder.on("load", function () {
+
         initUndoManager(builder.UndoManager); // -> init undo manager
         listenerChangeDevice(builder.Devices); // -> ganti responsive device
         listenerUndo(builder.UndoManager); // -> menangani undo
         listenerRedo(builder.UndoManager); // -> menangani redo
         setPageManager(builder); // -> mengirim event data page
         changeSectorCarret();
+        console.log(builder.getProjectData());
+
+        initBlock(block, builder);
+
     });
+
 };
 export { editor, initLayerManager };
+
+
+
+function initBlock(block, builder) {
+
+    if(block !== undefined && block !== null) {
+        const blockJson = JSON.parse(block);
+        const blockManager = builder.Blocks;
+
+        Object.values(blockJson).forEach((block) => {
+            blockManager.add(`${block.id}`, {
+                label : block.label,
+                content: block.content,
+                category: block.category,
+                media: block.media
+            });
+        })
+
+    }
+}
+
+
 
 /**
  * merubah icon carret dari style manager

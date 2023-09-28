@@ -53,8 +53,8 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function template(): BelongsTo
+    public function template(): HasOne
     {
-        return $this->belongsTo(Templates::class);
+        return $this->hasOne(Templates::class);
     }
 }

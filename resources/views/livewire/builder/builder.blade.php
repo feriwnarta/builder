@@ -43,8 +43,6 @@
 
                 </div>
 
-
-
             </div>
             <div class="col-sm-2 side-menu-right">
                 <livewire:sidebar.sidebar-right />

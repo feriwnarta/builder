@@ -3,6 +3,7 @@
 use App\Http\Controllers\TemplateController;
 use App\Livewire\Builder\Builder;
 use App\Livewire\Sidebar\SidebarLeftContent;
+use App\Models\Component;
 use App\Models\Template;
 use App\Models\Templates;
 use Illuminate\Support\Facades\Route;
