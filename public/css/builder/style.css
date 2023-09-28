@@ -15,12 +15,15 @@
 .side-menu-left {
     border-right: 1px solid var(--neutral-50, #C2C2C2);
     padding: 1.25rem;
+    /* overflow-y: scroll; */
 }
 
 /* sidebar menu right */
 .side-menu-right {
     border-left: 1px solid var(--neutral-50, #C2C2C2);
     padding: 1.25rem;
+    height: 100%;
+    overflow-y: scroll;
 }
 
 

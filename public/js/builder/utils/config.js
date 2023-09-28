@@ -31,6 +31,7 @@ const editor = (id) => {
 
         // storage manager digunakan untuk menyimpan hasil edit yang berlangsung di editor
         storageManager: false,
+        height: '100%',
 
         // digunakan untuk membuat panel grapesjs
         panels: { defaults: [] },
@@ -267,6 +268,7 @@ const editor = (id) => {
                         },
                     ],
                 },
+                
             ],
         },
     });
