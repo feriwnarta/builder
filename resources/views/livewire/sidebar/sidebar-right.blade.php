@@ -18,6 +18,7 @@
 
     <div class="content-sidebar-right" id="styleManager">
         <div id="selectorManager"></div>
+        <div></div>
         <div id="traitManager"></div>
     </div>
 </div>

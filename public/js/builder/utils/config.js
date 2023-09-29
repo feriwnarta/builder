@@ -118,23 +118,59 @@ const editor = (id, block) => {
         const component = builder.getSelected(); // Component
         console.log(component);
 
+        const pageManager = builder.Pages;
+        const arrayOfPages = pageManager.getAll();
+
         // Get a single property
         const tagName = component.get("tagName");
 
-        if (tagName == "input") {
+        if (tagName == "a") {
             component.addTrait(
                 {
                     type: "select",
-                    label: "Type",
-                    name: "type",
+                    name: "linkType",
+                    label: "Link Type",
                     options: [
-                        { id: "text", name: "Text" },
-                        { id: "email", name: "Email" },
-                        { id: "password", name: "Password" },
-                        { id: "number", name: "Number" },
+                        { id: "internal", name: "Internal Page" },
+                        { id: "external", name: "External URL" },
+                        { id: "elementId", name: "Element ID" },
                     ],
                 },
                 { at: 0 }
+            );
+            component.addTrait(
+                {
+                    type: "text",
+                    name: "pageName",
+                    label: "Page Name",
+                    // Tampilkan ini hanya jika linkType dipilih sebagai 'Internal Page'
+                    show: { eq: "internal", at: "linkType" },
+                },
+                { at: 1 }
+            );
+            component.addTrait(
+                {
+                    type: "text",
+                    name: "externalUrl",
+                    label: "External URL",
+                    // Tampilkan ini hanya jika linkType dipilih sebagai 'External URL'
+                    show: { eq: "external", at: "linkType" },
+                },
+                { at: 2 }
+            );
+            component.addTrait(
+                {
+                    type: "select",
+                    label: "Internal Page",
+                    name: "internalPage",
+                    options: arrayOfPages.map((page) => ({
+                        id: page.id,
+                        name: page.attributes.name,
+                    })),
+                    visible: (model) =>
+                        model.get("traits").get("linkType") === "internal",
+                },
+                { at: 3 }
             );
         }
     });
