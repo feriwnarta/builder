@@ -5,7 +5,7 @@
  * Import terlebih dahulu config js
  * detail inisialisasi editor berada difile config js
  */
-import { editor, initLayerManager } from "./utils/config.js";
+import { editor, initLayerManager, toggleSidebarRight } from "./utils/config.js";
 // editor();
 
 const listenerBuilder = () => {
@@ -41,3 +41,5 @@ listenerBuilder();
 
 // inisialisasi layer manager
 initLayerManager();
+
+toggleSidebarRight();

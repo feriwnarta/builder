@@ -3,9 +3,7 @@
 namespace App\Livewire\Sidebar;
 
 use App\Models\Category;
-use Livewire\Attributes\Modelable;
 use Livewire\Attributes\On;
-use Livewire\Attributes\Reactive;
 use Livewire\Component;
 
 class SidebarTemplate extends Component

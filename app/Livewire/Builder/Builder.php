@@ -2,16 +2,13 @@
 
 namespace App\Livewire\Builder;
 
-use App\Models\Template;
 use App\Models\TemplateRepository;
 use App\Models\Templates;
-use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Url;
 use Livewire\Component;
-use SebastianBergmann\Template\Template as TemplateTemplate;
 
 class Builder extends Component
 {
@@ -24,8 +21,7 @@ class Builder extends Component
     public function mount()
     {
         // kirim dispatch
-        // $this->dispatch('find-template', id: $this->search); // jika user sebagai pebisnis
-
+        $this->dispatch('find-template', id: $this->search); // jika user sebagai pebisnis
     }
 
 
@@ -86,8 +82,8 @@ class Builder extends Component
         // ditemplate
         $dummyUserLog = '9a395c55-373a-45e0-b22f-f5e630d3be59';
         $resultCheck = $this->checkAddedTemplate($id, $dummyUserLog);
-        
-        
+
+
         // check terlebih dahulu apakah tempalate sudah pernah dipakai dan diedit
         // jika sudah ditambahkan maka cukup update id nya
         if ($resultCheck != null) {
@@ -100,31 +96,31 @@ class Builder extends Component
         $result = $this->checkTemplateOwner($id, $dummyUserLog);
 
         // error ini disebabkan jika ada kegagalan query pencarian template
-        if ($result == 'check error')  {
+        if ($result == 'check error') {
             $this->html = 'error check template';
-            return;    
+            return;
         }
 
         // error ini disebabkan jika id template yang digunakan berasal dari id lain
-        if ($result == 'not authorize')  {
+        if ($result == 'not authorize') {
             $this->html = 'reject template';
-            return;    
+            return;
         }
 
         // ubah id dengan id yang baru diganti
-        if($result !== 'make new') {
+        if ($result !== 'make new') {
             $id = $result;
         }
-        
 
-    
+
+
         // langkah ini jika user belum menambahkan template
         // insert template baru
         // param 1 => template id
         // param 2 => user id 
         // param 3 => type (edit, create)
         $result = $this->addedNewTemplate($id, $dummyUserLog, 'EDIT');
-        
+
 
         if ($result == 'error' || $result == null) {
             $this->html = '';
@@ -143,22 +139,20 @@ class Builder extends Component
 
         // init builder
         $this->initBuilderByTemplate($resultData->id);
-
-
-        
     }
 
-    private function checkTemplateOwner($templateId, $userId) {
+    private function checkTemplateOwner($templateId, $userId)
+    {
 
         try {
             $template = Templates::where('id', $templateId)->where('user_id', $userId)->first();
 
             // check exisiting template
-            if($template == null) {
+            if ($template == null) {
                 $existingTemplate = Templates::where('template_id', $templateId)->where('user_id', $userId)->first();
-                
 
-                if($existingTemplate != null) {
+
+                if ($existingTemplate != null) {
                     // ubah url menjadi id template yang sudah ada
                     $this->search = $existingTemplate->id;
                     return $existingTemplate->id;
@@ -166,21 +160,20 @@ class Builder extends Component
 
                 return 'make new';
             }
-            
+
 
             if ($template == null) {
                 return 'not authorize';
             }
 
             return 'authorize';
-        }
-        
-        catch(QueryException $e) {
+        } catch (QueryException $e) {
             return 'check error';
         }
     }
 
-    private function initBuilderByTemplate($idTemplate) {
+    private function initBuilderByTemplate($idTemplate)
+    {
         try {
             // validasi pencarian terlebih dahulu
 
@@ -190,7 +183,7 @@ class Builder extends Component
             // hapus template yang tampil
 
             // sample
-            $this->dispatch('init-builder', component_id: $this->search);
+            $this->dispatch('init-builder', component_id: $this->search, block: null);
         }
 
         // proses data kosong / tidak ketemu
@@ -224,7 +217,7 @@ class Builder extends Component
                 return 'error';
             }
 
-            
+
 
             $user = Templates::create([
                 'user_id' => $userId,
@@ -233,7 +226,7 @@ class Builder extends Component
                 'type' => $type
             ]);
 
-            
+
 
             return $user;
         } catch (QueryException $e) {
@@ -254,7 +247,7 @@ class Builder extends Component
             ->first();
 
         // saat kedua kali template diklik
-        if($template == null) {
+        if ($template == null) {
 
             $exisitingTemplate = Templates::where('template_id', $idTemplate)->where('user_id', $userId)->first();
 

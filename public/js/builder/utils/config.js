@@ -4,6 +4,14 @@ import {
     jsPopperBootstrap,
     jsBootstrap,
     deviceManager,
+    appendLayerManager,
+    appendSelectorManager,
+    statesSelectorManager,
+    appendTraitManager,
+    storageType,
+    sectors,
+    appendBlockManager,
+    appendStyleManager,
 } from "./utils.js";
 
 const projectEndpoint = `http://127.0.0.1:8000/template/`;
@@ -29,7 +37,7 @@ const editor = (id, block) => {
         // langsung menjadi component grapesjs secara otomatis
         fromElement: true,
 
-        height: '100%',
+        height: "100%",
 
         // digunakan untuk membuat panel grapesjs
         panels: { defaults: [] },
@@ -45,22 +53,21 @@ const editor = (id, block) => {
         },
 
         layerManager: {
-            appendTo: "#layerContainer",
+            appendTo: appendLayerManager,
         },
         selectorManager: {
-            appendTo: '#selectorManager',
-            states: [{ name: 'hover' }, { name: 'active' }, { name: 'nth-of-type(2n)' }],
+            appendTo: appendSelectorManager,
+            states: statesSelectorManager,
         },
         traitManager: {
-            appendTo: '#traitManager',
+            appendTo: appendTraitManager,
         },
         blockManager: {
-            appendTo: '#blockManager',
+            appendTo: appendBlockManager,
         },
-
         // Default configurations
         storageManager: {
-            type: "remote", // Storage type. Available: local | remote
+            type: storageType, // Storage type. Available: local | remote
             autosave: true, // Store data automatically
             autoload: true, // Autoload stored data on init
             stepsBeforeSave: 1, // If autosave is enabled, indicates how many changes are necessary before the store method is triggered
@@ -84,243 +91,105 @@ const editor = (id, block) => {
                 },
             },
         },
-        styleManager: {
-            appendTo: "#styleManager",
-            sectors: [
-                {
-                    name: "Typhography",
-                    buildProps: ["font-family", "color"],
-                    properties: [
-                        {
-                            type: "number",
-                            property: "font-size",
-                            label: "Size",
-                            default: "0px",
-                            // Additional props
-                            units: ["px"],
-                            min: 0,
-                            max: 100,
-                        },
-                        {
-                            type: "select",
-                            property: "font-weight",
-                            label: "Weight",
-                            default: "normal",
-                            options: [
-                                { id: "bold", label: "bold" },
-                                { id: "normal", label: "normal" },
-                                { id: "500", label: "semi-bold" },
-                            ],
-                        },
-                        {
-                            type: "number",
-                            property: "line-height",
-                            label: "Line Height",
-                            default: "0px",
-                            // Additional props
-                            units: ["px"],
-                            min: 0,
-                            max: 100,
-                        },
-                        {
-                            type: "number",
-                            property: "letter-spacing",
-                            label: "Letter Space",
-                            default: "0px",
-                            // Additional props
-                            units: ["px"],
-                            min: 0,
-                            max: 100,
-                        },
-                        {
-                            type: "select",
-                            property: "text-align",
-                            label: "Align",
-                            default: "left",
-                            options: [
-                                { id: "center", label: "Center" },
-                                { id: "left", label: "Left" },
-                                { id: "right", label: "Right" },
-                                { id: "justify", label: "Justify" },
-                            ],
-                        },
-                        {
-                            type: "select",
-                            property: "text-decoration",
-                            label: "Decoration",
-                            default: "none",
-                            options: [
-                                { id: "none", label: "None" },
-                                { id: "overline", label: "Overline" },
-                                { id: "line-through", label: "Line Through" },
-                                { id: "underline", label: "Underline" },
-                            ],
-                        },
-                        {
-                            type: "select",
-                            property: "text-transform",
-                            label: "Case",
-                            default: "none",
-                            options: [
-                                { id: "none", label: "None" },
-                                { id: "uppercase", label: "Uppercase" },
-                                { id: "lowercase", label: "Lowercase" },
-                                { id: "capitalize", label: "Capitalize" },
-                            ],
-                        },
-                        {
-                            type: "select",
-                            property: "direction",
-                            label: "Direction",
-                            default: "ltr",
-                            options: [
-                                { id: "ltr", label: "LTR" },
-                                { id: "rtl", label: "RTL" },
-                                { id: "initial", label: "Initial" },
-                                { id: "inherit", label: "Inherit" },
-                            ],
-                        },
-                    ],
-                },
-                {
-                    name: "Space",
-                    properties: [
-                        {
-                            type: "composite",
-                            property: "padding",
-                            label: "Padding",
-                            // Additional props
-                            properties: [
-                                {
-                                    type: "number",
-                                    units: ["px"],
-                                    default: "0",
-                                    label: "Atas Bawah",
-                                    property: "padding-top",
-                                },
-                                {
-                                    type: "number",
-                                    units: ["px"],
-                                    default: "0",
-                                    label: "Kiri Kanan",
-                                    property: "padding-left",
-                                },
-                            ],
-
-                            toStyle: (values) => {
-                                const top = values["padding-top"] || 0;
-                                const left = values["padding-left"] || 0;
-
-                                if (top != "0px" && left != "0px") {
-                                    return {
-                                        padding: `${top} ${left}`,
-                                    };
-                                }
-
-                                if (top != "0px") {
-                                    return {
-                                        padding: `${top} 0px`,
-                                    };
-                                }
-
-                                if (left != "0px") {
-                                    return {
-                                        padding: `0px ${left}`,
-                                    };
-                                }
-                            },
-                        },
-                        {
-                            type: "composite",
-                            property: "margin",
-                            label: "Margin",
-                            // Additional props
-                            properties: [
-                                {
-                                    type: "number",
-                                    units: ["px"],
-                                    default: "0",
-                                    label: "Atas Bawah",
-                                    property: "margin-top",
-                                },
-                                {
-                                    type: "number",
-                                    units: ["px"],
-                                    default: "0",
-                                    label: "Kiri Kanan",
-                                    property: "margin-left",
-                                },
-                            ],
-
-                            toStyle: (values) => {
-                                const top = values["margin-top"] || 0;
-                                const left = values["margin-left"] || 0;
-
-                                if (top != "0px" && left != "0px") {
-                                    return {
-                                        margin: `${top} ${left}`,
-                                    };
-                                }
-
-                                if (top != "0px") {
-                                    return {
-                                        margin: `${top} 0px`,
-                                    };
-                                }
-
-                                if (left != "0px") {
-                                    return {
-                                        margin: `0px ${left}`,
-                                    };
-                                }
-                            },
-                        },
-                    ],
-                },
-
-            ],
-        },
+        styleManager:
+            // jika !== null makan akan menampilkan semua style manager
+            block !== null
+                ? {
+                      appendTo: appendStyleManager,
+                  }
+                : {
+                      appendTo: appendStyleManager,
+                      sectors: sectors,
+                  },
     });
 
     // saat builder sudah diload
     builder.on("load", function () {
-
         initUndoManager(builder.UndoManager); // -> init undo manager
         listenerChangeDevice(builder.Devices); // -> ganti responsive device
         listenerUndo(builder.UndoManager); // -> menangani undo
         listenerRedo(builder.UndoManager); // -> menangani redo
         setPageManager(builder); // -> mengirim event data page
         changeSectorCarret();
-        console.log(builder.getProjectData());
-
         initBlock(block, builder);
-
     });
 
+    builder.DomComponents.addType("text", {
+        model: {
+            defaults: {
+                traits: [
+                    "name",
+                    "id",
+                    {
+                        type: "text",
+                        name: "placeholder",
+                        label: "Placeholder",
+                    },
+                    {
+                        type: "select",
+                        label: "Type",
+                        name: "type",
+                        options: [
+                            { id: "text", name: "Text" },
+                            { id: "email", name: "Email" },
+                            { id: "password", name: "Password" },
+                            { id: "number", name: "Number" },
+                        ],
+                    },
+                    {
+                        type: "checkbox",
+                        name: "required",
+                    },
+                ],
+            },
+        },
+    });
+
+    builder.on("component:selected", (event) => {
+        const component = builder.getSelected(); // Component
+        console.log(component);
+
+        const traits = component.get("traits");
+        traits.forEach((trait) => console.log(trait.props()));
+    });
 };
-export { editor, initLayerManager };
+export { editor, initLayerManager, toggleSidebarRight };
 
-
+/**
+ * toggleSidebarRight
+ * berfungsi untuk menampilkan styles atau properties
+ */
+function toggleSidebarRight() {
+    document.addEventListener("toggle-sidebar-right", (e) => {
+        if (e.detail !== null || e.detail !== undefined) {
+            if (!e.detail.active) {
+                $(".gjs-sm-sectors").hide();
+                $("#selectorManager").hide();
+                $("#traitManager").show();
+                return;
+            }
+            $("#traitManager").hide();
+            $("#selectorManager").show();
+            $(".gjs-sm-sectors").show();
+        }
+    });
+}
 
 function initBlock(block, builder) {
-
-    if(block !== undefined && block !== null) {
+    if (block !== undefined && block !== null) {
         const blockJson = JSON.parse(block);
         const blockManager = builder.Blocks;
 
         Object.values(blockJson).forEach((block) => {
             blockManager.add(`${block.id}`, {
-                label : block.label,
+                label: block.label,
                 content: block.content,
                 category: block.category,
-                media: block.media
+                media: block.media,
             });
-        })
-
+        });
     }
 }
-
-
 
 /**
  * merubah icon carret dari style manager
@@ -369,8 +238,9 @@ const setItemPage = (arrayOfPages, pageManager) => {
     let html = "";
     arrayOfPages.forEach((page) => {
         html += `
-        <div class="item-page d-flex flex-row align-items-center justify-content-between" id="${page.attributes.id
-            }">
+        <div class="item-page d-flex flex-row align-items-center justify-content-between" id="${
+            page.attributes.id
+        }">
             ${page.attributes.name == "" ? "Page" : page.attributes.name}
             <button class="btn">
                 <i class="dot-vertical"></i>
@@ -393,12 +263,6 @@ const pageClicked = (pageManager) => {
     });
 };
 
-// rebuild page manager saat berpindah ke layer manager
-const rebuildPageManager = (builder) => {
-    const pageManager = builder.Pages;
-    const arrayOfPages = pageManager.getAll();
-};
-
 // inisialisasi layer manager
 const initLayerManager = () => {
     document.addEventListener("toggle-sidebar", (e) => {
@@ -406,7 +270,15 @@ const initLayerManager = () => {
             if (!e.detail.active) {
                 $("#layerContainer").show();
 
+                if ($("#blockManager").length) {
+                    $("#blockManager").hide();
+                }
+
                 return;
+            }
+
+            if ($("#blockManager").length) {
+                $("#blockManager").show();
             }
 
             $("#layerContainer").hide();

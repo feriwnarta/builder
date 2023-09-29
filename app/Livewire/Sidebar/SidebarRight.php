@@ -2,16 +2,16 @@
 
 namespace App\Livewire\Sidebar;
 
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class SidebarRight extends Component
 {
     public $active = true;
 
-
-    public function toggle($val)
+    public function mount()
     {
-        $this->active = $val;
+        $this->dispatch('toggle-sidebar-right', active: $this->active);
     }
 
     public function render()

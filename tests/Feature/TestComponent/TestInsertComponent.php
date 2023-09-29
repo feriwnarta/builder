@@ -20,7 +20,7 @@ class TestInsertComponent extends TestCase
         parent::setUp();
         DB::delete('delete from components');
     }
-    
+
     /**
      * A basic feature test example.
      */
@@ -30,29 +30,29 @@ class TestInsertComponent extends TestCase
         $componentData = [
             [
                 'id' => Uuid::uuid4()->toString(), // Generate UUID
-                'component_categories_id' => '5465acbc-45c8-4fa6-bb14-af94c0b3534a',
+                'component_categories_id' => '7b3c6123-cc19-40e7-bfbb-3e3d5e81e8b8',
                 'label' => '1 Row 1 Column',
                 'media' => '',
-                'content' => '<h1>TEST</h1>'
+                'content' => '<h1>1 Row 1 Column</h1>'
 
             ],
             [
                 'id' => Uuid::uuid4()->toString(), // Generate UUID
-                'component_categories_id' => '5465acbc-45c8-4fa6-bb14-af94c0b3534a',
+                'component_categories_id' => '7b3c6123-cc19-40e7-bfbb-3e3d5e81e8b8',
                 'label' => '1 Row 2 Column',
                 'media' => '',
-                'content' => '<h1>TEST</h1>'
+                'content' => '<h1>1 Row 2 Column</h1>'
 
             ],
             [
                 'id' => Uuid::uuid4()->toString(), // Generate UUID
-                'component_categories_id' => '5465acbc-45c8-4fa6-bb14-af94c0b3534a',
+                'component_categories_id' => '7b3c6123-cc19-40e7-bfbb-3e3d5e81e8b8',
                 'label' => '1 Row 3 Column',
                 'media' => '',
-                'content' => '<h1>TEST</h1>'
+                'content' => '<h1>1 Row 3 Column</h1>'
 
             ]
-            
+
         ];
 
         $component = Component::insert($componentData);

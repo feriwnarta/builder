@@ -8,7 +8,8 @@ class SidebarLeft extends Component
 {
     public $active = true;
 
-    public function mount() {
+    public function mount()
+    {
         $this->dispatch('toggle-sidebar', active: $this->active);
     }
 

@@ -2,10 +2,8 @@
 
 use App\Http\Controllers\TemplateController;
 use App\Livewire\Builder\Builder;
-use App\Livewire\Sidebar\SidebarLeftContent;
-use App\Models\Component;
-use App\Models\Template;
 use App\Models\Templates;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,8 +20,16 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', Builder::class);
 
 
-Route::controller(TemplateController::class)->group(function() {
+Route::controller(TemplateController::class)->group(function () {
     Route::post('/template', 'saveTemplate');
     Route::get('/template/{template}', 'findTemplate');
 });
 
+Route::get('/test', function () {
+
+    $templates = Templates::find('9a375-0248-447b-aedb-7fcfe88948de');
+
+    if ($templates == null) {
+        echo 'nukll';
+    }
+});
