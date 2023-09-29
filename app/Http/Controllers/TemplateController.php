@@ -15,7 +15,7 @@ class TemplateController extends Controller
 
     public function saveTemplate(Request $request)
     {
-        Log::info('test');
+        
         $data = $request->json()->all();
 
         if ($data !== null) {

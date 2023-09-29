@@ -24,12 +24,3 @@ Route::controller(TemplateController::class)->group(function () {
     Route::post('/template', 'saveTemplate');
     Route::get('/template/{template}', 'findTemplate');
 });
-
-Route::get('/test', function () {
-
-    $templates = Templates::find('9a375-0248-447b-aedb-7fcfe88948de');
-
-    if ($templates == null) {
-        echo 'nukll';
-    }
-});

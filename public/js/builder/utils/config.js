@@ -208,8 +208,13 @@ function initBlock(block, builder) {
                 content: block.content,
                 category: block.category,
                 media: block.media,
+                open: false,
             });
         });
+
+        // set block not open
+        const blockCategories = builder.BlockManager.getCategories();
+        blockCategories.each((category) => category.set("open", false));
     }
 }
 
