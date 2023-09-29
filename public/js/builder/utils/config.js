@@ -114,43 +114,29 @@ const editor = (id, block) => {
         initBlock(block, builder);
     });
 
-    builder.DomComponents.addType("text", {
-        model: {
-            defaults: {
-                traits: [
-                    "name",
-                    "id",
-                    {
-                        type: "text",
-                        name: "placeholder",
-                        label: "Placeholder",
-                    },
-                    {
-                        type: "select",
-                        label: "Type",
-                        name: "type",
-                        options: [
-                            { id: "text", name: "Text" },
-                            { id: "email", name: "Email" },
-                            { id: "password", name: "Password" },
-                            { id: "number", name: "Number" },
-                        ],
-                    },
-                    {
-                        type: "checkbox",
-                        name: "required",
-                    },
-                ],
-            },
-        },
-    });
-
     builder.on("component:selected", (event) => {
         const component = builder.getSelected(); // Component
         console.log(component);
 
-        const traits = component.get("traits");
-        traits.forEach((trait) => console.log(trait.props()));
+        // Get a single property
+        const tagName = component.get("tagName");
+
+        if (tagName == "input") {
+            component.addTrait(
+                {
+                    type: "select",
+                    label: "Type",
+                    name: "type",
+                    options: [
+                        { id: "text", name: "Text" },
+                        { id: "email", name: "Email" },
+                        { id: "password", name: "Password" },
+                        { id: "number", name: "Number" },
+                    ],
+                },
+                { at: 0 }
+            );
+        }
     });
 };
 export { editor, initLayerManager, toggleSidebarRight };
