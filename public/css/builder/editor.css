@@ -34,7 +34,7 @@
 /* GJS FRAME */
 .gjs-frame-wrapper {
     height: 100%;
-    /* overflow-y: scroll; */
+    /* overflow-y: hidden; */
 }
 
 /* Style Manager */
@@ -204,4 +204,10 @@
     font-style: normal;
     font-weight: 500;
     line-height: 0.625rem; /* 111.111% */
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1366px) {
+    .gjs-radio-item-label {
+        font-size: 10px;
+    }
 }

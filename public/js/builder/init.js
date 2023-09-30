@@ -13,7 +13,7 @@ const listenerBuilder = () => {
         $(document).ready(function () {
 
             console.log(event.detail);
-            
+
             //! perbaiki ini untuk menampilkan pesan error ke user
             if (
                 event.detail.component_id === null ||

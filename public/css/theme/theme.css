@@ -1,24 +1,27 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,700;1,9..40,400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,700;1,9..40,400&display=swap");
 
 :root {
-
     font-size: 16px;
 
-    --font-family: 'DM Sans', sans-serif;
+    --font-family: "DM Sans", sans-serif;
 
     /* Primary color */
-    --primary-color-main: #0C97FA;
-    --primary-color-surface: #EAF6FE;
-    --primary-color-border: #A4D8FD;
-    --primary-color-hover: #1378BF;
+    --primary-color-main: #0c97fa;
+    --primary-color-surface: #eaf6fe;
+    --primary-color-border: #a4d8fd;
+    --primary-color-hover: #1378bf;
     --primary-color-pressed: #003459;
     --primary-color-focused: #003459;
 
     /* Secondary Color */
-    --fluorescent-blue-main: #16E1F5;
+    --fluorescent-blue-main: #16e1f5;
+
+    /* neutral color */
+    --neutral-20: #f5f5f5;
+    --neutral-30: #EDEDED;
+    --neutral-40: #E0E0E0;
+    --neutral-50: #C2C2C2;
 }
-
-
 
 /* Button Theme */
 
@@ -31,9 +34,9 @@
     flex: 1 0 0;
 
     border-radius: 0.375rem;
-    border: 1px solid var(--primary-color-main, #0C97FA);
+    border: 1px solid var(--primary-color-main, #0c97fa);
 
-    color: var(--primary-color-main, #0C97FA);
+    color: var(--primary-color-main, #0c97fa);
     text-align: center;
     font-family: var(--font-family);
     font-size: 0.875rem;
@@ -53,7 +56,7 @@
 
     border-radius: 0.375rem;
 
-    color: var(--primary-color-main, #0C97FA);
+    color: var(--primary-color-main, #0c97fa);
     text-align: center;
     font-family: var(--font-family);
     font-size: 0.875rem;
@@ -65,7 +68,7 @@
 }
 
 .btn-icon-text-normal-text:hover {
-    color: var(--primary-color-hover, #1378BF);
+    color: var(--primary-color-hover, #1378bf);
     text-align: center;
     font-family: var(--font-family);
     font-size: 0.875rem;
@@ -76,7 +79,6 @@
     letter-spacing: -0.00525rem;
 }
 
-
 .btn-menu-item {
     display: flex;
     padding: 0.625rem 2rem !important;
@@ -86,7 +88,7 @@
 
     border-radius: 0.375rem;
 
-    color: var(--neutral-60, #9E9E9E);
+    color: var(--neutral-60, #9e9e9e);
     font-family: var(--font-family);
     font-size: 0.875rem;
     font-style: normal;

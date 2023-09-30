@@ -8,7 +8,7 @@
     <div id="builder">
         <livewire:navbar.navbar-builder />
 
-        <div class="row g-0" style="height: 100vh;">
+        <div class="row g-0 wrapper-editor">
             <div class="col-sm-2 side-menu-left">
                 <div id="pages">
                     <div class="accordion" id="accordionExample">
