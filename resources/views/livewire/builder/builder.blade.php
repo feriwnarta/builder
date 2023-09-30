@@ -13,11 +13,28 @@
                 <div id="pages">
                     <div class="accordion" id="accordionExample">
                         <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingTwo">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            <h2 class="accordion-header d-flex flex-row align-item-center justify-content-center"
+                                id="headingTwo">
+                                <button class="accordion-button collapsed d-flex flex-row justify-content-between">
+
                                     Pages
+
+                                    <div class="d-flex flex-row align-items-center">
+                                        <a class="btn d-flex flex-row" style="padding: 0px;">
+                                            <i class="plus-icon"></i>
+                                        </a>
+
+                                        <a class="btn open-collapse d-flex flex-row" data-bs-toggle="collapse"
+                                            data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"
+                                            style="padding: 0px;">
+                                        </a>
+
+
+                                    </div>
                                 </button>
+
+
+
                             </h2>
                             <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
                                 data-bs-parent="#accordionExample">

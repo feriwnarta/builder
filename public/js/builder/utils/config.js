@@ -240,21 +240,6 @@ const changeSectorCarret = () => {
 // kirim event berupa isi page
 const setPageManager = (builder) => {
     const pageManager = builder.Pages;
-
-    const newPage = pageManager.add({
-        id: "new-page-id", // without an explicit ID, a random one will be created
-        name: "page ke 2",
-        styles: `.my-class { color: red }`, // or a JSON of styles
-        component: '<div class="my-class">My element</div>', // or a JSON of components
-    });
-
-    const newPage2 = pageManager.add({
-        id: "page-ke-3", // without an explicit ID, a random one will be created
-        name: "page ke 3",
-        styles: `.my-class2 { color: blue }`, // or a JSON of styles
-        component: '<div class="my-class2">My element 3</div>', // or a JSON of components
-    });
-
     const arrayOfPages = pageManager.getAll();
 
     // cetak item page di sidebar
