@@ -95,12 +95,12 @@ const editor = (id, block) => {
             // jika !== null makan akan menampilkan semua style manager
             block !== null
                 ? {
-                      appendTo: appendStyleManager,
-                  }
+                    appendTo: appendStyleManager,
+                }
                 : {
-                      appendTo: appendStyleManager,
-                      sectors: sectors,
-                  },
+                    appendTo: appendStyleManager,
+                    sectors: sectors,
+                },
     });
 
     // saat builder sudah diload
@@ -112,6 +112,7 @@ const editor = (id, block) => {
         setPageManager(builder); // -> mengirim event data page
         changeSectorCarret();
         initBlock(block, builder);
+        addPage(builder);
     });
 
     builder.on("component:selected", (event) => {
@@ -176,6 +177,23 @@ const editor = (id, block) => {
     });
 };
 export { editor, initLayerManager, toggleSidebarRight };
+
+const addPage = (builder) => {
+    document.addEventListener("add-page", (e) => {
+        let pageManager;
+        if(builder !== null || builder !== undefined) {
+            pageManager = builder.Pages;
+        }
+
+        if (pageManager !== null || pageManager !== undefined) {
+            pageManager.add({});
+
+            // tampilkan list page ke accordion
+            setPageManager(builder);
+
+        }
+    });
+}
 
 /**
  * toggleSidebarRight
@@ -250,9 +268,8 @@ const setItemPage = (arrayOfPages, pageManager) => {
     let html = "";
     arrayOfPages.forEach((page) => {
         html += `
-        <div class="item-page d-flex flex-row align-items-center justify-content-between" id="${
-            page.attributes.id
-        }">
+        <div class="item-page d-flex flex-row align-items-center justify-content-between" id="${page.attributes.id
+            }">
             ${page.attributes.name == "" ? "Page" : page.attributes.name}
             <button class="btn">
                 <i class="dot-vertical"></i>
@@ -261,6 +278,7 @@ const setItemPage = (arrayOfPages, pageManager) => {
     });
 
     // tampilkan isi
+    $('#pagesBody').empty();;
     $("#pagesBody").html(html);
     pageClicked(pageManager);
 };

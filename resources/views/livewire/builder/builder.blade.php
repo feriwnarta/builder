@@ -20,7 +20,8 @@
                                     Pages
 
                                     <div class="d-flex flex-row align-items-center">
-                                        <a class="btn d-flex flex-row" style="padding: 0px;">
+                                        <a class="btn add-pages d-flex flex-row" style="padding: 0px;"
+                                            @click="$dispatch('add-page')">
                                             <i class="plus-icon"></i>
                                         </a>
 
