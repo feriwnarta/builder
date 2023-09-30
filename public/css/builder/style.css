@@ -169,3 +169,21 @@ body {
 .open-collapse[aria-expanded="true"]::after {
     transform: rotate(180deg); /* Terbalik saat terbuka */
 }
+
+
+.btn-dot-page {
+    font-family: var(--font-family);
+    font-size: 12px;
+    padding: 0px;
+}
+
+.btn-dot-page-divider {
+    height: 1px;
+    width: 100%;
+    background-color: var(--neutral-30);
+}
+
+.item-page-content {
+    width: 100%;
+    margin-bottom: 0px;
+}

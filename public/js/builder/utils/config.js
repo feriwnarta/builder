@@ -113,6 +113,8 @@ const editor = (id, block) => {
         changeSectorCarret();
         initBlock(block, builder);
         addPage(builder);
+        initPopOver();
+
     });
 
     builder.on("component:selected", (event) => {
@@ -178,10 +180,88 @@ const editor = (id, block) => {
 };
 export { editor, initLayerManager, toggleSidebarRight };
 
+
+let lastPopOver = null;
+
+const pagePopOverListener = (builder) => {
+
+    $('.btn-dot').on('shown.bs.popover', function () {
+
+        if (lastPopOver == null) {
+            // simpan dulu id popover pertama kali
+            lastPopOver = $(this).attr('aria-describedby');
+        }
+
+        // ambil id popover terbaru
+        const thisPopOver = $(this).attr('aria-describedby');
+
+        // tutup popover jika id yang lama dan baru tidak sama
+        if (thisPopOver !== lastPopOver) {
+            $(`#${lastPopOver}`).removeClass('show');
+        }
+
+        renamePage(builder);
+
+        // simpan popover yang baru terbuka sebagai popover lama
+        lastPopOver = thisPopOver;
+
+    });
+
+}
+
+const dismisPopOver = () => {
+    $('.popover').removeClass('show');
+}
+
+const renamePage = (builder) => {
+    $('.btn-dot-page-rename').click(function (e) {
+
+        // dismis popover
+        dismisPopOver();
+
+
+        const id = $(this).attr('id');
+        const element = $('#pagesBody').find(`#${id}`);
+
+
+        var previousValue = element.text();
+
+        // Mengubah elemen menjadi dapat diedit
+        element.attr('contentEditable', true);
+        element.focus();
+
+        // Menangani tombol Enter
+        element.on('keydown', function (event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                element.blur(); // Menghilangkan fokus untuk menyebabkan blur event
+            }
+        });
+
+        // Menangani saat elemen kehilangan fokus
+        element.on('blur', function () {
+            var newName = element.text();
+
+            // Mengembalikan elemen menjadi tidak dapat diedit
+            element.attr('contentEditable', false);
+
+            // ubah nama page
+            const page = builder.Pages.get(id);
+            page.setName(newName);
+        });
+
+    });
+}
+
+const initPopOver = () => {
+    const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+    const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+}
+
 const addPage = (builder) => {
     document.addEventListener("add-page", (e) => {
         let pageManager;
-        if(builder !== null || builder !== undefined) {
+        if (builder !== null || builder !== undefined) {
             pageManager = builder.Pages;
         }
 
@@ -261,25 +341,40 @@ const setPageManager = (builder) => {
     const arrayOfPages = pageManager.getAll();
 
     // cetak item page di sidebar
-    setItemPage(arrayOfPages, pageManager);
+    setItemPage(arrayOfPages, pageManager, builder);
 };
 
-const setItemPage = (arrayOfPages, pageManager) => {
+const setItemPage = (arrayOfPages, pageManager, builder) => {
     let html = "";
     arrayOfPages.forEach((page) => {
         html += `
         <div class="item-page d-flex flex-row align-items-center justify-content-between" id="${page.attributes.id
             }">
-            ${page.attributes.name == "" ? "Page" : page.attributes.name}
-            <button class="btn">
-                <i class="dot-vertical"></i>
+            <p class="item-page-content">
+                ${page.attributes.name == "" ? "Page" : page.attributes.name}
+            </p>
+            
+            <button class="btn btn-dot" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right" data-bs-content='
+            <div class="d-flex flex-column align-items-start">
+                
+                <a class="btn btn-dot-page-rename" id="${page.attributes.id}">Rename</a>
+                <div class="btn-dot-page-divider"></div>
+                <a  class="btn btn-dot-page-duplicate" id="${page.attributes.id}">Duplicate</a>
+                <div class="btn-dot-page-divider"></div>
+                <a  class="btn btn-dot-page-delete" id="${page.attributes.id}">Delete</a>
+                
+            </div>'
+            data-bs-html="true">
+            <i class="dot-vertical"></i>
             </button>
+          
         </div>`;
     });
 
     // tampilkan isi
     $('#pagesBody').empty();;
     $("#pagesBody").html(html);
+    pagePopOverListener(builder);
     pageClicked(pageManager);
 };
 
