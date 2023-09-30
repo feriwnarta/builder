@@ -201,55 +201,113 @@ const pagePopOverListener = (builder) => {
         }
 
         renamePage(builder);
+        deletePage(builder);
+        duplicatePage(builder);
 
         // simpan popover yang baru terbuka sebagai popover lama
         lastPopOver = thisPopOver;
-
     });
 
 }
 
-const dismisPopOver = () => {
-    $('.popover').removeClass('show');
+const duplicatePage = (builder) => {
+    $('.btn-dot-page-duplicate').click(function (e) {
+
+        if (builder !== null || builder !== undefined) {
+
+            // dismis popover
+            dismisPopOver();
+
+            const id = $(this).attr('id');
+
+            // cari page 
+            const targetPage = builder.Pages.get(id);
+
+            const component = targetPage.getMainComponent().toHTML();
+
+
+            // tambahkan page bari
+            const page = builder.Pages.add({
+                name: targetPage.attributes.name + '-(copy)',
+                component: component,
+            });
+
+            // tampilkan page baru
+            setPageManager(builder)
+
+            //ambil element berdasarkan id baru
+            const newPage = $('#pagesBody').find(`#${page.id}`);
+
+            // buat page baru menjadi editable dan focus
+            setNewName(builder, page.id, newPage);
+
+        }
+    });
 }
 
+
+const deletePage = (builder) => {
+    $('.btn-dot-page-delete').click(function (e) {
+
+
+        if (builder !== null || builder !== undefined) {
+            // dismis popover
+            dismisPopOver();
+
+
+            const id = $(this).attr('id');
+
+            builder.Pages.remove(id);
+
+            setPageManager(builder);
+
+
+        }
+
+    })
+}
+
+/**
+ * rename page
+ */
 const renamePage = (builder) => {
     $('.btn-dot-page-rename').click(function (e) {
 
         // dismis popover
         dismisPopOver();
 
-
         const id = $(this).attr('id');
         const element = $('#pagesBody').find(`#${id}`);
 
+        // set nama baru untuk page
+        setNewName(builder, id, element);
 
-        var previousValue = element.text();
+    });
+}
 
-        // Mengubah elemen menjadi dapat diedit
-        element.attr('contentEditable', true);
-        element.focus();
+const setNewName = (builder, id, element) => {
+    // Mengubah elemen menjadi dapat diedit
+    element.attr('contentEditable', true);
+    element.focus();
 
-        // Menangani tombol Enter
-        element.on('keydown', function (event) {
-            if (event.key === 'Enter') {
-                event.preventDefault();
-                element.blur(); // Menghilangkan fokus untuk menyebabkan blur event
-            }
-        });
+    // Menangani tombol Enter
+    element.on('keydown', function (event) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            element.blur(); // Menghilangkan fokus untuk menyebabkan blur event
+        }
+    });
 
-        // Menangani saat elemen kehilangan fokus
-        element.on('blur', function () {
-            var newName = element.text();
+    // Menangani saat elemen kehilangan fokus
+    element.on('blur', function () {
+        var newName = element.text();
 
-            // Mengembalikan elemen menjadi tidak dapat diedit
-            element.attr('contentEditable', false);
+        // Mengembalikan elemen menjadi tidak dapat diedit
+        element.attr('contentEditable', false);
 
-            // ubah nama page
-            const page = builder.Pages.get(id);
-            page.setName(newName);
-        });
-
+        // ubah nama page
+        const page = builder.Pages.get(id);
+        page.setName(newName);
     });
 }
 
@@ -257,6 +315,18 @@ const initPopOver = () => {
     const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
     const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
 }
+
+
+const dismisPopOver = () => {
+    // Menutup popover yang terbuka
+    const popovers = document.querySelectorAll('.popover.show');
+    popovers.forEach(function (popover) {
+        popover.classList.remove('show');
+        // Hapus elemen dari DOM jika diperlukan
+        popover.remove();
+    });
+}
+
 
 const addPage = (builder) => {
     document.addEventListener("add-page", (e) => {
@@ -342,6 +412,7 @@ const setPageManager = (builder) => {
 
     // cetak item page di sidebar
     setItemPage(arrayOfPages, pageManager, builder);
+    initPopOver();
 };
 
 const setItemPage = (arrayOfPages, pageManager, builder) => {
@@ -353,13 +424,13 @@ const setItemPage = (arrayOfPages, pageManager, builder) => {
             <p class="item-page-content">
                 ${page.attributes.name == "" ? "Page" : page.attributes.name}
             </p>
-            
+
             <button class="btn btn-dot" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right" data-bs-content='
             <div class="d-flex flex-column align-items-start">
                 
                 <a class="btn btn-dot-page-rename" id="${page.attributes.id}">Rename</a>
                 <div class="btn-dot-page-divider"></div>
-                <a  class="btn btn-dot-page-duplicate" id="${page.attributes.id}">Duplicate</a>
+                <a class="btn btn-dot-page-duplicate" id="${page.attributes.id}">Duplicate</a>
                 <div class="btn-dot-page-divider"></div>
                 <a  class="btn btn-dot-page-delete" id="${page.attributes.id}">Delete</a>
                 
