@@ -5,8 +5,8 @@ const deviceManager = [
     {
         id: "desktop",
         name: "Desktop",
-        width: "1920px",
-        withMedia: "768px",
+        width: "1440px",
+        widthMedia: "1440px",
     },
     {
         id: "tablet",

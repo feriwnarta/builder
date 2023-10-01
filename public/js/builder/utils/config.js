@@ -183,39 +183,34 @@ export { editor, initLayerManager, toggleSidebarRight };
 
 const setDesktopDeviceManager = () => {
     let userDeviceWidth = window.innerWidth;
-
     const desktopSize = getDeviceManagerDesktopSize();
 
-    if (userDeviceWidth == null || userDeviceWidth == undefined && desktopSize == null || desktopSize == undefined) {
+    if (userDeviceWidth == null || desktopSize == null) {
         return;
     }
 
     if (userDeviceWidth < desktopSize) {
-        // ubah ukuran frame gjs menjadi seukuran desktop
-        $('.gjs-frame').css({
+        // Mengatur lebar frame sesuai dengan ukuran desktop
+        $('.gjs-cv-canvas').css({
             'width': `${desktopSize}px`,
-            'height': '100%'
+            'height': `${(desktopSize / 16) * 9}px`,
+
         });
 
-
-        // dapatkan lebar sidebar kiri & kanan
+        // Mendapatkan lebar sidebar kiri & kanan
         const sideMenuLeft = $('.side-menu-left').outerWidth(true);
         const sideMenuRight = $('.side-menu-right').outerWidth(true);
 
-        // set transform scale
+        // Menghitung skala berdasarkan lebar viewport
         userDeviceWidth = userDeviceWidth - sideMenuLeft - sideMenuRight;
-
-        // hitung scale
         const scale = userDeviceWidth / desktopSize;
 
-
-        $('.gjs-cv-canvas__frames').css({
+        // Mengatur skala dan transform-origin
+        $('.gjs-cv-canvas').css({
             'transform': `scale(${scale})`,
-            'transform-origin': 'top left'
+            'transform-origin': 'left top'
         });
     }
-
-
 }
 
 
@@ -567,13 +562,14 @@ function listenerChangeDevice(deviceManager) {
 
             if (device == 'tablet' || device == 'mobile' && isSmallUserDevice) {
 
-                $('.gjs-frame').css({
+                $('.gjs-cv-canvas').css({
                     'width': ``,
                 });
 
-                $('.gjs-cv-canvas__frames').css({
-                    'transform': 'none',
-                    'transform-origin': 'inital'
+                // Mengatur skala dan transform-origin
+                $('.gjs-cv-canvas').css({
+                    'transform': `none`,
+                    'transform-origin': 'initial'
                 });
             }
 
