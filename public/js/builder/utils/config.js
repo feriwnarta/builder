@@ -107,6 +107,7 @@ const editor = (id, block) => {
     builder.on("load", function () {
         initUndoManager(builder.UndoManager); // -> init undo manager
         listenerChangeDevice(builder.Devices); // -> ganti responsive device
+        setDesktopDeviceManager();
         listenerUndo(builder.UndoManager); // -> menangani undo
         listenerRedo(builder.UndoManager); // -> menangani redo
         setPageManager(builder); // -> mengirim event data page
@@ -114,7 +115,6 @@ const editor = (id, block) => {
         initBlock(block, builder);
         addPage(builder);
         initPopOver();
-
     });
 
     builder.on("component:selected", (event) => {
@@ -179,6 +179,54 @@ const editor = (id, block) => {
     });
 };
 export { editor, initLayerManager, toggleSidebarRight };
+
+
+const setDesktopDeviceManager = () => {
+    let userDeviceWidth = window.innerWidth;
+
+    const desktopSize = getDeviceManagerDesktopSize();
+
+    if (userDeviceWidth == null || userDeviceWidth == undefined && desktopSize == null || desktopSize == undefined) {
+        return;
+    }
+
+    if (userDeviceWidth < desktopSize) {
+        // ubah ukuran frame gjs menjadi seukuran desktop
+        $('.gjs-frame').css({
+            'width': `${desktopSize}px`,
+            'height': '100%'
+        });
+
+
+        // dapatkan lebar sidebar kiri & kanan
+        const sideMenuLeft = $('.side-menu-left').outerWidth(true);
+        const sideMenuRight = $('.side-menu-right').outerWidth(true);
+
+        // set transform scale
+        userDeviceWidth = userDeviceWidth - sideMenuLeft - sideMenuRight;
+
+        // hitung scale
+        const scale = userDeviceWidth / desktopSize;
+
+
+        $('.gjs-cv-canvas__frames').css({
+            'transform': `scale(${scale})`,
+            'transform-origin': 'top left'
+        });
+    }
+
+
+}
+
+
+const getDeviceManagerDesktopSize = () => {
+    let desktopSize = deviceManager.find(function (obj) {
+        return obj.name == 'Desktop';
+    });
+
+    desktopSize = parseInt(desktopSize.width.replace('px', ''));
+    return desktopSize;
+}
 
 
 let lastPopOver = null;
@@ -503,7 +551,41 @@ function listenerChangeDevice(deviceManager) {
         if (event !== null && event !== undefined) {
             const device = event.detail.device;
 
+            const userDeviceWidth = window.innerWidth;
+            const desktopSizeDeviceManager = getDeviceManagerDesktopSize();
+
+
+            if (userDeviceWidth == null || desktopSizeDeviceManager == null && userDeviceWidth == null || userDeviceWidth == undefined) {
+                deviceManager.select(device);
+                return;
+            }
+
+            let isSmallUserDevice = false;
+            if (userDeviceWidth < desktopSizeDeviceManager) {
+                isSmallUserDevice = true;
+            }
+
+            if (device == 'tablet' || device == 'mobile' && isSmallUserDevice) {
+
+                $('.gjs-frame').css({
+                    'width': ``,
+                });
+
+                $('.gjs-cv-canvas__frames').css({
+                    'transform': 'none',
+                    'transform-origin': 'inital'
+                });
+            }
+
+            if (device == 'desktop' && isSmallUserDevice) {
+
+                // set dekstop
+                setDesktopDeviceManager();
+            }
+
             deviceManager.select(device);
+            return;
+
         }
     });
 }
