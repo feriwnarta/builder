@@ -105,6 +105,7 @@ const editor = (id, block) => {
 
     // saat builder sudah diload
     builder.on("load", function () {
+        builder.runCommand("core:component-offset");
         initUndoManager(builder.UndoManager); // -> init undo manager
         listenerChangeDevice(builder.Devices); // -> ganti responsive device
         setDesktopDeviceManager();
@@ -115,6 +116,8 @@ const editor = (id, block) => {
         initBlock(block, builder);
         addPage(builder);
         initPopOver();
+
+       
     });
 
     builder.on("component:selected", (event) => {
@@ -189,7 +192,6 @@ const setDesktopDeviceManager = () => {
     }
 
     if (userDeviceWidth < desktopSize) {
-        
         // Mengatur lebar frame sesuai dengan ukuran desktop
         $(".gjs-cv-canvas").css({
             width: `${desktopSize}px`,

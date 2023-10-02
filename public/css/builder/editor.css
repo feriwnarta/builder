@@ -198,6 +198,15 @@
     /* 111.111% */
 }
 
+.gjs-clm-tag {
+    background: var(--neutral-20, #f5f5f5);
+}
+
+
+#gjs-clm-checkbox svg{
+    fill: black;
+}
+
 @media screen and (min-width: 1024px) and (max-width: 1366px) {
     .gjs-radio-item-label {
         font-size: 10px;
