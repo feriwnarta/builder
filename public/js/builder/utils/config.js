@@ -14,8 +14,8 @@ import {
     appendStyleManager,
 } from "./utils.js";
 
-const projectEndpoint = `http://127.0.0.1:8000/template/`;
-const projectSaveEndpoint = `http://127.0.0.1:8000/template`;
+const projectEndpoint = `http://192.168.3.126:8000/template/`;
+const projectSaveEndpoint = `http://192.168.3.126:8000/template`;
 
 /**
  * inisialisasi editor grapes js
@@ -95,12 +95,12 @@ const editor = (id, block) => {
             // jika !== null makan akan menampilkan semua style manager
             block !== null
                 ? {
-                    appendTo: appendStyleManager,
-                }
+                      appendTo: appendStyleManager,
+                  }
                 : {
-                    appendTo: appendStyleManager,
-                    sectors: sectors,
-                },
+                      appendTo: appendStyleManager,
+                      sectors: sectors,
+                  },
     });
 
     // saat builder sudah diload
@@ -180,7 +180,6 @@ const editor = (id, block) => {
 };
 export { editor, initLayerManager, toggleSidebarRight };
 
-
 const setDesktopDeviceManager = () => {
     let userDeviceWidth = window.innerWidth;
     const desktopSize = getDeviceManagerDesktopSize();
@@ -190,57 +189,53 @@ const setDesktopDeviceManager = () => {
     }
 
     if (userDeviceWidth < desktopSize) {
+        
         // Mengatur lebar frame sesuai dengan ukuran desktop
-        $('.gjs-cv-canvas').css({
-            'width': `${desktopSize}px`,
-            'height': `${(desktopSize / 16) * 9}px`,
-
+        $(".gjs-cv-canvas").css({
+            width: `${desktopSize}px`,
+            height: `${(desktopSize / 16) * 9}px`,
         });
 
         // Mendapatkan lebar sidebar kiri & kanan
-        const sideMenuLeft = $('.side-menu-left').outerWidth(true);
-        const sideMenuRight = $('.side-menu-right').outerWidth(true);
+        const sideMenuLeft = $(".side-menu-left").outerWidth(true);
+        const sideMenuRight = $(".side-menu-right").outerWidth(true);
 
         // Menghitung skala berdasarkan lebar viewport
         userDeviceWidth = userDeviceWidth - sideMenuLeft - sideMenuRight;
         const scale = userDeviceWidth / desktopSize;
 
         // Mengatur skala dan transform-origin
-        $('.gjs-cv-canvas').css({
-            'transform': `scale(${scale})`,
-            'transform-origin': 'left top'
+        $(".gjs-cv-canvas").css({
+            transform: `scale(${scale})`,
+            "transform-origin": "left top",
         });
     }
-}
-
+};
 
 const getDeviceManagerDesktopSize = () => {
     let desktopSize = deviceManager.find(function (obj) {
-        return obj.name == 'Desktop';
+        return obj.name == "Desktop";
     });
 
-    desktopSize = parseInt(desktopSize.width.replace('px', ''));
+    desktopSize = parseInt(desktopSize.width.replace("px", ""));
     return desktopSize;
-}
-
+};
 
 let lastPopOver = null;
 
 const pagePopOverListener = (builder) => {
-
-    $('.btn-dot').on('shown.bs.popover', function () {
-
+    $(".btn-dot").on("shown.bs.popover", function () {
         if (lastPopOver == null) {
             // simpan dulu id popover pertama kali
-            lastPopOver = $(this).attr('aria-describedby');
+            lastPopOver = $(this).attr("aria-describedby");
         }
 
         // ambil id popover terbaru
-        const thisPopOver = $(this).attr('aria-describedby');
+        const thisPopOver = $(this).attr("aria-describedby");
 
         // tutup popover jika id yang lama dan baru tidak sama
         if (thisPopOver !== lastPopOver) {
-            $(`#${lastPopOver}`).removeClass('show');
+            $(`#${lastPopOver}`).removeClass("show");
         }
 
         renamePage(builder);
@@ -250,126 +245,114 @@ const pagePopOverListener = (builder) => {
         // simpan popover yang baru terbuka sebagai popover lama
         lastPopOver = thisPopOver;
     });
-
-}
+};
 
 const duplicatePage = (builder) => {
-    $('.btn-dot-page-duplicate').click(function (e) {
-
+    $(".btn-dot-page-duplicate").click(function (e) {
         if (builder !== null || builder !== undefined) {
-
             // dismis popover
             dismisPopOver();
 
-            const id = $(this).attr('id');
+            const id = $(this).attr("id");
 
-            // cari page 
+            // cari page
             const targetPage = builder.Pages.get(id);
 
             const component = targetPage.getMainComponent().toHTML();
 
-
             // tambahkan page bari
             const page = builder.Pages.add({
-                name: targetPage.attributes.name + '-(copy)',
+                name: targetPage.attributes.name + "-(copy)",
                 component: component,
             });
 
             // tampilkan page baru
-            setPageManager(builder)
+            setPageManager(builder);
 
             //ambil element berdasarkan id baru
-            const newPage = $('#pagesBody').find(`#${page.id}`);
+            const newPage = $("#pagesBody").find(`#${page.id}`);
 
             // buat page baru menjadi editable dan focus
             setNewName(builder, page.id, newPage);
-
         }
     });
-}
-
+};
 
 const deletePage = (builder) => {
-    $('.btn-dot-page-delete').click(function (e) {
-
-
+    $(".btn-dot-page-delete").click(function (e) {
         if (builder !== null || builder !== undefined) {
             // dismis popover
             dismisPopOver();
 
-
-            const id = $(this).attr('id');
+            const id = $(this).attr("id");
 
             builder.Pages.remove(id);
 
             setPageManager(builder);
-
-
         }
-
-    })
-}
+    });
+};
 
 /**
  * rename page
  */
 const renamePage = (builder) => {
-    $('.btn-dot-page-rename').click(function (e) {
-
+    $(".btn-dot-page-rename").click(function (e) {
         // dismis popover
         dismisPopOver();
 
-        const id = $(this).attr('id');
-        const element = $('#pagesBody').find(`#${id}`);
+        const id = $(this).attr("id");
+        const element = $("#pagesBody").find(`#${id}`);
 
         // set nama baru untuk page
         setNewName(builder, id, element);
-
     });
-}
+};
 
 const setNewName = (builder, id, element) => {
     // Mengubah elemen menjadi dapat diedit
-    element.attr('contentEditable', true);
+    element.attr("contentEditable", true);
     element.focus();
 
     // Menangani tombol Enter
-    element.on('keydown', function (event) {
-        if (event.key === 'Enter') {
+    element.on("keydown", function (event) {
+        if (event.key === "Enter") {
             event.preventDefault();
             element.blur(); // Menghilangkan fokus untuk menyebabkan blur event
         }
     });
 
     // Menangani saat elemen kehilangan fokus
-    element.on('blur', function () {
+    element.on("blur", function () {
         var newName = element.text();
 
         // Mengembalikan elemen menjadi tidak dapat diedit
-        element.attr('contentEditable', false);
+        element.attr("contentEditable", false);
 
         // ubah nama page
         const page = builder.Pages.get(id);
         page.setName(newName);
     });
-}
+};
 
 const initPopOver = () => {
-    const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
-    const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
-}
-
+    const popoverTriggerList = document.querySelectorAll(
+        '[data-bs-toggle="popover"]'
+    );
+    const popoverList = [...popoverTriggerList].map(
+        (popoverTriggerEl) => new bootstrap.Popover(popoverTriggerEl)
+    );
+};
 
 const dismisPopOver = () => {
     // Menutup popover yang terbuka
-    const popovers = document.querySelectorAll('.popover.show');
+    const popovers = document.querySelectorAll(".popover.show");
     popovers.forEach(function (popover) {
-        popover.classList.remove('show');
+        popover.classList.remove("show");
         // Hapus elemen dari DOM jika diperlukan
         popover.remove();
     });
-}
-
+};
 
 const addPage = (builder) => {
     document.addEventListener("add-page", (e) => {
@@ -383,10 +366,9 @@ const addPage = (builder) => {
 
             // tampilkan list page ke accordion
             setPageManager(builder);
-
         }
     });
-}
+};
 
 /**
  * toggleSidebarRight
@@ -462,8 +444,9 @@ const setItemPage = (arrayOfPages, pageManager, builder) => {
     let html = "";
     arrayOfPages.forEach((page) => {
         html += `
-        <div class="item-page d-flex flex-row align-items-center justify-content-between" id="${page.attributes.id
-            }">
+        <div class="item-page d-flex flex-row align-items-center justify-content-between" id="${
+            page.attributes.id
+        }">
             <p class="item-page-content">
                 ${page.attributes.name == "" ? "Page" : page.attributes.name}
             </p>
@@ -471,11 +454,17 @@ const setItemPage = (arrayOfPages, pageManager, builder) => {
             <button class="btn btn-dot" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right" data-bs-content='
             <div class="d-flex flex-column align-items-start">
                 
-                <a class="btn btn-dot-page-rename" id="${page.attributes.id}">Rename</a>
+                <a class="btn btn-dot-page-rename" id="${
+                    page.attributes.id
+                }">Rename</a>
                 <div class="btn-dot-page-divider"></div>
-                <a class="btn btn-dot-page-duplicate" id="${page.attributes.id}">Duplicate</a>
+                <a class="btn btn-dot-page-duplicate" id="${
+                    page.attributes.id
+                }">Duplicate</a>
                 <div class="btn-dot-page-divider"></div>
-                <a  class="btn btn-dot-page-delete" id="${page.attributes.id}">Delete</a>
+                <a  class="btn btn-dot-page-delete" id="${
+                    page.attributes.id
+                }">Delete</a>
                 
             </div>'
             data-bs-html="true">
@@ -486,7 +475,7 @@ const setItemPage = (arrayOfPages, pageManager, builder) => {
     });
 
     // tampilkan isi
-    $('#pagesBody').empty();;
+    $("#pagesBody").empty();
     $("#pagesBody").html(html);
     pagePopOverListener(builder);
     pageClicked(pageManager);
@@ -549,8 +538,11 @@ function listenerChangeDevice(deviceManager) {
             const userDeviceWidth = window.innerWidth;
             const desktopSizeDeviceManager = getDeviceManagerDesktopSize();
 
-
-            if (userDeviceWidth == null || desktopSizeDeviceManager == null && userDeviceWidth == null || userDeviceWidth == undefined) {
+            if (
+                userDeviceWidth == null ||
+                (desktopSizeDeviceManager == null && userDeviceWidth == null) ||
+                userDeviceWidth == undefined
+            ) {
                 deviceManager.select(device);
                 return;
             }
@@ -560,28 +552,28 @@ function listenerChangeDevice(deviceManager) {
                 isSmallUserDevice = true;
             }
 
-            if (device == 'tablet' || device == 'mobile' && isSmallUserDevice) {
-
-                $('.gjs-cv-canvas').css({
-                    'width': ``,
+            if (
+                device == "tablet" ||
+                (device == "mobile" && isSmallUserDevice)
+            ) {
+                $(".gjs-cv-canvas").css({
+                    width: ``,
                 });
 
                 // Mengatur skala dan transform-origin
-                $('.gjs-cv-canvas').css({
-                    'transform': `none`,
-                    'transform-origin': 'initial'
+                $(".gjs-cv-canvas").css({
+                    transform: `none`,
+                    "transform-origin": "initial",
                 });
             }
 
-            if (device == 'desktop' && isSmallUserDevice) {
-
+            if (device == "desktop" && isSmallUserDevice) {
                 // set dekstop
                 setDesktopDeviceManager();
             }
 
             deviceManager.select(device);
             return;
-
         }
     });
 }

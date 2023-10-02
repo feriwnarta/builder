@@ -5,13 +5,16 @@
  * Import terlebih dahulu config js
  * detail inisialisasi editor berada difile config js
  */
-import { editor, initLayerManager, toggleSidebarRight } from "./utils/config.js";
+import {
+    editor,
+    initLayerManager,
+    toggleSidebarRight,
+} from "./utils/config.js";
 // editor();
 
 const listenerBuilder = () => {
     document.addEventListener("init-builder", (event) => {
         $(document).ready(function () {
-
             console.log(event.detail);
 
             //! perbaiki ini untuk menampilkan pesan error ke user
@@ -33,7 +36,6 @@ const listenerBuilder = () => {
         });
 
         // jika user sebagai kreator
-
     });
 };
 
