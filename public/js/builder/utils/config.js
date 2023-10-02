@@ -47,6 +47,9 @@ const editor = (id, block) => {
 
             devices: deviceManager,
         },
+        showOffsets: true,
+        showOffsetsSelected: true,
+        noticeOnUnload: true,
         canvas: {
             styles: [styleBootstrap],
             scripts: [jsBootstrap, jsPopperBootstrap],
@@ -105,7 +108,6 @@ const editor = (id, block) => {
 
     // saat builder sudah diload
     builder.on("load", function () {
-        builder.runCommand("core:component-offset");
         initUndoManager(builder.UndoManager); // -> init undo manager
         listenerChangeDevice(builder.Devices); // -> ganti responsive device
         setDesktopDeviceManager();
@@ -116,13 +118,10 @@ const editor = (id, block) => {
         initBlock(block, builder);
         addPage(builder);
         initPopOver();
-
-       
     });
 
     builder.on("component:selected", (event) => {
         const component = builder.getSelected(); // Component
-        console.log(component);
 
         const pageManager = builder.Pages;
         const arrayOfPages = pageManager.getAll();
