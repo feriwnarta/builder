@@ -14,8 +14,8 @@ import {
     appendStyleManager,
 } from "./utils.js";
 
-const projectEndpoint = `http://192.168.3.126:8000/template/`;
-const projectSaveEndpoint = `http://192.168.3.126:8000/template`;
+const projectEndpoint = `http://127.0.0.1:8000/template/`;
+const projectSaveEndpoint = `http://127.0.0.1:8000/template`;
 
 /**
  * inisialisasi editor grapes js
