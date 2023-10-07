@@ -1,0 +1,120 @@
+#profileSetting {
+    margin: 100px 0px;
+}
+
+.container-edit-profile {
+    background: rgba(234, 246, 254, 0.5);
+    padding-top: 40px;
+    padding-bottom: 40px;
+    border-radius: 16px;
+}
+
+.greeting {
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 32px;
+    /* identical to box height, or 160% */
+
+
+    /* Neutral/100 */
+
+    color: #0A0A0A;
+}
+
+.img-profile-setting {
+    margin-top: 24px;
+}
+
+.profile-setting-name {
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    /* identical to box height, or 143% */
+
+
+    /* Neutral/90 */
+
+    color: #404040;
+
+    margin-top: 16px;
+    margin-bottom: 40px;
+}
+
+#formEditProfileSetting {
+    margin-top: 40px;
+}
+
+label {
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    /* identical to box height, or 143% */
+
+
+    /* Neutral/80 */
+
+    color: #616161;
+    margin-bottom: 4px;
+}
+
+#formEditProfileSetting div:not(:first-child) {
+    margin-top: 20px;
+}
+
+#formEditProfileSetting input::placeholder {
+    color: #0C97FA;
+}
+
+
+#formEditProfileSetting input:disabled {
+    background-color: #f1f1f1 !important;
+}
+
+input {
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    /* identical to box height, or 143% */
+
+
+    /* Primary color/main */
+
+    color: #0C97FA !important;
+    background: rgba(12, 151, 250, 0.2) !important;
+    border-radius: 6px;
+    border: none !important;
+}
+
+#btnUpdateProfileSetting {
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    color: #FFFFFF;
+
+    background: #0C97FA;
+    /* Shadow 1 */
+
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.12);
+    border-radius: 6px;
+    padding: 8px 16px;
+    border: none;
+
+    margin-top: 52px;
+}
+
+
+@media only screen and (max-width: 600px) {
+    #profileSetting {
+        margin: 0px 0px !important;
+    }
+}

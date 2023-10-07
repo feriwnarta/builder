@@ -6,6 +6,10 @@ use App\Livewire\Admin\AddComponent\AddComponent;
 use App\Livewire\Admin\Admin;
 use App\Livewire\Admin\ComponentCategory\AddComponentCategory;
 use App\Livewire\Builder\Builder;
+use App\Livewire\Dashboard\Dashboard;
+use App\Livewire\LandingPage\Authentication\Login;
+use App\Livewire\LandingPage\Authentication\Register;
+use App\Livewire\LandingPage\LandingPage;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,8 +23,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', Builder::class);
+// Route::get('/', Builder::class);
+Route::get('/', LandingPage::class);
+Route::get('/sign-in', Login::class);
+Route::get('/sign-up', Register::class);
 
+
+Route::get('/dashboard', Dashboard::class);
 
 
 Route::controller(AdminController::class)->group(function() {

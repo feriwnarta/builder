@@ -1,0 +1,173 @@
+.img-login {
+    background-image: url('../../image/image-login.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    max-width: 100%;
+    height: 92vh;
+
+}
+
+.auth-wrapper {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%)
+}
+
+.wrapper-auth-form {
+    height: 92vh;
+}
+
+.title-login {
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 36px;
+}
+
+.subtitle-login {
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    /* identical to box height, or 150% */
+
+
+    /* Neutral/60 */
+
+    color: #9E9E9E;
+    margin-top: 16px;
+}
+
+#loginForm {
+    margin-top: 32px;
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+
+
+#btnSignIn {
+    color: white;
+    margin-top: 32px;
+    background: #0C97FA;
+    border: none;
+    /* Shadow 1 */
+
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.12);
+    border-radius: 6px;
+    padding: 8px 16px;
+}
+
+input {
+    background: rgba(12, 151, 250, 0.2) !important;
+    border: none !important;
+    margin-bottom: 16px;
+}
+
+
+#loginForm input::placeholder {
+    color: #0C97FA;
+}
+
+.dont-have-account {
+    color: #9E9E9E;
+    margin-top: 32px;
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.sign-up {
+    color: #0C97FA;
+}
+
+.google-icon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-right: 0.5em;
+    background-image: url('../../image/google.png');
+    vertical-align: middle;
+
+}
+
+
+#googleLogin {
+    border: 1px solid #E0E0E0;
+    /* Shadow 1 */
+
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.12);
+    border-radius: 6px;
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+
+    padding: 6px 16px;
+    gap: 4px;
+
+    background-color: white;
+}
+
+
+
+@media only screen and (max-width: 600px) {
+    .auth-wrapper {
+        margin-top: 24px;
+        top: 0;
+        transform: none;
+    }
+
+
+    .img-login {
+        background-image: url('../image/image-login-mobile.png');
+        background-repeat: no-repeat;
+        background-size: contain;
+
+        width: auto;
+        height: 280px;
+        margin-bottom: 16px;
+        /* height: 400px;
+        width: auto;
+        background-size: contain;
+
+        
+        margin-bottom: 16px;
+        border-bottom-left-radius: 24px;
+        border-bottom-right-radius: 24px; */
+    }
+
+    .wrapper-auth-form {
+        height: 100%;
+    }
+
+    .microkit {
+        margin-bottom: 34px;
+    }
+
+    .title-login {
+        margin-bottom: 16px;
+    }
+
+    .dont-have-account {
+        margin-bottom: 32px;
+    }
+
+
+
+}

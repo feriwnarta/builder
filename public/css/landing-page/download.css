@@ -1,0 +1,40 @@
+#download {
+    margin: 100px 0px;
+}
+
+.text-oops {
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 40px;
+    /* identical to box height, or 143% */
+
+    text-align: center;
+
+    color: #000000;
+
+    margin-top: 32px;
+}
+
+.text-oops-detail {
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    /* or 150% */
+
+    text-align: center;
+
+    /* Neutral/70 */
+
+    color: #757575;
+    margin-bottom: 56;
+}
+
+@media only screen and (max-width: 600px) {
+    #download {
+        margin: 24px 0px !important;
+    }
+}

@@ -1,0 +1,580 @@
+/* My Fonts */
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Syne:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;500&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
+
+.img-profile {
+    width: 32px;
+    height: 32px;
+    margin-left: 8px;
+}
+
+.name-profile {
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    color: #0A0A0A;
+}
+
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='rgba(0, 0, 0, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+.button-primary {
+    background-color: #0c97fa;
+    border: none;
+    width: 93px;
+    height: 38px;
+    border-radius: 6px;
+    padding: 6px 6px 6px 6px;
+    font-family: "DM Sans", sans-serif;
+    font-size: 14px;
+}
+
+.button-secondary {
+    background-color: transparent;
+    border: 1px solid #0c97fa;
+    width: 93px;
+    height: 38px;
+    border-radius: 6px;
+    padding: 6px 6px 6px 6px;
+    color: #0c97fa;
+    font-family: "DM Sans", sans-serif;
+    font-size: 14px;
+}
+
+/* Hero Section */
+#hero-section {
+    margin-top: 100px;
+
+}
+
+/* popover */
+.popover {
+    background: #0C97FA;
+    border-radius: 6px;
+    padding: 16px;
+}
+
+.popover-body {
+    padding: 0px
+}
+
+.popover div:not(:last-child) {
+    margin-bottom: 16px;
+}
+
+.popover a {
+    color: white !important;
+    text-decoration: none;
+
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.popover .popover-arrow::before,
+.popover .popover-arrow::after {
+    border-color: #0C97FA transparent !important;
+}
+
+
+.container-text {
+    width: 798px;
+    height: 336px;
+    top: 180px;
+    left: 219px;
+}
+
+.container-sub-text {
+    width: 798px;
+    height: 56px;
+    margin-top: 16px;
+}
+
+.hero-title {
+    font-family: "Syne", sans-serif;
+    font-size: 64px;
+    line-height: 84px;
+}
+
+.sub-title-hero {
+    font-family: "DM Sans", sans-serif;
+    font-size: 16px;
+    color: #757575;
+    font-weight: 200;
+}
+
+.container-button-hero {
+    margin-top: 64px;
+}
+
+.button-hero {
+    width: 210px;
+    height: 40px;
+    border-radius: 6px;
+    padding: 8px, 16px, 8px, 16px;
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    background-color: #0c97fa;
+    border: none;
+    color: white;
+}
+
+/* End Of Hero Section */
+
+/* Image Section */
+#img-section {
+    margin-top: 100px;
+}
+
+.container-img-section {
+    background-color: #eaf6fe;
+    padding: 90px 0px;
+}
+
+.img-section img {
+    width: 1074px;
+    height: 600px;
+}
+
+/* End Of Image Section */
+
+/* MVP Section */
+.mvp-section {
+    margin-top: 100px;
+}
+
+.title-section {
+    font-family: "Syne", sans-serif;
+    font-size: 40px;
+    line-height: 52px;
+    text-align: center;
+}
+
+.subtitle-section {
+    margin-top: 52px;
+}
+
+.title-mvp {
+    font-family: "Syne", sans-serif;
+    font-size: 28px;
+    line-height: 40px;
+    margin-bottom: 16px;
+}
+
+.text-mvp {
+    font-family: "DM Sans", sans-serif;
+    font-size: 16px;
+    color: #757575;
+    line-height: 24px;
+}
+
+/* End Of MVP Section */
+
+
+/* Section Features That Will 
+Elevate Your Business */
+.title-feature {
+    font-family: 'Syne';
+    font-size: 28px;
+    line-height: 40px;
+    color: #0A0A0A;
+}
+
+.subtitle-feature {
+    font-family: 'DM Sans';
+    font-size: 16px;
+    line-height: 24px;
+    color: #757575;
+}
+
+.bg-primary-surface {
+    background-color: #EAF6FE;
+}
+
+/* Footer Cta Section */
+#footer-cta {
+    padding: 100px 0px;
+}
+
+.btn-cta {
+    /* Primary color/main */
+
+    background: #0C97FA;
+    /* Shadow 1 */
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.12);
+    border-color: #0C97FA;
+    border-radius: 6px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+
+/* footer section */
+.footer-content {
+    margin-top: 16px;
+
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    /* or 150% */
+
+
+    /* Neutral/70 */
+
+    color: #757575;
+}
+
+.title-link {
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 32px;
+    /* identical to box height, or 133% */
+    /* Neutral/100 */
+    color: #0A0A0A;
+    margin-bottom: 32px;
+}
+
+.subtitle-link {
+
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    /* identical to box height, or 150% */
+
+
+    /* Neutral/70 */
+    color: #757575;
+
+    text-decoration: none;
+}
+
+.end-footer {
+    padding: 16px 0px;
+}
+
+.copyright {
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    /* identical to box height, or 143% */
+
+
+    /* Neutral/80 */
+
+    color: #616161;
+}
+
+/* end footer section */
+
+
+
+
+/* Mobile Version */
+@media only screen and (max-width: 600px) {
+    .user-no-login {
+        padding: 20px;
+    }
+
+    .navbar-collapse {
+        background-color: #fff;
+        /* ganti warna background sesuai keinginan */
+        transition: all 0.3s ease-in-out;
+        /* tambahkan efek transisi */
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 100%;
+        height: 100%;
+        z-index: 999;
+        overflow-y: auto;
+        /* padding: 2rem; */
+    }
+
+    .navbar-collapse.show {
+        right: 0;
+        /* tampilkan navbar dari samping */
+    }
+
+    .navbar-nav {
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    .img-no-login {
+        margin-top: 24px;
+    }
+
+    .text-no-login {
+        font-family: 'DM Sans';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 24px;
+        /* or 150% */
+
+        text-align: center;
+
+        /* Neutral/70 */
+
+        color: #757575;
+        margin-bottom: 31px;
+        margin-top: 21px;
+    }
+
+    .button-secondary {
+        width: 100%;
+    }
+
+    .button-primary {
+        margin-top: 20px;
+        width: 100%;
+    }
+
+    .end-footer-mobile {
+        font-family: 'DM Sans';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        /* identical to box height, or 143% */
+
+        text-align: center;
+
+        /* Neutral/80 */
+
+        color: #616161;
+        padding: 16px 0px;
+    }
+
+    .user-login {
+        padding: 20px;
+    }
+
+    .profile-data {
+        margin-top: 24px;
+        font-family: 'DM Sans';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 24px;
+        /* identical to box height, or 150% */
+
+
+        /* Neutral/100 */
+
+        color: #0A0A0A;
+
+    }
+
+    #profileContent {
+        margin-top: 32px;
+    }
+
+    #profileContent a {
+        font-family: 'DM Sans';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 24px;
+        /* identical to box height, or 150% */
+
+        text-align: center;
+        margin-bottom: 16px;
+    }
+
+    .end-footer2-mobile {
+        position: absolute;
+        bottom: 0;
+        background: #EAF6FE;
+        padding: 16px 0px;
+
+        font-family: 'DM Sans';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        /* identical to box height, or 143% */
+
+        text-align: center;
+
+        /* Neutral/80 */
+
+        color: #616161;
+    }
+
+
+
+
+    /* hero section */
+    #hero-section {
+        margin-top: 24px;
+    }
+
+    .hero-title {
+        font-size: 40px;
+        line-height: 52px;
+        /* or 130% */
+    }
+
+    .sub-title-hero {
+        margin-top: 16px;
+        font-size: 16px;
+        line-height: 24px;
+    }
+
+    .button-hero {
+        width: 100%;
+    }
+
+    section {
+        margin-top: 72px !important;
+    }
+
+    .container-img-section {
+        padding: 43px 20px;
+    }
+
+    /* mvp section */
+    .title-section {
+        font-size: 28px;
+        line-height: 40px;
+        text-align: center;
+    }
+
+    .mvp {
+        margin-top: 72px;
+    }
+
+    .title-mvp {
+        /* margin-top: 24px; */
+        font-size: 20px;
+        line-height: 28px;
+    }
+
+    .text-mvp {
+        font-size: 16px;
+        line-height: 24px;
+    }
+
+
+    .subtitle-section {
+        margin-top: 40px;
+    }
+
+
+    .subtitle-section .row .title-mvp {
+        margin-bottom: 8px;
+    }
+
+    .subtitle-section .row>div {
+        margin-bottom: 28px;
+    }
+
+    /* end section mvp */
+
+
+    /* section features bussiness */
+    #content-feature-bussiness {
+        margin-top: 40px;
+    }
+
+    #features-business .row {
+        margin-top: 32px;
+    }
+
+    .title-feature {
+        margin-top: 24px;
+        text-align: center;
+    }
+
+    .subtitle-feature {
+        margin-top: 24px;
+        text-align: center;
+    }
+
+    /* end section features bussiness */
+
+    /* section revamp */
+
+    #revamp .row {
+        margin-top: 0px;
+        margin-bottom: 40px;
+    }
+
+    /* end section revamp */
+
+    /* section footer cta */
+
+    #footer-cta {
+        margin-top: 72px;
+        margin-bottom: 0px;
+        padding: 40px 12px;
+    }
+
+    ul {
+        list-style-position: inside;
+        padding-left: 0;
+    }
+
+    li {
+        margin: 0;
+        padding-left: 1em;
+        text-indent: -1em;
+    }
+
+    .title-section {
+        font-weight: 700;
+        font-size: 20px;
+    }
+
+    /* end section footer cta */
+
+    /* section footer */
+    .footer-content {
+        margin-top: 8px;
+        font-size: 16px;
+        line-height: 24px;
+    }
+
+    .footer-link {
+        margin-top: 40px;
+    }
+
+    .title-link {
+        margin-bottom: 24px;
+    }
+
+    .subtitle-link {
+        margin-bottom: 16px;
+    }
+
+    .end-footer {
+        margin-top: 22px !important;
+
+    }
+
+
+
+    /* end section footer */
+
+}
