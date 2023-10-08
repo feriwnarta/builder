@@ -12,9 +12,12 @@ import {
 } from "./utils/config.js";
 // editor();
 
+
 const listenerBuilder = () => {
+
     document.addEventListener("init-builder", (event) => {
         $(document).ready(function () {
+            console.log('load');
             console.log(event.detail);
 
             //! perbaiki ini untuk menampilkan pesan error ke user
@@ -39,9 +42,15 @@ const listenerBuilder = () => {
     });
 };
 
+
 listenerBuilder();
 
 // inisialisasi layer manager
 initLayerManager();
 
 toggleSidebarRight();
+
+
+
+
+

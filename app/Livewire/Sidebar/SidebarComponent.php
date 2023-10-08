@@ -5,6 +5,7 @@ namespace App\Livewire\Sidebar;
 use App\Models\Component as ModelsComponent;
 use App\Models\Templates;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Livewire\Attributes\Js;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 
@@ -15,8 +16,11 @@ class SidebarComponent extends Component
 
     public function mount()
     {
+        
         // dapatkan id template edit dari url 
         $template = $this->getTemplateEdit($this->urlTemplate);
+
+        $this->js("console.log('{$this->urlTemplate}')");
 
         // harus melakukan authorisasi kepemilikan template
 
@@ -40,10 +44,12 @@ class SidebarComponent extends Component
             ];
         })->toJson();
 
-
-        // jika user adalah kreator
+        // jika user adalah kreator / admin
         $this->dispatch('init-builder', component_id: $id, block: $componentJson);
+
     }
+
+    
 
     private function getTemplateEdit($id)
     {

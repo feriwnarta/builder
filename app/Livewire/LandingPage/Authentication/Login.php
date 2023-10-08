@@ -34,7 +34,11 @@ class Login extends Component
         // check apakah user bisnis
         if($isLogin) {
             
-            $this->redirect('/dashboard',navigate:true);
+            if(auth()->user()->isAdmin()) {
+                $this->redirect('admin/dashboard', navigate:true);
+            } else if(auth()->user()->isUser()) {
+                $this->redirect('dashboard', navigate:true);
+            }
             
         } 
         

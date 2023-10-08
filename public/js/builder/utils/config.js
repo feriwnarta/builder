@@ -191,6 +191,7 @@ const setDesktopDeviceManager = () => {
     }
 
     if (userDeviceWidth < desktopSize) {
+        console.log('asd');
         // Mengatur lebar frame sesuai dengan ukuran desktop
         $(".gjs-cv-canvas").css({
             width: `${desktopSize}px`,

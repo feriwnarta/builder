@@ -11,13 +11,13 @@
     <link rel="stylesheet" href="{{ asset('vendor/grapesjs/css/grapes.css') }}">
     <link rel="stylesheet" href="{{ asset('css/icon.css') }}">
     <link rel="stylesheet" href="{{ asset('css/theme/theme.css') }}">
-    
     <script src="{{ asset('vendor/grapesjs/js/grapes.js') }}"></script>
     <script src="{{ asset('js/builder/script.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     @livewireStyles
     @yield('style')
+    @yield('header-script')
 </head>
 
 <body>
