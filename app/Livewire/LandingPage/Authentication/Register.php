@@ -3,6 +3,7 @@
 namespace App\Livewire\LandingPage\Authentication;
 
 use App\Models\User;
+use App\Models\UserRole;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -34,14 +35,32 @@ class Register extends Component
         
     }
 
+    private function checkUserOrCreate() {
+        $user = UserRole::where('name', 'User')->first();
+
+        if($user != null) {
+            return $user;
+        }
+
+        return UserRole::create([
+            'name' => 'User'
+        ]);
+    }
+
     private function store() {
         try {
+
+            $user = $this->checkUserOrCreate();
+            
             $user = User::create([
+                'user_roles_id' => $user->id,
                 'fullname' => $this->name,
                 'email' => $this->email,
                 'password' => Hash::make($this->password),
                 'register_type' => 'email',
             ]);
+
+            
 
             if(!$user) {
                 Session::flash('error', 'Gagal Membuat Akun'); 

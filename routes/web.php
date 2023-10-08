@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\TemplateController;
+use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\UserMiddleware;
 use App\Livewire\Admin\AddComponent\AddComponent;
 use App\Livewire\Admin\Admin;
 use App\Livewire\Admin\ComponentCategory\AddComponentCategory;
@@ -10,6 +12,7 @@ use App\Livewire\Dashboard\Dashboard;
 use App\Livewire\LandingPage\Authentication\Login;
 use App\Livewire\LandingPage\Authentication\Register;
 use App\Livewire\LandingPage\LandingPage;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,7 +32,29 @@ Route::get('/sign-in', Login::class);
 Route::get('/sign-up', Register::class);
 
 
-Route::get('/dashboard', Dashboard::class);
+
+
+// Rute untuk pengguna biasa
+Route::middleware([UserMiddleware::class])->group(function () {
+    Route::get('/dashboard', function () {
+        return 'user';
+    });
+});
+
+
+Route::middleware([AdminMiddleware::class])->group(function () {
+    Route::get('/dashboard', function () {
+        return 'admin';
+    });
+});
+
+// Rute khusus untuk admin
+
+
+
+
+
+
 
 
 Route::controller(AdminController::class)->group(function() {

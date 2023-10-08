@@ -14,39 +14,45 @@
                         class="d-inline-block align-text-top microkit">
                 </div>
 
-                @if ($errors->any())
-                    <div class="alert alert-danger" role="alert">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
+
 
 
                 <div>
                     <h2 class="title-login">Ready to Create?</h2>
                     <p class="subtitle-login">Sign in to Begin Crafting Your Website</p>
 
-                    <form id="loginForm" action="/sign-in/do-login" method="POST">
-
-                        @csrf
+                    <form wire:submit="login">
 
                         <div class="input-email">
                             <label for="inputEmail" class="col-form-label">Email address</label>
                             <input type="email" name="email" class="form-control" id="inputEmail"
-                                placeholder="jamescook@gmail.com" required>
+                                placeholder="jamescook@gmail.com" required wire:model.blur="email">
+                            <div>
+                                @error('email')
+                                    <span class="error">{{ $message }}</span>
+                                @enderror
+                            </div>
                         </div>
 
                         <div class="input-password">
                             <label for="inputPassword" class="col-form-label">Password</label>
                             <input type="password" name="password" class="form-control" id="inputPassword"
-                                placeholder="Enter password" required>
+                                placeholder="Enter password" required wire:model.blue="password">
+                            <div>
+                                @error('password')
+                                    <span class="error">{{ $message }}</span>
+                                @enderror
+                            </div>
                         </div>
 
-                        <button id="btnSignIn" type="submit" class="btn btn-primary container">Sign in</button>
 
+                        @if (Session::has('error'))
+                            <div class="alert alert-error">
+                                {{ Session::get('error') }}
+                            </div>
+                        @endif
+
+                        <button id="btnSignIn" type="submit" class="btn btn-primary container">Sign in</button>
                         <hr>
 
 

@@ -7,7 +7,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -22,6 +25,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'user_roles_id',
         'fullname',
         'email',
         'register_type',
@@ -57,5 +61,21 @@ class User extends Authenticatable
     public function template(): HasOne
     {
         return $this->hasOne(Templates::class);
+    }
+
+    public function role() : BelongsTo {
+        return $this->belongsTo(UserRole::class, 'user_roles_id');
+    }
+
+    public function permission() : HasOne {
+        return $this->hasOne(Permission::class);
+    }
+
+    public function isUser() {
+        return $this->role->name == 'User';
+    }
+    
+    public function isAdmin() {
+        return $this->role->name == 'Admin';
     }
 }
