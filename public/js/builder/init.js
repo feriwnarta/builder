@@ -17,27 +17,29 @@ let listenerCreated = false;
 const listenerBuilder = () => {
     if (!listenerCreated) {
         document.addEventListener("init-builder", (event) => {
-            //! perbaiki ini untuk menampilkan pesan error ke user
-            if (
-                event.detail.component_id === null ||
-                event.detail.component_id === undefined
-            )
-                return null;
+            $(document).ready(function () {
+                //! perbaiki ini untuk menampilkan pesan error ke user
+                if (
+                    event.detail.component_id === null ||
+                    event.detail.component_id === undefined
+                )
+                    return null;
 
-            const id = event.detail.component_id;
-            const block = event.detail.block;
+                // kosongkan editor
+                $("#editor").empty();
 
-            // kosongkan editor
-            $("#editor").empty();
+                const id = event.detail.component_id;
+                const block = event.detail.block;
 
-            // load editor
-            editor(id, block);
+                // load editor
+                editor(id, block);
 
-            // inisialisasi layer manager
-            initLayerManager();
+                // inisialisasi layer manager
+                initLayerManager();
 
-            toggleSidebarRight();
-            return;
+                toggleSidebarRight();
+                return;
+            });
         });
         listenerCreated = true; // Set variabel ini menjadi true untuk menandakan bahwa listener sudah dibuat
     }

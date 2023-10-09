@@ -166,7 +166,10 @@ class Builder extends Component
     #[On('find-template')]
     public function findTemplate($id)
     {
+
+        $this->js("alert('$id')");
         if ($id == '') return;
+
 
 
         // lakukan pengecekan terlebih dahulu untuk user yang login dan memilih template
