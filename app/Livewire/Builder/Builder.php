@@ -2,6 +2,8 @@
 
 namespace App\Livewire\Builder;
 
+use App\Livewire\Admin\Components\Sidebar;
+use App\Livewire\Sidebar\SidebarLeft;
 use App\Models\TemplateRepository;
 use App\Models\Templates;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -9,22 +11,116 @@ use Illuminate\Database\QueryException;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Url;
 use Livewire\Component;
+use App\Models\Component as ModelsComponent;
+use Livewire\Attributes\Lazy;
+
 
 class Builder extends Component
 {
     public $builderReady = false;
     public $html = '';
+    public $modeBuilder = 'edit';
 
-    #[Url(as: 'find-template-edit')]
+    #[Url(as: 'file/q')]
     public $search = '';
 
     public function mount()
     {
+
+        $url = $this->destructUrl($this->search);
+
+        // lakukan penanganan error url tidak lengkap
+        if ($url == null) {
+            $this->html = '<h1> Kami tidak bisa menemukan template mu </h1>';
+            return;
+        }
+
+        $id = $url['id'];
+        $mode = $url['mode'];
+
+        if ($mode == 'create') {
+            // arahkan ke builder sebagai template baru
+            $this->newTemplate($id);
+
+            $this->modeBuilder = 'create';
+        }
+
+
         // kirim dispatch
         // $this->dispatch('find-template', id: $this->search); // jika user sebagai pebisnis
+
     }
 
 
+
+
+
+    private function newTemplate($templateId)
+    {
+        $template = $this->getTemplateEdit($templateId);
+
+
+
+        if ($template == null) {
+            // balikan pesan error
+            return;
+        }
+
+        $id = $template->id;
+
+        $components = ModelsComponent::get();
+
+        $componentJson = $components->map(function ($component) {
+            return [
+                'id' => $component->id,
+                'category' => $component->category->name,
+                'label' => $component->label,
+                'media' => $component->media,
+                'content' => $component->content,
+            ];
+        })->toJson();
+
+        // jika user adalah kreator / admin
+        $this->dispatch('init-builder', component_id: $id, block: $componentJson);
+    }
+
+    // fungsi ini digunakan untuk mendapatkan data template berdasarkan id
+    private function getTemplateEdit($id)
+    {
+        $templates = Templates::find($id);
+        return $templates;
+    }
+
+    /**
+     * fungsi ini digunakan untuk memecah url parameter yang digunakan untuk
+     * mendapatkan keperluan inisialisasi builder
+     * terdapat 3 node url (id template / mode / type)
+     * (4asdkhj12/mode/edit atau create)
+     */
+    private function destructUrl(string $url)
+    {
+        if (!isset($url)) {
+            return null;
+        }
+
+        $urlSplit = explode('/', $url);
+
+        // jika panjang url diabwah 3
+        if (sizeof($urlSplit) < 3) {
+            return null;
+        }
+
+        $templateId = $urlSplit[0];
+        $mode = $urlSplit[2];
+
+        return array(
+            'id' => $templateId,
+            'mode' => $mode
+        );
+    }
+
+
+    // fungsi ini digunakna untuk menampilkan
     #[On('load-template')]
     public function loadTemplates($id)
     {
@@ -216,8 +312,6 @@ class Builder extends Component
             if ($template == null) {
                 return 'error';
             }
-
-
 
             $user = Templates::create([
                 'user_id' => $userId,

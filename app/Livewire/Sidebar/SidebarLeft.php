@@ -2,14 +2,17 @@
 
 namespace App\Livewire\Sidebar;
 
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class SidebarLeft extends Component
 {
     public $active = true;
+    public $modeBuilder = 'edit';
 
-    public function mount()
+    public function mount($modeBuilder)
     {
+        $this->modeBuilder = $modeBuilder;
         $this->dispatch('toggle-sidebar', active: $this->active);
     }
 

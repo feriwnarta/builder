@@ -4,13 +4,11 @@ namespace App\Livewire\Admin\AddComponent;
 
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Session;
-use Livewire\Attributes\Layout;
 use Livewire\Component;
 use App\Models\Component as ModelsComponent;
 use App\Models\ComponentCategory;
 use Livewire\Attributes\Rule;
 
-#[Layout('components.layouts.admin.app')]
 class AddComponent extends Component
 {
 

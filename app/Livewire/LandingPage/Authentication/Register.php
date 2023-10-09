@@ -68,7 +68,7 @@ class Register extends Component
             }
 
 
-            if(Auth::guard('users')->loginUsingId($user->id)) {
+            if(Auth::loginUsingId($user->id)) {
                 // reset field
                 $this->reset();
                 // redirect ke dashboard

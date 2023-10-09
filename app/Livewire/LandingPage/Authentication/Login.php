@@ -3,7 +3,6 @@
 namespace App\Livewire\LandingPage\Authentication;
 
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Rule;
 use Livewire\Component;

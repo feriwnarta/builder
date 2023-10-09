@@ -46,7 +46,7 @@
                     </div>
                 </div>
             </div>
-            <livewire:sidebar.sidebar-left />
+            <livewire:sidebar.sidebar-left :modeBuilder="$modeBuilder"/>
         </div>
         <div class="col-sm-8 position-relative">
 
@@ -64,13 +64,4 @@
             <livewire:sidebar.sidebar-right />
         </div>
     </div>
-
-
-
 </div>
-
-
-
-@section('footer-script')
-    <script type="module" src="{{ asset('js/builder/init.js') }}"></script>
-@endsection

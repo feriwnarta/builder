@@ -1,3 +1,8 @@
+@section('style')
+    <link rel="stylesheet" href="{{ asset('css/admin/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/theme/theme.css') }}">
+@endsection
+
 <div id="wrapper">
 
     <livewire:admin.components.sidebar />

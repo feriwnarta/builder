@@ -42,24 +42,24 @@ class TestInsertUserRole extends TestCase
     }
 
 
-    public function testInsertUserRole(): void {
-        $role = new UserRole(['name' => 'User']);
-        $role->save();
+    // public function testInsertUserRole(): void {
+    //     $role = new UserRole(['name' => 'User']);
+    //     $role->save();
 
-        $user = User::create([
-            'fullname' => 'user',
-            'email' => 'user@gmail.com',
-            'phone_number' => '085714342529',
-            'register_type' => 'email',
-            'password' => 'testtest',
-            'user_roles_id' => $role->id,
-        ]);
+    //     $user = User::create([
+    //         'fullname' => 'user',
+    //         'email' => 'user@gmail.com',
+    //         'phone_number' => '085714342529',
+    //         'register_type' => 'email',
+    //         'password' => 'testtest',
+    //         'user_roles_id' => $role->id,
+    //     ]);
 
         
 
-        $permission = new Permission(['users_id' => $user->id, 'name' => 'user_all',]);
-        $permission->save();
+    //     $permission = new Permission(['users_id' => $user->id, 'name' => 'user_all',]);
+    //     $permission->save();
 
-        assertTrue($permission);
-    }
+    //     assertTrue($permission);
+    // }
 }

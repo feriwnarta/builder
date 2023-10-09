@@ -10,16 +10,13 @@ import {
     initLayerManager,
     toggleSidebarRight,
 } from "./utils/config.js";
-// editor();
 
+// Buat variabel boolean untuk melacak apakah event listener sudah dibuat
+let listenerCreated = false;
 
 const listenerBuilder = () => {
-
-    document.addEventListener("init-builder", (event) => {
-        $(document).ready(function () {
-            console.log('load');
-            console.log(event.detail);
-
+    if (!listenerCreated) {
+        document.addEventListener("init-builder", (event) => {
             //! perbaiki ini untuk menampilkan pesan error ke user
             if (
                 event.detail.component_id === null ||
@@ -35,22 +32,24 @@ const listenerBuilder = () => {
 
             // load editor
             editor(id, block);
+
+            // inisialisasi layer manager
+            initLayerManager();
+
+            toggleSidebarRight();
             return;
         });
-
-        // jika user sebagai kreator
-    });
+        listenerCreated = true; // Set variabel ini menjadi true untuk menandakan bahwa listener sudah dibuat
+    }
 };
 
+// jalanakan listener builder saat livewire menavigasikan spa
+document.addEventListener("livewire:navigating", () => {
+    listenerBuilder();
+});
 
-listenerBuilder();
+// jalankan listener saat builder direfresh dan setelah livewire menavigasikan spa
 
-// inisialisasi layer manager
-initLayerManager();
-
-toggleSidebarRight();
-
-
-
-
-
+if (!listenerCreated) {
+    listenerBuilder();
+}

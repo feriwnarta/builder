@@ -1,4 +1,4 @@
-<div id="sidebar">
+<div id="sidebar" class="text-black">
     <div class="sidebar-header">
         <h3>Bootstrap Sidebar</h3>
     </div>

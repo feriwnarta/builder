@@ -6,16 +6,17 @@ use App\Models\Templates;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
-#[Layout('components.layouts.admin.app')]
 class AllTemplate extends Component
 {
-    public function createTemplate() {
+    public function createTemplate()
+    {
         $user = auth()->user();
 
         $this->storeTemplate($user->id);
     }
 
-    private function storeTemplate($id) {
+    private function storeTemplate($id)
+    {
         $template = Templates::create([
             'data' => '',
             'title' => 'new site',
@@ -23,14 +24,13 @@ class AllTemplate extends Component
             'type' => 'create',
         ]);
 
-        if(!$template) {
+        if (!$template) {
             // balikan gagal simpan template
         }
 
-        $urlNavigation = "/builder/?mode/edit/component={$template->id}";
+        $urlNavigation = "/builder/?file/q={$template->id}/mode/create";
 
-        $this->redirect($urlNavigation, navigate:false);
-
+        $this->redirect($urlNavigation, navigate: true);
     }
 
     public function render()

@@ -9,7 +9,7 @@ use Livewire\Attributes\Layout;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
 
-#[Layout('components.layouts.admin.app')]
+
 class AddComponentCategory extends Component
 {
 
