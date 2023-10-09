@@ -4,7 +4,7 @@
     {{-- toogle button --}}
     <div class="toggle-content">
         {{-- Template Toggle --}}
-        @if ($modeBuilder == 'edit')
+        @if ($modeBuilder == 'create')
             {{-- khusus user bisnis --}}
             <button class="btn toggle btn-icon-text-normal-text {{ $active ? '' : 'toggle-deactive' }}"
                 wire:click="toggle(true)">
@@ -31,12 +31,17 @@
 
     </div>
 
-    {{-- khusus kreator --}}
+    @if ($modeBuilder == 'create')
+        {{-- khusus kreator / admin --}}
+        <livewire:sidebar.sidebar-component />
+    @else
+        {{-- khusus user bisnis --}}
+        <livewire:sidebar.sidebar-template lazy />
+    @endif
 
-    <livewire:sidebar.sidebar-component />
 
-    {{-- khusus user bisnis --}}
-    {{-- <livewire:sidebar.sidebar-template lazy /> --}}
+
+
 
     <livewire:sidebar.sidebar-layer />
 

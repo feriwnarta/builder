@@ -36,7 +36,7 @@ class Login extends Component
             if(auth()->user()->isAdmin()) {
                 $this->redirect('admin/dashboard', navigate:true);
             } else if(auth()->user()->isUser()) {
-                $this->redirect('dashboard', navigate:true);
+                $this->redirect('builder', navigate:true);
             }
             
         } 

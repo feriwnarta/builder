@@ -24,7 +24,7 @@ class TestInserCategory extends TestCase
      */
     public function testInserCategory(): void
     {
-        $user = User::where('name', 'feri')->first();
+        $user = User::where('fullname', 'admin')->first();
 
         $categoriesData = [
             [

@@ -3,7 +3,6 @@
 namespace App\Livewire\Admin\Template;
 
 use App\Models\Templates;
-use Livewire\Attributes\Layout;
 use Livewire\Component;
 
 class AllTemplate extends Component
@@ -28,7 +27,7 @@ class AllTemplate extends Component
             // balikan gagal simpan template
         }
 
-        $urlNavigation = "/builder/?file/q={$template->id}/mode/create";
+        $urlNavigation = "/admin/builder/?file/q={$template->id}/mode/create";
 
         $this->redirect($urlNavigation, navigate: true);
     }

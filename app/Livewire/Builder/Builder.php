@@ -2,8 +2,6 @@
 
 namespace App\Livewire\Builder;
 
-use App\Livewire\Admin\Components\Sidebar;
-use App\Livewire\Sidebar\SidebarLeft;
 use App\Models\TemplateRepository;
 use App\Models\Templates;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -12,7 +10,6 @@ use Livewire\Attributes\On;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use App\Models\Component as ModelsComponent;
-use Livewire\Attributes\Lazy;
 
 
 class Builder extends Component
@@ -29,9 +26,13 @@ class Builder extends Component
 
         $url = $this->destructUrl($this->search);
 
-        // lakukan penanganan error url tidak lengkap
+        // jika url kosong maka proses init builder
         if ($url == null) {
-            $this->html = '<h1> Kami tidak bisa menemukan template mu </h1>';
+
+            // nanti pasang authorisasi
+
+            $this->dispatch('find-template', id: $this->search); // jika user sebagai pebisnis
+
             return;
         }
 
@@ -44,11 +45,6 @@ class Builder extends Component
 
             $this->modeBuilder = 'create';
         }
-
-
-        // kirim dispatch
-        // $this->dispatch('find-template', id: $this->search); // jika user sebagai pebisnis
-
     }
 
 
@@ -59,7 +55,8 @@ class Builder extends Component
     {
         $template = $this->getTemplateEdit($templateId);
 
-
+        // authorisasi kepemilikan template terlebih dahulu
+        $this->authorize('viewAndEditTemplate', $template);
 
         if ($template == null) {
             // balikan pesan error
@@ -176,8 +173,8 @@ class Builder extends Component
         // apakah template yang dipilih sudah ditambahkan ke table template
         // jika belum maka tambahkan dulu jika sudah maka lanjutkan menggunakan id yang sebelumnya sudah ditambahkan 
         // ditemplate
-        $dummyUserLog = '9a395c55-373a-45e0-b22f-f5e630d3be59';
-        $resultCheck = $this->checkAddedTemplate($id, $dummyUserLog);
+        $userId = auth()->user()->id;
+        $resultCheck = $this->checkAddedTemplate($id, $userId);
 
 
         // check terlebih dahulu apakah tempalate sudah pernah dipakai dan diedit
@@ -189,7 +186,7 @@ class Builder extends Component
         }
 
         // check kepemilikan template ini berdasarkan id
-        $result = $this->checkTemplateOwner($id, $dummyUserLog);
+        $result = $this->checkTemplateOwner($id, $userId);
 
         // error ini disebabkan jika ada kegagalan query pencarian template
         if ($result == 'check error') {
@@ -215,7 +212,7 @@ class Builder extends Component
         // param 1 => template id
         // param 2 => user id 
         // param 3 => type (edit, create)
-        $result = $this->addedNewTemplate($id, $dummyUserLog, 'EDIT');
+        $result = $this->addedNewTemplate($id, $userId, 'EDIT');
 
 
         if ($result == 'error' || $result == null) {

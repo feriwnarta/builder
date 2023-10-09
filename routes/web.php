@@ -35,6 +35,7 @@ Route::get('/sign-up', Register::class);
 
 // Rute untuk pengguna biasa
 Route::middleware([UserMiddleware::class])->group(function () {
+    Route::get('/builder', Builder::class);
     Route::get('/dashboard', function () {
         return 'user';
     });
@@ -42,7 +43,7 @@ Route::middleware([UserMiddleware::class])->group(function () {
 
 
 Route::middleware([AdminMiddleware::class])->group(function () {
-    Route::get('/builder', Builder::class);
+    Route::get('/admin/builder', Builder::class);
     Route::get('/admin/dashboard', Dashboard::class);
     Route::get('/admin/add-component', AddComponent::class);
     Route::get('/admin/add-component-category', AddComponentCategory::class);

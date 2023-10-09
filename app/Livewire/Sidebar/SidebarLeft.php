@@ -2,7 +2,6 @@
 
 namespace App\Livewire\Sidebar;
 
-use Livewire\Attributes\On;
 use Livewire\Component;
 
 class SidebarLeft extends Component
