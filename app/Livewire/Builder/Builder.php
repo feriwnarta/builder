@@ -18,6 +18,7 @@ class Builder extends Component
     public $html = '';
     public $modeBuilder = 'edit';
 
+
     #[Url(as: 'file/q')]
     public $search = '';
 
@@ -47,10 +48,13 @@ class Builder extends Component
         }
     }
 
-
-
-
-
+    /**
+     * @param $templateId
+     * @return void
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * fungsi ini digunakan untuk membuat template baru
+     * hanya bisa diakses admin / creator
+     */
     private function newTemplate($templateId)
     {
         $template = $this->getTemplateEdit($templateId);
@@ -129,7 +133,7 @@ class Builder extends Component
                         <span class="visually-hidden">Loading...</span>
                     </div>
                 </div>
-            </div> 
+            </div>
         HTML;
 
         $this->getTemplate($id);
@@ -167,15 +171,14 @@ class Builder extends Component
     public function findTemplate($id)
     {
 
-        $this->js("alert('$id')");
         if ($id == '') return;
-
 
 
         // lakukan pengecekan terlebih dahulu untuk user yang login dan memilih template
         // apakah template yang dipilih sudah ditambahkan ke table template
-        // jika belum maka tambahkan dulu jika sudah maka lanjutkan menggunakan id yang sebelumnya sudah ditambahkan 
+        // jika belum maka tambahkan dulu jika sudah maka lanjutkan menggunakan id yang sebelumnya sudah ditambahkan
         // ditemplate
+        // result check akan berisi id template yang baru dibuat / sudah ada
         $userId = auth()->user()->id;
         $resultCheck = $this->checkAddedTemplate($id, $userId);
 
@@ -183,8 +186,13 @@ class Builder extends Component
         // check terlebih dahulu apakah tempalate sudah pernah dipakai dan diedit
         // jika sudah ditambahkan maka cukup update id nya
         if ($resultCheck != null) {
+
+            // dapatkan id template
             $id = $resultCheck->id;
+
+            // inisialisasi grapes js
             $this->initBuilderByTemplate($id);
+
             return;
         }
 
@@ -208,15 +216,12 @@ class Builder extends Component
             $id = $result;
         }
 
-
-
         // langkah ini jika user belum menambahkan template
         // insert template baru
         // param 1 => template id
-        // param 2 => user id 
+        // param 2 => user id
         // param 3 => type (edit, create)
         $result = $this->addedNewTemplate($id, $userId, 'EDIT');
-
 
         if ($result == 'error' || $result == null) {
             $this->html = '';
@@ -235,8 +240,16 @@ class Builder extends Component
 
         // init builder
         $this->initBuilderByTemplate($resultData->id);
+        
     }
 
+    /**
+     * @param $templateId
+     * @param $userId
+     * @return string
+     * fungsi ini digunakan untuk melakukan pengecekan kepemilikan template
+     * saat user memilih template pertama kali fungsi ini digunakan untuk mengambil id pemilik template
+     */
     private function checkTemplateOwner($templateId, $userId)
     {
 
@@ -276,14 +289,14 @@ class Builder extends Component
             // ubah url query parameter berdasarkan id terbaru
             $this->search = $idTemplate;
 
-            // hapus template yang tampil
 
-            // sample
+            // kirim event ke init js untuk segera melakukan editing
             $this->dispatch('init-builder', component_id: $this->search, block: null);
+
         }
 
-        // proses data kosong / tidak ketemu
-        // tampilkan pesan bahwa template tidak ada
+            // proses data kosong / tidak ketemu
+            // tampilkan pesan bahwa template tidak ada
         catch (ModelNotFoundException $e) {
 
             $this->html = 'error model not found';
@@ -305,7 +318,7 @@ class Builder extends Component
     private function addedNewTemplate($id, $userId, $type)
     {
         try {
-            // cari data template 
+            // cari data template
             $template = Templates::where('id', $id)->first();
 
 
@@ -321,7 +334,6 @@ class Builder extends Component
             ]);
 
 
-
             return $user;
         } catch (QueryException $e) {
             return 'error';
@@ -331,6 +343,12 @@ class Builder extends Component
         return $user;
     }
 
+    /**
+     * @param $idTemplate
+     * @param $userId
+     * @return Templates|null
+     * fungsi ini digunakan untuk memerikan apakah user sebelumnya sudah memiliki template
+     */
     private function checkAddedTemplate($idTemplate, $userId): ?Templates
     {
         // saat pertama kali di init

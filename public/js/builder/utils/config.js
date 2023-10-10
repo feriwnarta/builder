@@ -29,6 +29,11 @@ var csrfToken = document
 
 let builder;
 const editor = (id, block) => {
+
+    if (builder !== undefined && builder !== null) {
+
+    }
+
     builder = grapesjs.init({
         // properti ini digunakan untuk menentukan id mana yang akan menjadi tujuan grapes js untuk menginisialisasi editornya
         container: container,
@@ -40,7 +45,7 @@ const editor = (id, block) => {
         height: "100%",
 
         // digunakan untuk membuat panel grapesjs
-        panels: { defaults: [] },
+        panels: {defaults: []},
 
         deviceManager: {
             devices: deviceManager,
@@ -63,7 +68,7 @@ const editor = (id, block) => {
         traitManager: {
             appendTo: appendTraitManager,
         },
-        blockManager: {
+        blockManager: (block == null) ? {} : {
             appendTo: appendBlockManager,
         },
         // Default configurations
@@ -79,7 +84,7 @@ const editor = (id, block) => {
                     // The `remote` storage uses the POST method when stores data but
                     // the json-server API requires PATCH.
                     fetchOptions: (opts) =>
-                        opts.method === "POST" ? { method: "POST" } : {},
+                        opts.method === "POST" ? {method: "POST"} : {},
                     // As the API stores projects in this format `{id: 1, data: projectData }`,
                     // we have to properly update the body before the store and extract the
                     // project data from the response result.
@@ -93,15 +98,15 @@ const editor = (id, block) => {
             },
         },
         styleManager:
-            // jika !== null makan akan menampilkan semua style manager
+        // jika !== null makan akan menampilkan semua style manager
             block !== null
                 ? {
-                      appendTo: appendStyleManager,
-                  }
+                    appendTo: appendStyleManager,
+                }
                 : {
-                      appendTo: appendStyleManager,
-                      sectors: sectors,
-                  },
+                    appendTo: appendStyleManager,
+                    sectors: sectors,
+                },
     });
 
     // saat builder sudah diload
@@ -116,6 +121,7 @@ const editor = (id, block) => {
         initBlock(block, builder);
         addPage(builder);
         initPopOver();
+        loadTemplate(); // -> load template jika builder sudah diinisialisasi
     });
 
     builder.on("component:selected", (event) => {
@@ -134,12 +140,12 @@ const editor = (id, block) => {
                     name: "linkType",
                     label: "Link Type",
                     options: [
-                        { id: "internal", name: "Internal Page" },
-                        { id: "external", name: "External URL" },
-                        { id: "elementId", name: "Element ID" },
+                        {id: "internal", name: "Internal Page"},
+                        {id: "external", name: "External URL"},
+                        {id: "elementId", name: "Element ID"},
                     ],
                 },
-                { at: 0 }
+                {at: 0}
             );
             component.addTrait(
                 {
@@ -147,9 +153,9 @@ const editor = (id, block) => {
                     name: "pageName",
                     label: "Page Name",
                     // Tampilkan ini hanya jika linkType dipilih sebagai 'Internal Page'
-                    show: { eq: "internal", at: "linkType" },
+                    show: {eq: "internal", at: "linkType"},
                 },
-                { at: 1 }
+                {at: 1}
             );
             component.addTrait(
                 {
@@ -157,9 +163,9 @@ const editor = (id, block) => {
                     name: "externalUrl",
                     label: "External URL",
                     // Tampilkan ini hanya jika linkType dipilih sebagai 'External URL'
-                    show: { eq: "external", at: "linkType" },
+                    show: {eq: "external", at: "linkType"},
                 },
-                { at: 2 }
+                {at: 2}
             );
             component.addTrait(
                 {
@@ -173,12 +179,19 @@ const editor = (id, block) => {
                     visible: (model) =>
                         model.get("traits").get("linkType") === "internal",
                 },
-                { at: 3 }
+                {at: 3}
             );
         }
     });
 };
-export { editor, initLayerManager, toggleSidebarRight };
+export {editor, initLayerManager, toggleSidebarRight};
+
+
+const loadTemplate = () => {
+    document.addEventListener("just-load-template", (e) => {
+        console.log('proses load template');
+    });
+}
 
 const setDesktopDeviceManager = () => {
     let userDeviceWidth = window.innerWidth;
@@ -452,24 +465,24 @@ const setItemPage = (arrayOfPages, pageManager, builder) => {
 
             <button class="btn btn-dot" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right" data-bs-content='
             <div class="d-flex flex-column align-items-start">
-                
+
                 <a class="btn btn-dot-page-rename" id="${
-                    page.attributes.id
-                }">Rename</a>
+            page.attributes.id
+        }">Rename</a>
                 <div class="btn-dot-page-divider"></div>
                 <a class="btn btn-dot-page-duplicate" id="${
-                    page.attributes.id
-                }">Duplicate</a>
+            page.attributes.id
+        }">Duplicate</a>
                 <div class="btn-dot-page-divider"></div>
                 <a  class="btn btn-dot-page-delete" id="${
-                    page.attributes.id
-                }">Delete</a>
-                
+            page.attributes.id
+        }">Delete</a>
+
             </div>'
             data-bs-html="true">
             <i class="dot-vertical"></i>
             </button>
-          
+
         </div>`;
     });
 

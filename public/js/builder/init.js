@@ -28,16 +28,13 @@ const listenerBuilder = () => {
                 // kosongkan editor
                 $("#editor").empty();
 
+
                 const id = event.detail.component_id;
                 const block = event.detail.block;
 
                 // load editor
                 editor(id, block);
 
-                // inisialisasi layer manager
-                initLayerManager();
-
-                toggleSidebarRight();
                 return;
             });
         });
@@ -48,10 +45,21 @@ const listenerBuilder = () => {
 // jalanakan listener builder saat livewire menavigasikan spa
 document.addEventListener("livewire:navigating", () => {
     listenerBuilder();
+
+    // inisialisasi layer manager
+    initLayerManager();
+
+    // inisialisasi sidebar right
+    toggleSidebarRight();
 });
 
 // jalankan listener saat builder direfresh dan setelah livewire menavigasikan spa
-
 if (!listenerCreated) {
     listenerBuilder();
+
+    // inisialisasi layer manager
+    initLayerManager();
+
+    // inisialisasi sidebar right
+    toggleSidebarRight();
 }
