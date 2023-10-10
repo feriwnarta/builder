@@ -28,9 +28,10 @@ var csrfToken = document
     .getAttribute("content");
 
 let builder;
-const editor = (id, block) => {
+const editor = async (id, block) => {
 
     if (builder !== undefined && builder !== null) {
+
 
     }
 
@@ -58,10 +59,10 @@ const editor = (id, block) => {
             scripts: [jsBootstrap, jsPopperBootstrap],
         },
 
-        layerManager: {
+        layerManager: (builder !== undefined && builder !== null) ? {} : {
             appendTo: appendLayerManager,
         },
-        selectorManager: {
+        selectorManager: (builder !== undefined && builder !== null) ? {} : {
             appendTo: appendSelectorManager,
             states: statesSelectorManager,
         },
@@ -97,8 +98,8 @@ const editor = (id, block) => {
                 },
             },
         },
-        styleManager:
-        // jika !== null makan akan menampilkan semua style manager
+        styleManager: (builder !== undefined && builder !== null) ? {} :
+            // jika !== null makan akan menampilkan semua style manager
             block !== null
                 ? {
                     appendTo: appendStyleManager,
@@ -121,7 +122,6 @@ const editor = (id, block) => {
         initBlock(block, builder);
         addPage(builder);
         initPopOver();
-        loadTemplate(); // -> load template jika builder sudah diinisialisasi
     });
 
     builder.on("component:selected", (event) => {
@@ -186,12 +186,6 @@ const editor = (id, block) => {
 };
 export {editor, initLayerManager, toggleSidebarRight};
 
-
-const loadTemplate = () => {
-    document.addEventListener("just-load-template", (e) => {
-        console.log('proses load template');
-    });
-}
 
 const setDesktopDeviceManager = () => {
     let userDeviceWidth = window.innerWidth;
