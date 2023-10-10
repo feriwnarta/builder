@@ -29,12 +29,7 @@ var csrfToken = document
 
 let builder;
 const editor = async (id, block) => {
-
-    if (builder !== undefined && builder !== null) {
-
-
-    }
-
+    
     builder = grapesjs.init({
         // properti ini digunakan untuk menentukan id mana yang akan menjadi tujuan grapes js untuk menginisialisasi editornya
         container: container,
@@ -59,10 +54,10 @@ const editor = async (id, block) => {
             scripts: [jsBootstrap, jsPopperBootstrap],
         },
 
-        layerManager: (builder !== undefined && builder !== null) ? {} : {
+        layerManager: {
             appendTo: appendLayerManager,
         },
-        selectorManager: (builder !== undefined && builder !== null) ? {} : {
+        selectorManager: {
             appendTo: appendSelectorManager,
             states: statesSelectorManager,
         },
@@ -98,8 +93,8 @@ const editor = async (id, block) => {
                 },
             },
         },
-        styleManager: (builder !== undefined && builder !== null) ? {} :
-            // jika !== null makan akan menampilkan semua style manager
+        styleManager:
+        // jika !== null makan akan menampilkan semua style manager
             block !== null
                 ? {
                     appendTo: appendStyleManager,
