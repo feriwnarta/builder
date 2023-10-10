@@ -5,8 +5,8 @@ const deviceManager = [
     {
         id: "desktop",
         name: "Desktop",
-        width: "1280px",
-        widthMedia: "1280px",
+        width: "1440px",
+        widthMedia: "1440px",
     },
     {
         id: "tablet",
@@ -42,9 +42,9 @@ const appendLayerManager = "#layerContainer";
 // selecttor manager
 const appendSelectorManager = "#selectorManager";
 const statesSelectorManager = [
-    { name: "hover" },
-    { name: "active" },
-    { name: "nth-of-type(2n)" },
+    {name: "hover"},
+    {name: "active"},
+    {name: "nth-of-type(2n)"},
 ];
 
 // trait manager
@@ -79,9 +79,9 @@ const sectors = [
                 label: "Weight",
                 default: "normal",
                 options: [
-                    { id: "bold", label: "bold" },
-                    { id: "normal", label: "normal" },
-                    { id: "500", label: "semi-bold" },
+                    {id: "bold", label: "bold"},
+                    {id: "normal", label: "normal"},
+                    {id: "500", label: "semi-bold"},
                 ],
             },
             {
@@ -110,10 +110,10 @@ const sectors = [
                 label: "Align",
                 default: "left",
                 options: [
-                    { id: "center", label: "Center" },
-                    { id: "left", label: "Left" },
-                    { id: "right", label: "Right" },
-                    { id: "justify", label: "Justify" },
+                    {id: "center", label: "Center"},
+                    {id: "left", label: "Left"},
+                    {id: "right", label: "Right"},
+                    {id: "justify", label: "Justify"},
                 ],
             },
             {
@@ -122,8 +122,8 @@ const sectors = [
                 label: "Decoration",
                 default: "none",
                 options: [
-                    { id: "none", label: "None" },
-                    { id: "overline", label: "Overline" },
+                    {id: "none", label: "None"},
+                    {id: "overline", label: "Overline"},
                     {
                         id: "line-through",
                         label: "Line Through",
@@ -140,7 +140,7 @@ const sectors = [
                 label: "Case",
                 default: "none",
                 options: [
-                    { id: "none", label: "None" },
+                    {id: "none", label: "None"},
                     {
                         id: "uppercase",
                         label: "Uppercase",
@@ -161,10 +161,10 @@ const sectors = [
                 label: "Direction",
                 default: "ltr",
                 options: [
-                    { id: "ltr", label: "LTR" },
-                    { id: "rtl", label: "RTL" },
-                    { id: "initial", label: "Initial" },
-                    { id: "inherit", label: "Inherit" },
+                    {id: "ltr", label: "LTR"},
+                    {id: "rtl", label: "RTL"},
+                    {id: "initial", label: "Initial"},
+                    {id: "inherit", label: "Inherit"},
                 ],
             },
         ],

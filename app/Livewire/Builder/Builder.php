@@ -137,13 +137,18 @@ class Builder extends Component
         HTML;
 
         $this->getTemplate($id);
+
     }
 
     // fungsi ini digunakan untuk mendapatkan data template dari database berdasarkan kategori
     private function getTemplate(string $id)
     {
         // dapatkan data template
-        $templates = TemplateRepository::first()->template()->where('categories_id', $id)->get();
+        $templates = \App\Models\Templates::join('template_repositories', 'templates.id', '=', 'template_repositories.template_id')
+            ->where('templates.categories_id', $id)
+            ->select('templates.id', 'templates.title') // Gantilah '*' dengan nama kolom yang Anda butuhkan
+            ->get();
+
 
         // jika template berdasarkan kategori kosong
         if ($templates->isEmpty()) {
@@ -154,11 +159,13 @@ class Builder extends Component
         // jika kategori ada isinya
         $format = '';
         foreach ($templates as $template) {
+            $this->js("console.log('$template->id')");
 
-            $format .= <<<HTML
-                <button class="btn btn-menu-item" @click="\$dispatch('find-template', {id: '$template->id'})">{$template->title}</button>
+            $format = <<<HTML
+            <button class="btn btn-menu-item" @click="\$dispatch('find-template', {id: '$template->id'})">{$template->title}</button>
             HTML;
         }
+
 
         $this->html = $format;
     }
@@ -240,7 +247,7 @@ class Builder extends Component
 
         // init builder
         $this->initBuilderByTemplate($resultData->id);
-        
+
     }
 
     /**

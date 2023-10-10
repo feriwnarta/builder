@@ -12,6 +12,7 @@ use App\Livewire\Builder\Builder;
 use App\Livewire\LandingPage\Authentication\Login;
 use App\Livewire\LandingPage\Authentication\Register;
 use App\Livewire\LandingPage\LandingPage;
+use App\Models\TemplateRepository;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,8 +30,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', LandingPage::class);
 Route::get('/sign-in', Login::class);
 Route::get('/sign-up', Register::class);
+Route::get('/test', function () {
+    $id = '7cfce10a-28e7-43a7-8daf-e7053e14cc1f';
 
 
+});
 
 
 // Rute untuk pengguna biasa

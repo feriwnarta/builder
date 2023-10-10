@@ -10,6 +10,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 use function PHPUnit\Framework\assertEquals;
+use function PHPUnit\Framework\assertNotNull;
 use function PHPUnit\Framework\assertTrue;
 
 class TestInsertUserRole extends TestCase
@@ -32,12 +33,11 @@ class TestInsertUserRole extends TestCase
             'user_roles_id' => $role->id,
         ]);
 
-        
 
         $permission = new Permission(['users_id' => $user->id, 'name' => 'admin_all',]);
         $permission->save();
 
-        assertTrue($permission);
+        assertNotNull($permission);
 
     }
 
@@ -55,7 +55,6 @@ class TestInsertUserRole extends TestCase
     //         'user_roles_id' => $role->id,
     //     ]);
 
-        
 
     //     $permission = new Permission(['users_id' => $user->id, 'name' => 'user_all',]);
     //     $permission->save();

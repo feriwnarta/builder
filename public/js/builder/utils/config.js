@@ -29,7 +29,7 @@ var csrfToken = document
 
 let builder;
 const editor = async (id, block) => {
-    
+
     builder = grapesjs.init({
         // properti ini digunakan untuk menentukan id mana yang akan menjadi tujuan grapes js untuk menginisialisasi editornya
         container: container,
@@ -184,33 +184,37 @@ export {editor, initLayerManager, toggleSidebarRight};
 
 const setDesktopDeviceManager = () => {
     let userDeviceWidth = window.innerWidth;
+    // Mendapatkan lebar sidebar kiri & kanan
+    const sideMenuLeft = $(".side-menu-left").outerWidth(true);
+    const sideMenuRight = $(".side-menu-right").outerWidth(true);
+
     const desktopSize = getDeviceManagerDesktopSize();
 
     if (userDeviceWidth == null || desktopSize == null) {
         return;
     }
 
+    // Menghitung skala berdasarkan lebar viewport
+    userDeviceWidth = userDeviceWidth - sideMenuLeft - sideMenuRight;
+    const scale = userDeviceWidth / desktopSize;
+
     if (userDeviceWidth < desktopSize) {
+
         // Mengatur lebar frame sesuai dengan ukuran desktop
         $(".gjs-cv-canvas").css({
             width: `${desktopSize}px`,
             height: `${(desktopSize / 16) * 9}px`,
         });
 
-        // Mendapatkan lebar sidebar kiri & kanan
-        const sideMenuLeft = $(".side-menu-left").outerWidth(true);
-        const sideMenuRight = $(".side-menu-right").outerWidth(true);
-
-        // Menghitung skala berdasarkan lebar viewport
-        userDeviceWidth = userDeviceWidth - sideMenuLeft - sideMenuRight;
-        const scale = userDeviceWidth / desktopSize;
-
-        // Mengatur skala dan transform-origin
-        $(".gjs-cv-canvas").css({
-            transform: `scale(${scale})`,
-            "transform-origin": "left top",
-        });
     }
+
+    // tentukan scalenya
+    $(".gjs-cv-canvas").css({
+        transform: `scale(${scale})`,
+        "transform-origin": "left top",
+    });
+
+
 };
 
 const getDeviceManagerDesktopSize = () => {
