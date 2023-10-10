@@ -2,6 +2,7 @@
 
 namespace App\Livewire\LandingPage\Authentication;
 
+use App\Services\AuthService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Livewire\Attributes\Layout;
@@ -26,25 +27,13 @@ class Login extends Component
         $this->doLogin();
     }
 
+
+    // proses login
     private function doLogin()
     {
-
-
-        $isLogin = Auth::attempt(['email' => $this->email, 'password' => $this->password]);
-
-
-        // check apakah user bisnis
-        if ($isLogin) {
-
-            if (auth()->user()->isAdmin()) {
-                $this->redirect('admin/dashboard', navigate: true);
-            } else if (auth()->user()->isUser()) {
-                $this->redirect('builder', navigate: true);
-            }
-
-        }
-
-        Session::flash('error', 'Email or password is incorrect. Please ensure your credentials are correct.');
+        $authService = app()->make(AuthService::class);
+        // panggil auth service untuk melakukan login
+        $authService->doLogin($this->email, $this->password, $this);
     }
 
     public function render()
