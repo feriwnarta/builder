@@ -28,7 +28,6 @@ const listenerBuilder = () => {
                 // kosongkan editor
                 $("#editor").empty();
 
-
                 const id = event.detail.component_id;
                 const block = event.detail.block;
 

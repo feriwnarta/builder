@@ -41,8 +41,19 @@ class Register extends Component
         $authService = app()->make(AuthService::class);
 
         // panggil service do register
-        $authService->doRegister($this->name, $this->email, $this->password, $this);
+        $user = $authService->doRegister($this->name, $this->email, $this->password, $this);
 
+        if (!$user) {
+            Session::flash('error', 'Gagal Membuat Akun');
+            return;
+        }
+
+        if (Auth::loginUsingId($user->id)) {
+            // reset field
+            $this->reset();
+            // redirect ke dashboard
+            $this->redirect('/dashboard', navigate: true);
+        }
 
     }
 

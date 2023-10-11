@@ -40,7 +40,7 @@ class AuthServiceImpl implements AuthService
     }
 
 
-    public function doRegister(string $name, string $email, string $password, Register $registerComponent): void
+    public function doRegister(string $name, string $email, string $password): User
     {
         try {
             // dapatkan role user
@@ -49,40 +49,16 @@ class AuthServiceImpl implements AuthService
             // buat user
             $user = $this->createUser($userRole, $name, $email, $password);
 
-            if (!$user) {
-                Session::flash('error', 'Gagal Membuat Akun');
-                return;
-            }
-
-
-            if (Auth::loginUsingId($user->id)) {
-                // reset field
-                $registerComponent->reset();
-                // redirect ke dashboard
-                $registerComponent->redirect('/dashboard', navigate: true);
-            }
+            return $user;
 
         } catch (QueryException $e) {
             Session::flash('error', "ada sesuatu yang salah");
         }
     }
 
-    public function doLogin(string $email, string $password, Login $loginComponent)
+    public function doLogin(string $email, string $password): User
     {
-        $isLogin = Auth::attempt(['email' => $email, 'password' => $password]);
-
-
-        // check apakah user bisnis
-        if ($isLogin) {
-
-            if (auth()->user()->isAdmin()) {
-                $loginComponent->redirect('admin/dashboard', navigate: true);
-            } else if (auth()->user()->isUser()) {
-                $loginComponent->redirect('builder', navigate: true);
-            }
-
-        }
-
-        Session::flash('error', 'Email or password is incorrect. Please ensure your credentials are correct.');
+        return Auth::attempt(['email' => $email, 'password' => $password]);
+        
     }
 }

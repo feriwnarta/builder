@@ -33,7 +33,20 @@ class Login extends Component
     {
         $authService = app()->make(AuthService::class);
         // panggil auth service untuk melakukan login
-        $authService->doLogin($this->email, $this->password, $this);
+        $isLogin = $authService->doLogin($this->email, $this->password);
+
+        // check apakah user bisnis
+        if ($isLogin) {
+
+            if (auth()->user()->isAdmin()) {
+                $this->redirect('admin/dashboard', navigate: true);
+            } else if (auth()->user()->isUser()) {
+                $this->redirect('builder', navigate: true);
+            }
+
+        }
+
+        Session::flash('error', 'Email or password is incorrect. Please ensure your credentials are correct.');
     }
 
     public function render()

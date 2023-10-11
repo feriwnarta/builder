@@ -48,5 +48,10 @@ class TestRegisterAsUser extends TestCase
         Livewire::test(Register::class)->set('name', fake()->name())->set('email', 'agmail.com')->set('password', fake()->password())->call('save')->assertNoRedirect()->assertSee('The email field must be a valid email address.');
     }
 
+    public function testFailureUserRegisterPasswordNotValid(): void
+    {
+        Livewire::test(Register::class)->set('name', fake()->name())->set('email', fake()->email())->set('password', '1')->call('save')->assertNoRedirect()->assertSee('The password field must be at least 8 characters.');
+    }
+
 
 }

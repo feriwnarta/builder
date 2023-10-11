@@ -13,7 +13,7 @@ interface AuthService
 
     public function createUser(UserRole $role, string $fullname, string $email, string $password): User;
 
-    public function doRegister(string $name, string $email, string $password, Register $registerComponent): void;
+    public function doRegister(string $name, string $email, string $password): User;
 
-    public function doLogin(string $email, string $password, Login $loginComponent);
+    public function doLogin(string $email, string $password): User;
 }
