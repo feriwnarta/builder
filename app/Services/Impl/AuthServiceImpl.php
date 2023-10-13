@@ -56,9 +56,9 @@ class AuthServiceImpl implements AuthService
         }
     }
 
-    public function doLogin(string $email, string $password): User
+    public function doLogin(string $email, string $password): bool
     {
         return Auth::attempt(['email' => $email, 'password' => $password]);
-        
+
     }
 }

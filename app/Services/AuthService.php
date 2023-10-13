@@ -15,5 +15,5 @@ interface AuthService
 
     public function doRegister(string $name, string $email, string $password): User;
 
-    public function doLogin(string $email, string $password): User;
+    public function doLogin(string $email, string $password): bool;
 }

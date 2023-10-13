@@ -52,7 +52,7 @@ class Register extends Component
             // reset field
             $this->reset();
             // redirect ke dashboard
-            $this->redirect('/dashboard', navigate: true);
+            $this->redirect('/builder', navigate: true);
         }
 
     }
