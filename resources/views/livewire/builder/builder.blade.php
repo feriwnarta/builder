@@ -4,7 +4,7 @@
 @endsection
 
 <div id="builder">
-    <livewire:navbar.navbar-builder />
+    <livewire:navbar.navbar-builder/>
 
     <div class="row g-0 wrapper-editor">
         <div class="col-sm-2 side-menu-left">
@@ -19,13 +19,13 @@
 
                                 <div class="d-flex flex-row align-items-center">
                                     <a class="btn add-pages d-flex flex-row" style="padding: 0px;"
-                                        @click="$dispatch('add-page')">
+                                       @click="$dispatch('add-page')">
                                         <i class="plus-icon"></i>
                                     </a>
 
                                     <a class="btn open-collapse d-flex flex-row" data-bs-toggle="collapse"
-                                        data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"
-                                        style="padding: 0px;">
+                                       data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"
+                                       style="padding: 0px;">
                                     </a>
 
 
@@ -33,12 +33,10 @@
                             </button>
 
 
-
                         </h2>
                         <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
-                            data-bs-parent="#accordionExample">
+                             data-bs-parent="#accordionExample">
                             <div class="accordion-body" id="pagesBody">
-
 
 
                             </div>
@@ -54,14 +52,13 @@
             <div id="editor">
                 {!! $html !!}
                 <img id="marker" src="{{ asset('pictures/icon/Frame 126.png') }}"
-                    class="position-absolute top-50 start-50 translate-middle" style="z-index: 0;">
-
+                     class="position-absolute top-50 start-50 translate-middle" style="z-index: 0;">
 
             </div>
 
         </div>
         <div class="col-sm-2 side-menu-right">
-            <livewire:sidebar.sidebar-right />
+            <livewire:sidebar.sidebar-right/>
         </div>
     </div>
 </div>

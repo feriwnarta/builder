@@ -2,8 +2,8 @@
 
 /* Mengatur scrollbar untuk elemen dengan class .side-menu-left */
 .side-menu-left::-webkit-scrollbar {
-    width: 12px; /* Lebar scrollbar */
-    height: 12px; /* Tinggi scrollbar */
+    width: 0px; /* Lebar scrollbar */
+    height: 0px; /* Tinggi scrollbar */
 }
 
 .side-menu-left::-webkit-scrollbar-thumb {
@@ -20,8 +20,8 @@
 
 /* Mengatur scrollbar untuk elemen dengan class .side-menu-right */
 .side-menu-right::-webkit-scrollbar {
-    width: 12px; /* Lebar scrollbar */
-    height: 12px; /* Tinggi scrollbar */
+    width: 0px; /* Lebar scrollbar */
+    height: 0px; /* Tinggi scrollbar */
 }
 
 .side-menu-right::-webkit-scrollbar-thumb {
@@ -163,7 +163,7 @@ body {
     background-image: url('../../pictures/icon/chevron-down.svg');
     background-repeat: no-repeat;
     transition: var(--bs-accordion-btn-icon-transition);
-    
+
 }
 
 .open-collapse[aria-expanded="true"]::after {

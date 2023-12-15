@@ -27,13 +27,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 
+Route::get('form', \App\Livewire\Form::class);
 Route::get('/', LandingPage::class);
 Route::get('/sign-in', Login::class);
 Route::get('/sign-up', Register::class);
 Route::get('/test', function () {
     $id = '7cfce10a-28e7-43a7-8daf-e7053e14cc1f';
-
-
 });
 
 

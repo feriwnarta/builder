@@ -103,6 +103,7 @@ const editor = async (id, block) => {
                     appendTo: appendStyleManager,
                     sectors: sectors,
                 },
+
     });
 
     // saat builder sudah diload
@@ -117,6 +118,8 @@ const editor = async (id, block) => {
         initBlock(block, builder);
         addPage(builder);
         initPopOver();
+        // const canvas = builder.Canvas.getBody();
+        // canvas.addEventListener('wheel', handleScrollZoom);
     });
 
     builder.on("component:selected", (event) => {
@@ -181,10 +184,24 @@ const editor = async (id, block) => {
 };
 export {editor, initLayerManager, toggleSidebarRight};
 
+function handleScrollZoom(event) {
+
+    // Atur faktor zoom untuk menggulir 1 unit
+    const zoomFactor = 7;
+
+    // Ambil nilai delta dari event scroll
+    const delta = -1 * Math.max(-1, Math.min(1, (event.deltaY || -event.detail)));
+
+    // Atur zoom menggunakan faktor zoom dan delta
+    const zoomValue = builder.Canvas.getZoom() + delta * zoomFactor;
+
+    builder.Canvas.setZoom(zoomValue);
+
+}
+
 
 const setDesktopDeviceManager = () => {
     let userDeviceWidth = window.innerWidth;
-    // Mendapatkan lebar sidebar kiri & kanan
     const sideMenuLeft = $(".side-menu-left").outerWidth(true);
     const sideMenuRight = $(".side-menu-right").outerWidth(true);
 
@@ -196,19 +213,17 @@ const setDesktopDeviceManager = () => {
 
     // Menghitung skala berdasarkan lebar viewport
     userDeviceWidth = userDeviceWidth - sideMenuLeft - sideMenuRight;
-    const scale = userDeviceWidth / desktopSize;
 
-    if (userDeviceWidth < desktopSize) {
+    // Tentukan skala agar tidak lebih besar dari 1
+    const scale = Math.min(1, userDeviceWidth / desktopSize);
 
-        // Mengatur lebar frame sesuai dengan ukuran desktop
-        $(".gjs-cv-canvas").css({
-            width: `${desktopSize}px`,
-            height: `${(desktopSize / 16) * 9}px`,
-        });
+    // Atur lebar dan tinggi canvas
+    $(".gjs-cv-canvas").css({
+        width: `${desktopSize}px`,
+        height: `${(desktopSize / 16) * 9}px`, // Sesuaikan proporsi aspek jika diperlukan
+    });
 
-    }
-
-    // tentukan scalenya
+    // Atur skala dan titik asal transform
     $(".gjs-cv-canvas").css({
         transform: `scale(${scale})`,
         "transform-origin": "left top",
@@ -570,14 +585,16 @@ function listenerChangeDevice(deviceManager) {
                     transform: `none`,
                     "transform-origin": "initial",
                 });
+
             }
 
-            if (device == "desktop" && isSmallUserDevice) {
+            if (device == "desktop") {
                 // set dekstop
                 setDesktopDeviceManager();
             }
 
             deviceManager.select(device);
+
             return;
         }
     });
