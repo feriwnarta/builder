@@ -6,25 +6,25 @@ const deviceManager = [
         id: "desktop",
         name: "Desktop",
         width: "1440px",
-        widthMedia: "1200px",
+        mediaQuery: "(min-width: 1336px)",
     },
     {
         id: "tablet",
         name: "Tablet",
         width: "770px",
-        widthMedia: "992px",
+        mediaQuery: "(min-width: 992px)",
     },
     {
         id: "mobileLandscape",
-        name: "Mobile landscape",
+        name: "Mobile Landscape",
         width: "568px",
-        widthMedia: "768px",
+        mediaQuery: "(min-width: 768px)",
     },
     {
         id: "mobile",
-        name: "Mobile portrait",
+        name: "Mobile Portrait",
         width: "320px",
-        widthMedia: "480px",
+        mediaQuery: "(min-width: 480px)",
     },
 ];
 

@@ -5,7 +5,7 @@
         </a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
-            aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -53,7 +53,7 @@
                     {{-- theme change --}}
                     <button class="btn dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
+                           aria-expanded="false">
                             <i class="theme-mode-icon"></i>
                         </a>
 
@@ -68,10 +68,14 @@
                     </button>
                 </div>
 
-                <div class="action-two">
+                <div class="action-two d-flex flex-row">
                     <button class="btn btn-icon-text-outlined">
-                        <i class="eye-icon"></i>
                         Preview
+                    </button>
+
+                    <button class="btn btn-icon-text-outlined" style="margin-left: 16px"
+                            wire:click="$dispatch('process-save')">
+                        Publish
                     </button>
                 </div>
             </div>
