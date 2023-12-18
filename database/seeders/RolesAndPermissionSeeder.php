@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Permission;
+use App\Models\Role;
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Hash;
 
 class RolesAndPermissionSeeder extends Seeder
 {
@@ -15,14 +15,18 @@ class RolesAndPermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        // create permissions
-        Permission::create(['name' => 'make template']);
+        $permission = Permission::create(['name' => 'make-template']);
+        $role = Role::create(['name' => 'Super-Admin']);
+        $role->givePermissionTo($permission);
+        $user = User::create([
+            'fullname' => 'admin',
+            'email' => 'feriwnarta26@gmail.com',
+            'phone_number' => '085714342528',
+            'password' => Hash::make('adminlogin'),
+            'register_type' => 'email',
+        ]);
 
-        $role = Role::create(['name' => 'super-admin']);
-        $role->givePermissionTo(Permission::all());
+        $user->assignRole($role);
 
-        $user = User::first();
-
-        $user->assignRole('super-admin');
     }
 }

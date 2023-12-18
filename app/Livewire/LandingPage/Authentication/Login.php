@@ -2,8 +2,10 @@
 
 namespace App\Livewire\LandingPage\Authentication;
 
+use App\Models\User;
 use App\Services\AuthService;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Rule;
@@ -38,11 +40,17 @@ class Login extends Component
         // check apakah user bisnis
         if ($isLogin) {
 
-            if (auth()->user()->isAdmin()) {
+            $user = \auth()->user();
+
+
+            if ($user->hasRole('admin') || $user->hasRole('Super-Admin')) {
+                Log::info("{$user->id}, login");
                 $this->redirect('admin/dashboard', navigate: true);
-            } else if (auth()->user()->isUser()) {
-                $this->redirect('builder', navigate: true);
+
+                return;
             }
+            $this->redirect('builder', navigate: true);
+            return;
 
         }
 
