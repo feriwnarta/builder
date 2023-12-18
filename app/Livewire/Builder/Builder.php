@@ -10,10 +10,14 @@ use Livewire\Attributes\On;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use App\Models\Component as ModelsComponent;
+use Livewire\WithFileUploads;
 
 
 class Builder extends Component
 {
+
+    use WithFileUploads;
+
     public $builderReady = false;
     public $html = '';
     public $modeBuilder = 'edit';
@@ -21,6 +25,8 @@ class Builder extends Component
 
     #[Url(as: 'file/q')]
     public $search = '';
+    #[Validate('image|max:1024')] // 1MB Max
+    public $thumbnail;
 
     public function mount()
     {

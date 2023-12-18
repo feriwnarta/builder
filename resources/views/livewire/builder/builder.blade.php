@@ -64,14 +64,33 @@
 
         @can('make-template')
             <div class="offcanvas offcanvas-end" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop"
-                 aria-labelledby="staticBackdropLabel">
+                 aria-labelledby="staticBackdropLabel" wire:ignore.self>
                 <div class="offcanvas-header">
                     <h5 class="offcanvas-title" id="staticBackdropLabel">Create new template</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <div class="offcanvas-body">
                     <div>
+                        <div class="d-flex flex-column align-self-center align-items-center">
+                            <label for="floatingInput">Thumbnail</label>
+                            @if ($thumbnail && !$errors->has('$thumbnail'))
+                                <img src="{{ $thumbnail->temporaryUrl() }}" width="221" height="221"
+                                     @click="document.getElementById('fileInput').click()"
+                                >
+                            @else
+                                <img
+                                    src="{{ asset('image/no-image.png') }}"
+                                    alt="" srcset="" width="140" @click="document.getElementById('fileInput').click()">
+                            @endif
+                            <div wire:loading wire:target.prevent="thumbnail">Uploading...</div>
+                            @error('thumbnail') <span class="error">{{ $message }}</span> @enderror
 
+
+                            <input type="file" id="fileInput" wire:model="thumbnail"
+                                   style="display: none;"
+                                   accept="image/*">
+
+                        </div>
 
                         <div class="form-floating mb-3">
                             <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
