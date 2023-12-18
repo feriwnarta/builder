@@ -14,10 +14,11 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasUuids;
+    use HasApiTokens, HasFactory, Notifiable, HasUuids, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -63,19 +64,25 @@ class User extends Authenticatable
         return $this->hasOne(Templates::class);
     }
 
-    public function role() : BelongsTo {
+    public function role(): BelongsTo
+    {
         return $this->belongsTo(UserRole::class, 'user_roles_id');
     }
 
-    public function permission() : HasOne {
+    public function permission(): HasOne
+    {
         return $this->hasOne(Permission::class);
     }
 
-    public function isUser() {
-        return $this->role->name == 'User';
-    }
-    
-    public function isAdmin() {
-        return $this->role->name == 'Admin';
+    /**
+     * Perform pre-authorization checks on the model.
+     */
+    public function before(User $user, string $ability): bool|null
+    {
+        if ($user->hasRole('Super Admin')) {
+            return true;
+        }
+
+        return null; // see the note above in Gate::before about why null must be returned here.
     }
 }

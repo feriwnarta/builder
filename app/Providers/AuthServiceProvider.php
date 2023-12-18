@@ -8,6 +8,7 @@ use App\Models\Templates;
 use App\Policies\UserPolicy;
 use App\Services\AuthService;
 use App\Services\Impl\AuthServiceImpl;
+use Illuminate\Auth\Access\Gate;
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -27,7 +28,13 @@ class AuthServiceProvider extends ServiceProvider implements DeferrableProvider
      */
     public function boot(): void
     {
+
         app()->singleton(AuthService::class, AuthServiceImpl::class);
+        // Implicitly grant "Super Admin" role all permissions
+        // This works in the app by using gate-related functions like auth()->user->can() and @can()
+        \Illuminate\Support\Facades\Gate::before(function ($user, $ability) {
+            return $user->hasRole('Super Admin') ? true : null;
+        });
     }
 
     public function provides()
