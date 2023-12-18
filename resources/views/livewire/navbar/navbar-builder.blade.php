@@ -74,13 +74,11 @@
                     </button>
 
                     <button class="btn btn-icon-text-outlined" style="margin-left: 16px"
-                            wire:click="$dispatch('process-save')">
+                            wire:click="$dispatch('process-save')" data-bs-toggle="offcanvas"
+                            data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">
                         Publish
                     </button>
-                    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas"
-                            data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">
-                        Toggle static offcanvas
-                    </button>
+                   
                 </div>
             </div>
         </div>
