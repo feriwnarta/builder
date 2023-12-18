@@ -77,8 +77,15 @@
                             wire:click="$dispatch('process-save')">
                         Publish
                     </button>
+                    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas"
+                            data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">
+                        Toggle static offcanvas
+                    </button>
                 </div>
             </div>
         </div>
+
     </div>
+
+
 </nav>
