@@ -18,9 +18,13 @@ class Templates extends Model
 
     protected $fillable = [
         'data', 'title', 'subtitle',
-        'categories_id',
+        'category_template_id',
         'user_id', 'thumbnail', 'type',
         'template_id'
+    ];
+
+    protected $casts = [
+        'thumbnail' => 'array',
     ];
 
     public function templateRepository(): HasOne
@@ -30,7 +34,7 @@ class Templates extends Model
 
     public function category(): BelongsTo
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(CategoryTemplate::class, 'category_template_id');
     }
 
     public function user():BelongsTo

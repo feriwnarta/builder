@@ -14,10 +14,6 @@ return new class extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->uuid('id')->nullable(false)->primary();
             $table->string('name', 255)->nullable(false);
-            $table->uuid('created_by')->nullable(false);
-
-            $table->foreign('created_by')->references('id')->on('users');
-
             $table->timestamps();
         });
     }

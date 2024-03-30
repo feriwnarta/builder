@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('templates', function (Blueprint $table) {
             $table->uuid('id')->nullable(false)->primary();
+            $table->uuid('user_id')->nullable(false);
             $table->text('data')->nullable(false);
             $table->string('title', 50)->nullable(false);
             $table->string('subtitle', 50)->nullable();
-            $table->uuid('user_id')->nullable(false);
             $table->string('thumbnail', 255)->nullable(false);
             $table->string('type', 50)->nullable(false);
             $table->foreign('user_id')->references('id')->on('users');

@@ -28,10 +28,9 @@ class AuthServiceImpl implements AuthService
         ]);
     }
 
-    public function createUser(UserRole $role, string $fullname, string $email, string $password): User
+    public function createUser(string $fullname, string $email, string $password): User
     {
         return User::create([
-            'user_roles_id' => $role->id,
             'fullname' => $fullname,
             'email' => $email,
             'password' => Hash::make($password),
@@ -43,11 +42,9 @@ class AuthServiceImpl implements AuthService
     public function doRegister(string $name, string $email, string $password): User
     {
         try {
-            // dapatkan role user
-            $userRole = $this->checkUserRole();
-
             // buat user
-            $user = $this->createUser($userRole, $name, $email, $password);
+            $user = $this->createUser($name, $email, $password);
+
 
             return $user;
 

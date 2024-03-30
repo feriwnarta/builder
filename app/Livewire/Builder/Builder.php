@@ -30,7 +30,6 @@ class Builder extends Component
 
     public function mount()
     {
-
         $url = $this->destructUrl($this->search);
 
         // jika url kosong maka proses init builder
@@ -45,6 +44,8 @@ class Builder extends Component
 
         $id = $url['id'];
         $mode = $url['mode'];
+
+
 
         if ($mode == 'create') {
             // arahkan ke builder sebagai template baru
@@ -118,6 +119,7 @@ class Builder extends Component
         }
 
         $templateId = $urlSplit[0];
+
         $mode = $urlSplit[2];
 
         return array(

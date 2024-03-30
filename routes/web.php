@@ -37,23 +37,16 @@ Route::get('/test', function () {
 
 
 // Rute untuk pengguna biasa
-Route::middleware([UserMiddleware::class])->group(function () {
     Route::get('/builder', Builder::class);
     Route::get('/dashboard', function () {
         return 'user';
     });
-});
 
-
-Route::middleware([AdminMiddleware::class])->group(function () {
-    Route::get('/admin/builder', Builder::class);
-    Route::get('/admin/dashboard', Dashboard::class);
-    Route::get('/admin/add-component', AddComponent::class);
-    Route::get('/admin/add-component-category', AddComponentCategory::class);
-    Route::get('/admin/template', AllTemplate::class);
-});
-
-// Rute khusus untuk admin
+Route::get('/admins/builder', Builder::class);
+Route::get('/admins/dashboard', Dashboard::class);
+Route::get('/admins/add-component', AddComponent::class);
+Route::get('/admins/add-component-category', AddComponentCategory::class);
+Route::get('/admins/template', AllTemplate::class);
 
 
 Route::controller(TemplateController::class)->group(function () {

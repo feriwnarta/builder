@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('components', function (Blueprint $table) {
             $table->uuid('id')->nullable(false)->primary();
-            $table->uuid('component_categories_id')->nullable(false);
-            $table->foreign('component_categories_id')->references('id')->on('component_categories');
+            $table->uuid('categories_id')->nullable(false);
+            $table->foreign('categories_id')->references('id')->on('categories');
             $table->string('label', 255)->nullable(false)->unique();
             $table->text('media')->nullable(false);
             $table->timestamps();

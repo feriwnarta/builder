@@ -15,13 +15,17 @@ class Component extends Model
     protected $keyType = 'string';
 
     protected $fillable = [
-        'component_categories_id',
+        'categories_id',
         'label',
         'media',
         'content',
     ];
 
+    protected $casts = [
+        'media' => 'array',
+    ];
+
     public function category() : BelongsTo {
-        return $this->belongsTo(ComponentCategory::class, 'component_categories_id');
+        return $this->belongsTo(Category::class, 'categories_id');
     }
 }

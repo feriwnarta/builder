@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function(Blueprint $table) {
-            $table->string('register_type', 25)->nullable(false)->after('password');
-
+        Schema::create('category_templates', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->string('name', 255)->nullable(false)->unique();
+            $table->timestamps();
         });
     }
 
@@ -22,8 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function(Blueprint $table) {
-            $table->dropColumn('register_type');
-        });
+        Schema::dropIfExists('category_templates');
     }
 };

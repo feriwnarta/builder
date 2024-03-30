@@ -44,6 +44,7 @@
                     </div>
                 </div>
             </div>
+
             <livewire:sidebar.sidebar-left :modeBuilder="$modeBuilder"/>
         </div>
         <div class="col-sm-8 position-relative">
