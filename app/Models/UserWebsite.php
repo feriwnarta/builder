@@ -20,5 +20,6 @@ class UserWebsite extends Model
         'html',
         'css',
         'active',
+        'name'
     ];
 }

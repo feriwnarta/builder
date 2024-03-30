@@ -48,13 +48,35 @@ Route::get('/admins/add-component', AddComponent::class);
 Route::get('/admins/add-component-category', AddComponentCategory::class);
 Route::get('/admins/template', AllTemplate::class);
 
-Route::name('admin.')->group(function () {
+Route::domain('{web}.' . 'localhost')->group(function ($web) {
+    Route::get('/view', function ($web) {
+        $userWebsite = \App\Models\UserWebsite::where('name', $web)->first();
 
-    // looping user websites
+        if(is_null($userWebsite)) {
+            redirect('/user');
+        }
 
-//    dd(auth()->user()->id);
+        // Extract HTML and CSS from database
+        $html = $userWebsite->html;
+        $css = $userWebsite->css;
 
+        // Check if CSS exists and append it to the head section
+        if (!empty($css)) {
+            // Find the position of </head> tag
+            $pos = strpos($html, '</head>');
 
+            // Insert CSS before </head> tag
+            if ($pos !== false) {
+                $html = substr_replace($html, "<style>$css</style>", $pos, 0);
+            } else {
+                // If </head> tag is not found, just append CSS at the end
+                $html .= "<style>$css</style>";
+            }
+        }
+
+        return $html;
+
+    });
 });
 
 Route::controller(TemplateController::class)->group(function () {

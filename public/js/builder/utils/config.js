@@ -14,8 +14,8 @@ import {
     appendStyleManager,
 } from "./utils.js";
 
-const projectEndpoint = `http://127.0.0.1:8000/template/`;
-const projectSaveEndpoint = `http://127.0.0.1:8000/template`;
+const projectEndpoint = `/template/`;
+const projectSaveEndpoint = `/template`;
 
 /**
  * inisialisasi editor grapes js
@@ -622,35 +622,58 @@ const listenerUndo = (undoManager) => {
 
 const listenerPublish = (builder, id, userId) => {
     document.addEventListener("publish", (event) => {
-        let css = builder.getCss();
-        let html = builder.getHtml();
 
-        // kirim ini keserver
-        $.ajax({
-            url: '/publish',  // Ensure a matching route for this URL exists in Laravel
-            type: 'POST',
-            dataType: 'json',
-            data: {
-                "html" : html,
-                "css" : css,
-                "id" : id,
-                "user_id" : userId,
-                "_token": csrfToken,
+
+        Swal.fire({
+            title: "Give website name",
+            input: "text",
+            inputAttributes: {
+                autocapitalize: "off"
             },
-            success: function(data) {
-                console.log(data.message);
+            showCancelButton: true,
+            confirmButtonText: "Publish",
+            showLoaderOnConfirm: true,
+            preConfirm: async (name) => {
+                let css = builder.getCss();
+                let html = builder.getHtml();
 
-                if(data.message === 'Success!') {
-                    window.location.href="/user";
-                }
 
-                // Handle successful response here
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                console.error('Error:', jqXHR);
-                // Handle error appropriately, e.g., display user-friendly messages
+                // kirim ini keserver
+                $.ajax({
+                    url: '/publish',  // Ensure a matching route for this URL exists in Laravel
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        "html" : html,
+                        "css" : css,
+                        "id" : id,
+                        "user_id" : userId,
+                        "name": name,
+                        "_token": csrfToken,
+                    },
+                    success: function(data) {
+                        console.log(data.message);
+
+                        if(data.message === 'Success!') {
+                            var hostname = window.location.hostname;
+                            var port = window.location.port;
+
+                            window.location.href = 'http://' + name + '.' + hostname + ':' + port +  '/view';
+                        }
+
+                        // Handle successful response here
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.error('Error:', jqXHR);
+                        // Handle error appropriately, e.g., display user-friendly messages
+                    }
+                });
             }
+
         });
+
+
+
 
     });
 }

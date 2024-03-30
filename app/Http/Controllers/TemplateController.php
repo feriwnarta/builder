@@ -49,21 +49,23 @@ class TemplateController extends Controller
     }
 
     public function publish(Request $request) {
-        if (!isset($request['html']) || !isset($request['css']) || !isset($request['id'])|| !isset($request['user_id'])) {
+        if (!isset($request['html']) || !isset($request['css']) || !isset($request['id'])|| !isset($request['user_id']) || !isset($request['name'])) {
            return \response('', 400);
         }
 
         $html = $request['html'];
         $css = $request['css'];
         $id = $request['id'];
+        $name = $request['name'];
         $userId = $request['user_id'];
 
-        DB::transaction(function() use ($html, $css, $id, $userId) {
+        DB::transaction(function() use ($html, $css, $id, $userId, $name) {
             UserWebsite::create([
                 'html' => $html,
                 'css' => $css,
                 'user_template_id' => $id,
                 'user_id' => $userId,
+                'name' => $name,
                 'active' => 0,
             ]);
         });
