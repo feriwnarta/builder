@@ -5,10 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class TemplateRepository extends Model
+class UserTemplate extends Model
 {
     use HasFactory;
     use HasUuids;
@@ -17,12 +15,8 @@ class TemplateRepository extends Model
     protected $keyType = 'string';
 
     protected $fillable = [
+        'user_id',
         'template_id',
-        'type'
+        'data'
     ];
-
-    public function template(): BelongsTo
-    {
-        return $this->belongsTo(Templates::class, 'template_id');
-    }
 }

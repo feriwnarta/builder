@@ -4,8 +4,11 @@ namespace App\Livewire\Builder;
 
 use App\Models\TemplateRepository;
 use App\Models\Templates;
+use App\Models\UserTemplate;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Log;
+use League\Uri\UriTemplate\Template;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Url;
 use Livewire\Component;
@@ -32,11 +35,17 @@ class Builder extends Component
     {
         $url = $this->destructUrl($this->search);
 
+
         // jika url kosong maka proses init builder
         if ($url == null) {
 
-            // nanti pasang authorisasi
+            // cek url
+            if(!empty($this->search)) {
+                $this->initBuilderByTemplate($this->search);
+                return;
+            }
 
+            // nanti pasang authorisasi
             $this->dispatch('find-template', id: $this->search); // jika user sebagai pebisnis
 
             return;
@@ -152,30 +161,33 @@ class Builder extends Component
     private function getTemplate(string $id)
     {
         // dapatkan data template
-        $templates = \App\Models\Templates::join('template_repositories', 'templates.id', '=', 'template_repositories.template_id')
-            ->where('templates.categories_id', $id)
-            ->select('templates.id', 'templates.title') // Gantilah '*' dengan nama kolom yang Anda butuhkan
-            ->get();
+//        $templates = \App\Models\Templates::join('template_repositories', 'templates.id', '=', 'template_repositories.template_id')
+//            ->where('templates.categories_id', $id)
+//            ->select('templates.id', 'templates.title') // Gantilah '*' dengan nama kolom yang Anda butuhkan
+//            ->get();
+        $template = TemplateRepository::find($id)->template;
 
 
         // jika template berdasarkan kategori kosong
-        if ($templates->isEmpty()) {
+        if (is_null($template)) {
             $this->html = '<h1>kosong</h1>';
             return;
         }
 
-        // jika kategori ada isinya
-        $format = '';
-        foreach ($templates as $template) {
-            $this->js("console.log('$template->id')");
+        $this->dispatch('find-template', ['id' => $template->id]);
 
-            $format = <<<HTML
-            <button class="btn btn-menu-item" @click="\$dispatch('find-template', {id: '$template->id'})">{$template->title}</button>
-            HTML;
-        }
-
-
-        $this->html = $format;
+//        // jika kategori ada isinya
+//        $format = '';
+//        foreach ($templates as $template) {
+//            $this->js("console.log('$template->id')");
+//
+//            $format = <<<HTML
+//            <button class="btn btn-menu-item" @click="\$dispatch('find-template', {id: '$template->id'})">{$template->title}</button>
+//            HTML;
+//        }
+//
+//
+//        $this->html = $format;
     }
 
     /**
@@ -189,54 +201,58 @@ class Builder extends Component
         if ($id == '') return;
 
 
+
         // lakukan pengecekan terlebih dahulu untuk user yang login dan memilih template
         // apakah template yang dipilih sudah ditambahkan ke table template
         // jika belum maka tambahkan dulu jika sudah maka lanjutkan menggunakan id yang sebelumnya sudah ditambahkan
         // ditemplate
         // result check akan berisi id template yang baru dibuat / sudah ada
         $userId = auth()->user()->id;
-        $resultCheck = $this->checkAddedTemplate($id, $userId);
+        // $resultCheck = $this->checkAddedTemplate($id, $userId);
 
 
         // check terlebih dahulu apakah tempalate sudah pernah dipakai dan diedit
         // jika sudah ditambahkan maka cukup update id nya
-        if ($resultCheck != null) {
+//        if ($resultCheck != null) {
+//
+//            // dapatkan id template
+//            $id = $resultCheck->id;
+//
+//            // inisialisasi grapes js
+//            $this->initBuilderByTemplate($id);
+//
+//            return;
+//        }
 
-            // dapatkan id template
-            $id = $resultCheck->id;
 
-            // inisialisasi grapes js
-            $this->initBuilderByTemplate($id);
-
-            return;
-        }
 
         // check kepemilikan template ini berdasarkan id
-        $result = $this->checkTemplateOwner($id, $userId);
+//        $result = $this->checkTemplateOwner($id, $userId);
 
         // error ini disebabkan jika ada kegagalan query pencarian template
-        if ($result == 'check error') {
-            $this->html = 'error check template';
-            return;
-        }
-
-        // error ini disebabkan jika id template yang digunakan berasal dari id lain
-        if ($result == 'not authorize') {
-            $this->html = 'reject template';
-            return;
-        }
-
-        // ubah id dengan id yang baru diganti
-        if ($result !== 'make new') {
-            $id = $result;
-        }
+//        if ($result == 'check error') {
+//            $this->html = 'error check template';
+//            return;
+//        }
+//
+//        // error ini disebabkan jika id template yang digunakan berasal dari id lain
+//        if ($result == 'not authorize') {
+//            $this->html = 'reject template';
+//            return;
+//        }
+//
+//        // ubah id dengan id yang baru diganti
+//        if ($result !== 'make new') {
+//            $id = $result;
+//        }
 
         // langkah ini jika user belum menambahkan template
         // insert template baru
         // param 1 => template id
         // param 2 => user id
         // param 3 => type (edit, create)
-        $result = $this->addedNewTemplate($id, $userId, 'EDIT');
+        $result = $this->addedNewTemplate($id, $userId);
+
 
         if ($result == 'error' || $result == null) {
             $this->html = '';
@@ -252,6 +268,7 @@ class Builder extends Component
             $this->html = 'error saat ambil data';
             return;
         }
+
 
         // init builder
         $this->initBuilderByTemplate($resultData->id);
@@ -321,8 +338,7 @@ class Builder extends Component
     private function getData($id)
     {
         try {
-            $user = Templates::findOrFail($id);
-
+            $user = UserTemplate::findOrFail($id);
 
             return $user;
         } catch (ModelNotFoundException $e) {
@@ -330,27 +346,31 @@ class Builder extends Component
         }
     }
 
-    private function addedNewTemplate($id, $userId, $type)
+    private function addedNewTemplate($id, $userId)
     {
         try {
             // cari data template
             $template = Templates::where('id', $id)->first();
 
-
-            if ($template == null) {
+            if (is_null($template)) {
                 return 'error';
             }
 
-            $user = Templates::create([
+            return UserTemplate::create([
                 'user_id' => $userId,
-                'template_id' => $id,
                 'data' => $template->data,
-                'type' => $type
+                'template_id' => $template->id,
             ]);
 
+//            $user = Templates::create([
+//                'user_id' => $userId,
+//                'template_id' => $id,
+//                'data' => $template->data,
+//                'type' => $type
+//            ]);
 
-            return $user;
         } catch (QueryException $e) {
+            Log::error($e->getMessage());
             return 'error';
         }
 

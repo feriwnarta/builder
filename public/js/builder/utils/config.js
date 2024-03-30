@@ -30,6 +30,8 @@ var csrfToken = document
 let builder;
 const editor = async (id, block) => {
 
+    console.log('editor loaded');
+
     builder = grapesjs.init({
         // properti ini digunakan untuk menentukan id mana yang akan menjadi tujuan grapes js untuk menginisialisasi editornya
         container: container,
@@ -89,7 +91,9 @@ const editor = async (id, block) => {
                         data: JSON.stringify(data),
                         _token: csrfToken,
                     }),
-                    onLoad: (result) => result.data,
+                    onLoad: (result) => {
+                        return result.data;
+                    },
                 },
             },
         },

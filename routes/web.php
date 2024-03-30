@@ -48,6 +48,11 @@ Route::get('/admins/add-component', AddComponent::class);
 Route::get('/admins/add-component-category', AddComponentCategory::class);
 Route::get('/admins/template', AllTemplate::class);
 
+Route::name('admin.')->group(function () {
+    Route::get('/users', function () {
+        dd('asd');
+    })->name('users');
+});
 
 Route::controller(TemplateController::class)->group(function () {
     Route::post('/template', 'saveTemplate');

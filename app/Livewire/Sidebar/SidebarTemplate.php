@@ -3,6 +3,8 @@
 namespace App\Livewire\Sidebar;
 
 use App\Models\Category;
+use App\Models\TemplateRepository;
+use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -10,7 +12,7 @@ class SidebarTemplate extends Component
 {
 
     public $active = true;
-    public $categories;
+    public Collection $templateRepository;
 
 
     #[On('toggle-sidebar')]
@@ -21,7 +23,7 @@ class SidebarTemplate extends Component
 
     public function mount()
     {
-        $this->categories = Category::orderBy('name', 'ASC')->get();
+        $this->templateRepository = TemplateRepository::all();
     }
 
     public function placeholder()
