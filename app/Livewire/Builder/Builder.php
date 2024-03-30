@@ -97,8 +97,10 @@ class Builder extends Component
             ];
         })->toJson();
 
+        $id = auth()->user()->id;
+
         // jika user adalah kreator / admin
-        $this->dispatch('init-builder', component_id: $id, block: $componentJson);
+        $this->dispatch('init-builder', component_id: $id, block: $componentJson, id: $id);
     }
 
     // fungsi ini digunakan untuk mendapatkan data template berdasarkan id
@@ -321,9 +323,12 @@ class Builder extends Component
             // ubah url query parameter berdasarkan id terbaru
             $this->search = $idTemplate;
 
+            $id = auth()->user()->id;
 
             // kirim event ke init js untuk segera melakukan editing
-            $this->dispatch('init-builder', component_id: $this->search, block: null);
+            // untuk sementara user id dikirim melalui init builder
+
+            $this->dispatch('init-builder', component_id: $this->search, block: null, id: $id);
 
         }
 

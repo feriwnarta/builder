@@ -4,7 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Templates;
 use App\Models\UserTemplate;
+use App\Models\UserWebsite;
+use http\Env\Response;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 
 class TemplateController extends Controller
 {
@@ -41,5 +46,32 @@ class TemplateController extends Controller
                 $userTemplate->update(['data' => $projectData]);
             }
         }
+    }
+
+    public function publish(Request $request) {
+        if (!isset($request['html']) || !isset($request['css']) || !isset($request['id'])|| !isset($request['user_id'])) {
+           return \response('', 400);
+        }
+
+        $html = $request['html'];
+        $css = $request['css'];
+        $id = $request['id'];
+        $userId = $request['user_id'];
+
+        DB::transaction(function() use ($html, $css, $id, $userId) {
+            UserWebsite::create([
+                'html' => $html,
+                'css' => $css,
+                'user_template_id' => $id,
+                'user_id' => $userId,
+                'active' => 0,
+            ]);
+        });
+
+
+
+        $data = ['message' => 'Success!'];
+        return response()->json($data, 201);
+
     }
 }

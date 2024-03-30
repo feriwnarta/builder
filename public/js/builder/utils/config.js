@@ -28,7 +28,7 @@ var csrfToken = document
     .getAttribute("content");
 
 let builder;
-const editor = async (id, block) => {
+const editor = async (id, block, userId) => {
 
     console.log('editor loaded');
 
@@ -122,6 +122,7 @@ const editor = async (id, block) => {
         initBlock(block, builder);
         addPage(builder);
         initPopOver();
+        listenerPublish(builder, id, userId);
         // const canvas = builder.Canvas.getBody();
         // canvas.addEventListener('wheel', handleScrollZoom);
     });
@@ -617,6 +618,42 @@ const listenerUndo = (undoManager) => {
         }
     });
 };
+
+
+const listenerPublish = (builder, id, userId) => {
+    document.addEventListener("publish", (event) => {
+        let css = builder.getCss();
+        let html = builder.getHtml();
+
+        // kirim ini keserver
+        $.ajax({
+            url: '/publish',  // Ensure a matching route for this URL exists in Laravel
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                "html" : html,
+                "css" : css,
+                "id" : id,
+                "user_id" : userId,
+                "_token": csrfToken,
+            },
+            success: function(data) {
+                console.log(data.message);
+
+                if(data.message === 'Success!') {
+                    window.location.href="/user";
+                }
+
+                // Handle successful response here
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error('Error:', jqXHR);
+                // Handle error appropriately, e.g., display user-friendly messages
+            }
+        });
+
+    });
+}
 
 /**
  * fungsi ini digunakan sebagai listener saat button redo di navbar diklik

@@ -22,6 +22,7 @@ const listenerBuilder = () => {
                 if (
                     event.detail.component_id === null ||
                     event.detail.component_id === undefined
+                    || event.detail.id === null || event.detail.id === undefined
                 )
                     return null;
 
@@ -30,9 +31,10 @@ const listenerBuilder = () => {
 
                 const id = event.detail.component_id;
                 const block = event.detail.block;
+                const userId = event.detail.id;
 
                 // load editor
-                editor(id, block);
+                editor(id, block, userId);
 
                 return;
             });

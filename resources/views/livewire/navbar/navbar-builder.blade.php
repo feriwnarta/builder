@@ -74,11 +74,10 @@
                     </button>
 
                     <button class="btn btn-icon-text-outlined" style="margin-left: 16px"
-                            wire:click="$dispatch('process-save')" data-bs-toggle="offcanvas"
-                            data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">
+                            wire:click="$dispatch('publish')">
                         Publish
                     </button>
-                   
+
                 </div>
             </div>
         </div>

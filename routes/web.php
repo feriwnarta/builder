@@ -49,12 +49,16 @@ Route::get('/admins/add-component-category', AddComponentCategory::class);
 Route::get('/admins/template', AllTemplate::class);
 
 Route::name('admin.')->group(function () {
-    Route::get('/users', function () {
-        dd('asd');
-    })->name('users');
+
+    // looping user websites
+
+//    dd(auth()->user()->id);
+
+
 });
 
 Route::controller(TemplateController::class)->group(function () {
     Route::post('/template', 'saveTemplate');
     Route::get('/template/{template}', 'findTemplate');
+    Route::post('/publish', 'publish');
 });
