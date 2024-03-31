@@ -51,25 +51,29 @@
                     </button>
 
                     {{-- theme change --}}
-                    <button class="btn dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                           aria-expanded="false">
-                            <i class="theme-mode-icon"></i>
-                        </a>
+{{--                    <button class="btn dropdown">--}}
+{{--                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"--}}
+{{--                           aria-expanded="false">--}}
+{{--                            <i class="theme-mode-icon"></i>--}}
+{{--                        </a>--}}
 
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </button>
+{{--                        <ul class="dropdown-menu">--}}
+{{--                            <li><a class="dropdown-item" href="#">Action</a></li>--}}
+{{--                            <li><a class="dropdown-item" href="#">Another action</a></li>--}}
+{{--                            <li>--}}
+{{--                                <hr class="dropdown-divider">--}}
+{{--                            </li>--}}
+{{--                            <li><a class="dropdown-item" href="#">Something else here</a></li>--}}
+{{--                        </ul>--}}
+{{--                    </button>--}}
                 </div>
 
                 <div class="action-two d-flex flex-row">
-                    <button class="btn btn-icon-text-outlined">
+                    <button class="btn btn-icon-text-outlined" style="margin-right: 16px" wire:click="dashboard">
+                        Dashboard
+                    </button>
+
+                    <button class="btn btn-icon-text-outlined" wire:click="$dispatch('preview')">
                         Preview
                     </button>
 

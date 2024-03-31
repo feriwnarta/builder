@@ -66,7 +66,7 @@ class TemplateController extends Controller
                 'user_template_id' => $id,
                 'user_id' => $userId,
                 'name' => $name,
-                'active' => 0,
+                'active' => 1,
             ]);
         });
 

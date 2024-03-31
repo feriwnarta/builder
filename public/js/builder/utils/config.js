@@ -123,8 +123,20 @@ const editor = async (id, block, userId) => {
         addPage(builder);
         initPopOver();
         listenerPublish(builder, id, userId);
+        // listenerPreview(builder);
         // const canvas = builder.Canvas.getBody();
         // canvas.addEventListener('wheel', handleScrollZoom);
+        // builder.Commands.run('preview');
+    });
+
+    builder.on('run:preview', () => {
+        // hide sidebar, navbar
+        // $('.side-menu-left').hide();
+        // $('.side-menu-right').hide();
+        // $(".navbar-builder").hide();
+    });
+
+    builder.on('stop:preview', () => {
     });
 
     builder.on("component:selected", (event) => {
@@ -619,6 +631,11 @@ const listenerUndo = (undoManager) => {
     });
 };
 
+const listenerPreview = (builder) => {
+    document.addEventListener("preview", (event) => {
+        builder.Commands.run('preview');
+    });
+};
 
 const listenerPublish = (builder, id, userId) => {
     document.addEventListener("publish", (event) => {

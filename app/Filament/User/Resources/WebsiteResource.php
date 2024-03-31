@@ -32,7 +32,8 @@ class WebsiteResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('name'),
+                Tables\Columns\ToggleColumn::make('active'),
             ])
             ->filters([
                 //

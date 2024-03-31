@@ -50,10 +50,12 @@ Route::get('/admins/template', AllTemplate::class);
 
 Route::domain('{web}.' . 'localhost')->group(function ($web) {
     Route::get('/view', function ($web) {
-        $userWebsite = \App\Models\UserWebsite::where('name', $web)->first();
+        $userWebsite = \App\Models\UserWebsite::where('name', $web)
+            ->where('active', 1)
+            ->first();
 
         if(is_null($userWebsite)) {
-            redirect('/user');
+            return 'web is not active';
         }
 
         // Extract HTML and CSS from database
