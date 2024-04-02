@@ -1,6 +1,7 @@
 import {
     container,
     styleBootstrap,
+    styleGrid,
     jsPopperBootstrap,
     jsBootstrap,
     deviceManager,
@@ -52,7 +53,7 @@ const editor = async (id, block, userId) => {
         showOffsetsSelected: true,
         noticeOnUnload: true,
         canvas: {
-            styles: [styleBootstrap],
+            styles: [styleBootstrap, styleGrid],
             scripts: [jsBootstrap, jsPopperBootstrap],
         },
 
@@ -123,6 +124,9 @@ const editor = async (id, block, userId) => {
         addPage(builder);
         initPopOver();
         listenerPublish(builder, id, userId);
+        builder.on('component:add', (component) => {
+            console.log(component);
+        });
         // listenerPreview(builder);
         // const canvas = builder.Canvas.getBody();
         // canvas.addEventListener('wheel', handleScrollZoom);

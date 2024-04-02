@@ -31,6 +31,9 @@ const deviceManager = [
 // style & js bootstrap
 const styleBootstrap =
     "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css";
+
+const styleGrid = "http://127.0.0.1:8000/css/grid.css";
+
 const jsBootstrap =
     "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js";
 const jsPopperBootstrap =
@@ -280,4 +283,5 @@ export {
     storageType,
     appendStyleManager,
     sectors,
+    styleGrid
 };

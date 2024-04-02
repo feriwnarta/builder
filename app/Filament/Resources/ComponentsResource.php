@@ -51,6 +51,9 @@ class ComponentsResource extends Resource
                     ->maxSize(1024)
                     ->maxFiles(1)
                     ->columnSpan(4),
+                Forms\Components\MarkdownEditor::make('content')
+                    ->required()
+                    ->columnSpan(4)
 
             ]);
     }
