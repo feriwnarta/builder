@@ -661,26 +661,26 @@ const listenerPublish = (builder, id, userId) => {
                     type: 'POST',
                     dataType: 'json',
                     data: {
-                        "html" : html,
-                        "css" : css,
-                        "id" : id,
-                        "user_id" : userId,
+                        "html": html,
+                        "css": css,
+                        "id": id,
+                        "user_id": userId,
                         "name": name,
                         "_token": csrfToken,
                     },
-                    success: function(data) {
+                    success: function (data) {
                         console.log(data.message);
 
-                        if(data.message === 'Success!') {
+                        if (data.message === 'Success!') {
                             var hostname = window.location.hostname;
                             var port = window.location.port;
 
-                            window.location.href = 'http://' + name + '.' + hostname + ':' + port +  '/view';
+                            window.location.href = 'http://' + name + '.' + hostname + ':' + port + '/view';
                         }
 
                         // Handle successful response here
                     },
-                    error: function(jqXHR, textStatus, errorThrown) {
+                    error: function (jqXHR, textStatus, errorThrown) {
                         console.error('Error:', jqXHR);
                         // Handle error appropriately, e.g., display user-friendly messages
                     }
@@ -688,8 +688,6 @@ const listenerPublish = (builder, id, userId) => {
             }
 
         });
-
-
 
 
     });
