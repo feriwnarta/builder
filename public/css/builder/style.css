@@ -56,6 +56,18 @@
     margin-left: 9.06rem;
 }
 
+.editor-row {
+    display: flex;
+    justify-content: flex-start;
+    align-items: stretch;
+    flex-wrap: nowrap;
+    height: 100vh;
+}
+
+.editor-canvas {
+    flex-grow: 1;
+}
+
 /* sidebar menu left */
 .side-menu-left {
     border-right: 1px solid var(--neutral-50, #c2c2c2);
@@ -64,7 +76,10 @@
     height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
+    position: relative;
+    flex-basis: 300px;
 }
+
 
 /* sidebar menu right */
 .side-menu-right {
@@ -74,6 +89,8 @@
     height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
+    position: relative;
+    flex-basis: 300px;
 }
 
 body {

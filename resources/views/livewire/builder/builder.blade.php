@@ -6,8 +6,8 @@
 <div id="builder">
     <livewire:navbar.navbar-builder/>
 
-    <div class="row g-0 wrapper-editor">
-        <div class="col-sm-2 side-menu-left">
+    <div class="editor-row">
+        <div class="side-menu-left">
             <div id="pages">
                 <div class="accordion" id="accordionExample">
                     <div class="accordion-item">
@@ -47,7 +47,7 @@
 
             <livewire:sidebar.sidebar-left :modeBuilder="$modeBuilder"/>
         </div>
-        <div class="col-sm-8 position-relative">
+        <div class="editor-canvas">
 
             {{-- Editor --}}
             <div id="editor">

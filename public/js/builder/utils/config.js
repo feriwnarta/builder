@@ -44,7 +44,46 @@ const editor = async (id, block, userId) => {
         height: "100%",
 
         // digunakan untuk membuat panel grapesjs
-        panels: {defaults: []},
+        panels: {
+            defaults: [
+                {
+                    id: 'layers',
+                    el: '.side-menu-left',
+                    visible: true,
+                    // Make the panel resizable
+                    resizable: {
+                        maxDim: 300,
+                        minDim: 200,
+                        tc: 0, // Top handler
+                        cl: 0, // Left handler
+                        cr: 1, // Right handler
+                        bc: 0, // Bottom handler
+                        // Being a flex child we need to change `flex-basis` property
+                        // instead of the `width` (default)
+                        keyWidth: 'flex-basis',
+                    },
+                },
+                {
+                    id: 'styles',
+                    el: '.side-menu-right',
+                    visible: true,
+                    // Make the panel resizable
+                    resizable: {
+                        maxDim: 300,
+                        minDim: 250,
+                        tc: 0, // Top handler
+                        cl: 1, // Left handler
+                        cr: 0, // Right handler
+                        bc: 0, // Bottom handler
+                        // Being a flex child we need to change `flex-basis` property
+                        // instead of the `width` (default)
+                        keyWidth: 'flex-basis',
+                    },
+                },
+
+
+            ]
+        },
 
         deviceManager: {
             devices: deviceManager,
@@ -111,6 +150,7 @@ const editor = async (id, block, userId) => {
 
     });
 
+
     // saat builder sudah diload
     builder.on("load", function () {
         initUndoManager(builder.UndoManager); // -> init undo manager
@@ -124,9 +164,7 @@ const editor = async (id, block, userId) => {
         addPage(builder);
         initPopOver();
         listenerPublish(builder, id, userId);
-        builder.on('component:add', (component) => {
-            console.log(component);
-        });
+
         // listenerPreview(builder);
         // const canvas = builder.Canvas.getBody();
         // canvas.addEventListener('wheel', handleScrollZoom);
